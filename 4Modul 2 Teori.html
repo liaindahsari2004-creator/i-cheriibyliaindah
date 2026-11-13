@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Teori | Hidrolisis Garam</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+
+    :root{
+      --bg-primary:#f0f9ff;
+      --bg-secondary:#ffffff;
+      --text-primary:#1e293b;
+      --text-secondary:#475569;
+      --accent:#06b6d4;
+      --accent-hover:#0891b2;
+      --shadow:rgba(6,182,212,0.15);
+      --footer-bg:#ffffff;
+      --footer-text:#64748b;
+      --note-bg:#e0f7fa;
+      --note-text:#1e293b;
+    }
+
+    body{
+      font-family:'Poppins',sans-serif;
+      background:var(--bg-primary);
+      color:var(--text-primary);
+      min-height:100vh;
+    }
+
+    /* ===== HEADER ===== */
+    .header{
+      background:var(--bg-secondary);
+      padding:1rem 2rem;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      position:sticky;
+      top:0;
+      box-shadow:0 2px 8px var(--shadow);
+      z-index:1000;
+    }
+    .logo-section{display:flex;align-items:center;gap:0.75rem}
+    .nav-menu{display:flex;gap:1rem}
+    .nav-btn{
+      background:transparent;
+      color:var(--text-primary);
+      border:2px solid var(--accent);
+      padding:0.5rem 1.5rem;
+      border-radius:25px;
+      cursor:pointer;
+      font-weight:500;
+      transition:0.3s;
+    }
+    .nav-btn:hover{
+      background:var(--accent);
+      color:white;
+      transform:translateY(-2px);
+    }
+
+    /* ===== KONTEN ===== */
+    .container{
+      max-width:950px;
+      margin:2rem auto 4rem;
+      padding:1.8rem 2rem;
+      background:var(--bg-secondary);
+      border-radius:20px;
+      box-shadow:0 10px 20px rgba(0,0,0,0.1);
+    }
+
+    h1,h2,h3{
+      color:var(--accent);
+      margin-bottom:0.75rem;
+    }
+    h1{text-align:center}
+
+    p{
+      text-align:justify;
+      line-height:1.8;
+      color:var(--text-secondary);
+      margin-bottom:1rem;
+    }
+
+    ul{
+      margin-left:1.5rem;
+      color:var(--text-secondary);
+      line-height:1.8;
+    }
+
+    strong{color:var(--accent)}
+
+    .reaction{
+      background:rgba(6,182,212,0.1);
+      border-left:4px solid var(--accent);
+      padding:0.8rem 1rem;
+      margin:0.9rem 0 1.2rem;
+      border-radius:10px;
+      font-family:'Courier New',monospace;
+      line-height:1.6;
+      color:#0f172a;
+    }
+
+    .note{
+      background:var(--note-bg);
+      border-left:4px solid var(--accent);
+      padding:0.9rem 1rem;
+      margin:1rem 0 1.2rem;
+      border-radius:10px;
+      color:var(--note-text);
+    }
+    .note ul{
+      margin-top:0.5rem;
+      margin-left:1.2rem;
+      color:var(--note-text);
+    }
+
+    /* ===== ION SPEKTATOR (tambahan) ===== */
+    .ion-tag {
+      display: inline-block;
+      padding: 0.15rem 0.55rem;
+      border-radius: 99px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      font-family: 'Courier New', monospace;
+      margin: 0.1rem;
+    }
+    .tag-spektator { background:#f1f5f9; color:#475569; border:1px solid #cbd5e1; }
+    .tag-acid      { background:#fee2e2; color:#dc2626; border:1px solid #fca5a5; }
+    .tag-base      { background:#dbeafe; color:#1d4ed8; border:1px solid #93c5fd; }
+
+    /* ===== VIDEO LOKAL ===== */
+    .video-container{ margin-top:2rem; }
+    .video-item{
+      background:rgba(6,182,212,0.05);
+      padding:1.5rem;
+      border-radius:20px;
+      box-shadow:0 8px 20px rgba(0,0,0,.08);
+    }
+    .video-item h4{
+      color:var(--accent);
+      margin-bottom:0.6rem;
+      font-size:1.1rem;
+    }
+    .video-item p{
+      font-size:0.95rem;
+      margin-bottom:1rem;
+    }
+
+    .local-video{
+      width:100%;
+      aspect-ratio:16/9;
+      border-radius:15px;
+      box-shadow:0 4px 15px rgba(0,0,0,0.15);
+      background:#000;
+      display:block;
+    }
+
+    /* ===== NAV BAWAH ===== */
+    .nav-bottom{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-top:2.5rem;
+      gap:1rem;
+    }
+    .nav-bottom a{
+      background:var(--accent);
+      color:white;
+      text-decoration:none;
+      padding:0.8rem 1.6rem;
+      border-radius:25px;
+      font-weight:600;
+      transition:0.3s;
+    }
+    .nav-bottom a:hover{
+      background:var(--accent-hover);
+      transform:translateY(-2px);
+    }
+
+    /* ===== FOOTER ===== */
+    footer{
+      background:var(--footer-bg);
+      color:var(--footer-text);
+      text-align:center;
+      padding:1.5rem 0;
+      box-shadow:0 -2px 8px var(--shadow);
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width:768px){
+      .header{
+        flex-direction:column;
+        gap:1rem;
+        padding:1rem;
+      }
+      .logo-section,.nav-menu{
+        width:100%;
+        justify-content:center;
+      }
+      .nav-menu{ flex-wrap:wrap; }
+      .container{
+        padding:1rem;
+        margin:1rem;
+      }
+      .nav-bottom{
+        flex-direction:column;
+      }
+      .nav-bottom a{
+        width:100%;
+        text-align:center;
+      }
+    }
+  
+/* === RESPONSIVE_GLOBAL_START === */
+html, body { max-width: 100%; overflow-x: hidden; }
+img, video, canvas, iframe { max-width: 100%; height: auto; }
+/* === RESPONSIVE_GLOBAL_END === */
+
+
+/* === NAV_UNIFORM_START === */
+.nav-menu{
+  display:flex;
+  gap:.5rem;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+  align-items:center;
+}
+.nav-menu .nav-btn{
+  appearance:none;
+  border:0;
+  cursor:pointer;
+  border-radius:999px;
+  padding:.55rem .95rem;
+  font-size:.95rem !important;
+  font-weight:500 !important;
+  line-height:1.1;
+  white-space:nowrap;
+}
+@media (max-width:600px){
+  .nav-menu{ justify-content:center; }
+  .nav-menu .nav-btn{
+    padding:.5rem .8rem;
+    font-size:.9rem !important;
+  }
+}
+/* === NAV_UNIFORM_END === */
+
+</style>
+</head>
+
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <div class="header">
+    <div class="logo-section">
+      <img src="logo um rev.png" alt="Logo UM" width="50" height="50">
+    </div>
+    <div class="nav-menu">
+    <button class="nav-btn" onclick="history.back()">← Kembali</button>
+    <button class="nav-btn" onclick="location.href='2Beranda.html'">🏠 Beranda</button>
+    <button class="nav-btn" onclick="location.href='2Profil.html'">👤 Profil</button>
+  </div>
+  </div>
+
+  <!-- ===== KONTEN ===== -->
+  <div class="container">
+    <h1>Teori Hidrolisis Garam</h1>
+
+    <!-- =========================
+         1. PENGERTIAN
+    ========================== -->
+    <h2>💠 Pengertian Hidrolisis Garam</h2>
+
+    <p>
+      Garam merupakan hasil reaksi antara asam dan basa. Reaksi ini disebut reaksi penetralan.
+      Namun, larutan garam yang terbentuk tidak selalu bersifat netral. Larutan garam dapat bersifat
+      asam, basa, atau netral, tergantung pada kekuatan asam dan basa pembentuknya.
+    </p>
+
+    <p>
+      Hidrolisis garam adalah reaksi antara ion-ion garam dengan air yang membentuk reaksi kesetimbangan.
+      Reaksi ini menyebabkan larutan garam dapat menghasilkan ion H<sup>+</sup> atau OH<sup>−</sup>, sehingga pH
+      larutan dapat berubah.
+    </p>
+
+    <div class="note">
+      <strong>Asal istilah:</strong> Kata <em>hidrolisis</em> berasal dari bahasa Yunani, yaitu
+      <em>hidro</em> yang berarti "air" dan <em>lisis</em> yang berarti "pemecahan" atau "penguraian".
+      Jadi, hidrolisis adalah proses penguraian zat melalui reaksi dengan air.
+    </div>
+
+    <p>
+      Dengan demikian, hidrolisis garam dapat dipahami sebagai proses yang menjelaskan mengapa larutan garam
+      tidak selalu netral, meskipun garam terbentuk dari reaksi penetralan.
+    </p>
+
+    <!-- =========================
+         2. ION SPEKTATOR (BARU)
+    ========================== -->
+    <h2>💠 Ion Spektator</h2>
+
+    <p>
+      Ketika garam dilarutkan dalam air, tidak semua ionnya ikut bereaksi dengan air.
+      Ion yang <strong>tidak bereaksi dengan air</strong> dan tidak memengaruhi pH larutan
+      disebut <strong>ion spektator</strong>.
+    </p>
+
+    <div class="note">
+      <strong>Aturan sederhananya:</strong>
+      <ul>
+        <li>
+          Ion dari <strong>asam kuat / basa kuat</strong> → bersifat <strong>spektator</strong> (tidak terhidrolisis)
+          &nbsp;
+          <span class="ion-tag tag-spektator">Na⁺</span>
+          <span class="ion-tag tag-spektator">K⁺</span>
+          <span class="ion-tag tag-spektator">Cl⁻</span>
+          <span class="ion-tag tag-spektator">NO₃⁻</span>
+        </li>
+        <li>
+          Ion dari <strong>basa lemah</strong> → <strong>terhidrolisis</strong>, menghasilkan H⁺ → larutan asam
+          &nbsp;
+          <span class="ion-tag tag-acid">NH₄⁺</span>
+          <span class="ion-tag tag-acid">Al³⁺</span>
+          <span class="ion-tag tag-acid">Fe³⁺</span>
+        </li>
+        <li>
+          Ion dari <strong>asam lemah</strong> → <strong>terhidrolisis</strong>, menghasilkan OH⁻ → larutan basa
+          &nbsp;
+          <span class="ion-tag tag-base">CH₃COO⁻</span>
+          <span class="ion-tag tag-base">CO₃²⁻</span>
+          <span class="ion-tag tag-base">CN⁻</span>
+        </li>
+      </ul>
+    </div>
+
+    <p>
+      Konsep ion spektator ini akan terlihat langsung pada simulasi — ion spektator ditandai
+      khusus dan tidak menghasilkan produk hidrolisis di dalam larutan.
+    </p>
+
+    <p>
+      Secara ringkas, hubungan antara jenis garam, ion yang terhidrolisis, dan sifat larutan
+      yang terbentuk dapat dilihat pada tabel berikut.
+    </p>
+
+    <div style="overflow-x:auto; margin:1rem 0 0.5rem;">
+      <table style="width:100%; border-collapse:collapse; font-size:0.9rem;">
+        <colgroup>
+          <col style="width:28%">
+          <col style="width:22%">
+          <col style="width:18%">
+          <col style="width:32%">
+        </colgroup>
+        <thead>
+          <tr style="background:#06b6d4; color:white;">
+            <th style="border:1px solid #cce4ea; padding:0.7rem 0.9rem; text-align:left;">Jenis Garam</th>
+            <th style="border:1px solid #cce4ea; padding:0.7rem 0.9rem;">Contoh</th>
+            <th style="border:1px solid #cce4ea; padding:0.7rem 0.9rem;">Ion yang Terhidrolisis</th>
+            <th style="border:1px solid #cce4ea; padding:0.7rem 0.9rem;">pH Larutan</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="background:#f0fdff;">
+            <td style="border:1px solid #cce4ea; padding:0.65rem 0.9rem;">Kation dari basa kuat; anion dari asam kuat</td>
+            <td style="border:1px solid #cce4ea; padding:0.65rem 0.9rem; text-align:center; font-family:'Courier New',monospace;">NaCl, KI, KNO₃, RbBr, BaCl₂</td>
+            <td style="border:1px solid #cce4ea; padding:0.65rem 0.9rem; text-align:center; color:#475569;">Tidak Ada</td>
+            <td style="border:1px solid #cce4ea; padding:0.9rem 1.2rem; text-align:center; font-size:1rem;"><strong style="color:#15803d;">≈ 7</strong></td>
+          </tr>
+          <tr>
+            <td style="border:1px solid #cce4ea; padding:0.65rem 0.9rem;">Kation dari basa kuat; anion dari asam lemah</td>
+            <td style="border:1px solid #cce4ea; padding:0.65rem 0.9rem; text-align:center; font-family:'Courier New',monospace;">CH₃COONa, KNO₂</td>
+            <td style="border:1px solid #cce4ea; padding:0.65rem 0.9rem; text-align:center; color:#1d4ed8;">Anion</td>
+            <td style="border:1px solid #cce4ea; padding:0.9rem 1.2rem; text-align:center; font-size:1rem;"><strong style="color:#1d4ed8;">&gt; 7</strong></td>
+          </tr>
+          <tr style="background:#f0fdff;">
+            <td style="border:1px solid #cce4ea; padding:0.65rem 0.9rem;">Kation dari basa lemah; anion dari asam kuat</td>
+            <td style="border:1px solid #cce4ea; padding:0.65rem 0.9rem; text-align:center; font-family:'Courier New',monospace;">NH₄Cl, NH₄NO₃</td>
+            <td style="border:1px solid #cce4ea; padding:0.65rem 0.9rem; text-align:center; color:#dc2626;">Kation</td>
+            <td style="border:1px solid #cce4ea; padding:0.9rem 1.2rem; text-align:center; font-size:1rem;"><strong style="color:#dc2626;">&lt; 7</strong></td>
+          </tr>
+          <tr>
+            <td style="border:1px solid #cce4ea; padding:0.65rem 0.9rem;">Kation dari basa lemah; anion dari asam lemah</td>
+            <td style="border:1px solid #cce4ea; padding:0.65rem 0.9rem; text-align:center; font-family:'Courier New',monospace;">NH₄NO₂, CH₃COONH₄, NH₄CN</td>
+            <td style="border:1px solid #cce4ea; padding:0.65rem 0.9rem; text-align:center; color:#7c3aed;">Anion dan Kation</td>
+            <td style="border:1px solid #cce4ea; padding:0.9rem 1.2rem; text-align:left; font-size:0.95rem; line-height:2;">
+              <strong style="color:#dc2626;">&lt; 7</strong> &nbsp;jika K<sub>b</sub> &lt; K<sub>a</sub><br>
+              <strong style="color:#15803d;">≈ 7</strong> &nbsp;jika K<sub>b</sub> ≈ K<sub>a</sub><br>
+              <strong style="color:#1d4ed8;">&gt; 7</strong> &nbsp;jika K<sub>b</sub> &gt; K<sub>a</sub>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:0.8rem; color:#94a3b8; text-align:right; margin-bottom:1.5rem;">
+      (Chang, 2010)
+    </p>
+
+    <!-- =========================
+         3. JENIS-JENIS
+    ========================== -->
+    <h2>💠 Jenis-Jenis Garam Berdasarkan Sifat Larutannya</h2>
+
+    <p>
+      Sifat larutan garam bergantung pada jenis asam dan basa penyusunnya. Oleh karena itu, garam dapat
+      diklasifikasikan berdasarkan kombinasi asam dan basa pembentuknya.
+    </p>
+
+    <h3>a. Garam dari asam kuat dan basa kuat</h3>
+    <p>
+      Garam jenis ini tidak mengalami hidrolisis, sehingga larutannya bersifat netral (pH = 7).
+      Hal ini karena ion-ionnya merupakan pasangan konjugasi yang sangat lemah sehingga tidak bereaksi dengan air.
+    </p>
+
+    <h3>b. Garam dari asam kuat dan basa lemah</h3>
+    <p>
+      Garam jenis ini mengalami hidrolisis karena mengandung kation yang berasal dari basa lemah.
+      Hidrolisis yang terjadi bersifat <strong>sebagian (parsial)</strong>, artinya hanya kationnya yang bereaksi dengan air.
+      Larutan yang terbentuk bersifat asam (pH &lt; 7).
+    </p>
+
+    <h3>c. Garam dari asam lemah dan basa kuat</h3>
+    <p>
+      Garam jenis ini mengalami hidrolisis karena mengandung anion yang berasal dari asam lemah.
+      Hidrolisis yang terjadi juga bersifat <strong>sebagian (parsial)</strong>, artinya hanya anionnya yang bereaksi dengan air.
+      Larutan yang terbentuk bersifat basa (pH &gt; 7).
+    </p>
+
+    <h3>d. Garam dari asam lemah dan basa lemah</h3>
+    <p>
+      Garam jenis ini mengalami hidrolisis <strong>total (sempurna)</strong> karena kation dan anion sama-sama berasal dari zat lemah,
+      sehingga keduanya dapat bereaksi dengan air. Sifat larutan yang terbentuk dapat bersifat asam, basa, atau netral, tergantung pada
+      perbandingan nilai K<sub>a</sub> dan K<sub>b</sub>.
+    </p>
+
+    <!-- =========================
+         4. REAKSI
+    ========================== -->
+    <h2>💠 Reaksi Hidrolisis Garam</h2>
+
+    <p>
+      Reaksi hidrolisis terjadi karena ion tertentu dari garam dapat bereaksi dengan air. Ion yang berasal dari asam kuat
+      atau basa kuat umumnya tidak terhidrolisis, sedangkan ion yang berasal dari asam lemah atau basa lemah dapat bereaksi
+      dengan air.
+    </p>
+
+    <div class="note">
+      <strong>Kemungkinan reaksi hidrolisis:</strong>
+      <ul>
+        <li>Kation bereaksi menghasilkan ion H<sup>+</sup> → larutan <strong>asam</strong>.</li>
+        <li>Anion bereaksi menghasilkan ion OH<sup>−</sup> → larutan <strong>basa</strong>.</li>
+        <li>Kation dan anion tidak bereaksi → larutan <strong>netral</strong>.</li>
+      </ul>
+    </div>
+
+    <h3>a. Garam dari asam kuat dan basa kuat (tidak terhidrolisis)</h3>
+    <div class="reaction">
+      NaCl(aq) → Na⁺(aq) + Cl⁻(aq)
+    </div>
+    <p>
+      Ion Na⁺ dan Cl⁻ tidak bereaksi dengan air, sehingga larutan bersifat netral.
+    </p>
+
+    <h3>b. Garam dari asam kuat dan basa lemah (hidrolisis parsial, larutan asam)</h3>
+    <div class="reaction">
+      NH₄Cl(aq) → NH₄⁺(aq) + Cl⁻(aq)
+    </div>
+    <p>
+      Ion Cl⁻ tidak terhidrolisis karena berasal dari asam kuat. Ion NH₄⁺ berasal dari basa lemah sehingga bereaksi dengan air:
+    </p>
+    <div class="reaction">
+      NH₄⁺(aq) + H₂O(l) ⇌ NH₄OH(aq) + H⁺(aq)
+    </div>
+    <p>
+      Reaksi ini menghasilkan ion H⁺, sehingga larutan bersifat asam.
+    </p>
+
+    <h3>c. Garam dari asam lemah dan basa kuat (hidrolisis parsial, larutan basa)</h3>
+    <div class="reaction">
+      CH₃COONa(aq) ⇌ Na⁺(aq) + CH₃COO⁻(aq)
+    </div>
+    <p>
+      Ion Na⁺ tidak terhidrolisis karena berasal dari basa kuat. Ion CH₃COO⁻ berasal dari asam lemah sehingga bereaksi dengan air:
+    </p>
+    <div class="reaction">
+      CH₃COO⁻(aq) + H₂O(l) ⇌ CH₃COOH(aq) + OH⁻(aq)
+    </div>
+    <p>
+      Reaksi ini menghasilkan OH⁻, sehingga larutan bersifat basa.
+    </p>
+
+    <h3>d. Garam dari asam lemah dan basa lemah (hidrolisis total)</h3>
+    <p>
+      Pada garam jenis ini, kation dan anion sama-sama bereaksi dengan air. Sifat larutan yang terbentuk ditentukan oleh
+      perbandingan nilai K<sub>a</sub> dan K<sub>b</sub>.
+    </p>
+
+    <!-- =========================
+         5. PERHITUNGAN pH
+    ========================== -->
+    <h2>💠 Perhitungan pH Larutan Garam Hasil Hidrolisis</h2>
+
+    <p>
+      pH larutan garam dapat dihitung berdasarkan jenis garam yang mengalami hidrolisis. Perhitungan pH melibatkan konsep kesetimbangan
+      serta hubungan antara tetapan hidrolisis (K<sub>h</sub>) dengan K<sub>a</sub>, K<sub>b</sub>, dan K<sub>w</sub>.
+    </p>
+
+    <h3>a. Garam dari asam kuat dan basa kuat</h3>
+    <p>Garam tidak terhidrolisis sehingga:</p>
+    <div class="reaction">
+      <math display="block">
+        <mrow>
+          <mtext>pH</mtext>
+          <mo>=</mo>
+          <mn>7</mn>
+        </mrow>
+      </math>
+    </div>
+
+    <h3>b. Garam dari asam kuat dan basa lemah</h3>
+    <p>Garam bersifat asam dan menghasilkan ion H⁺. Hubungan tetapan hidrolisis:</p>
+    <div class="reaction">
+      <math display="block">
+        <mrow>
+          <msub><mi>K</mi><mi>h</mi></msub>
+          <mo>=</mo>
+          <mfrac>
+            <msub><mi>K</mi><mi>w</mi></msub>
+            <msub><mi>K</mi><mi>b</mi></msub>
+          </mfrac>
+        </mrow>
+      </math>
+    </div>
+    <p>Rumus pH:</p>
+    <div class="reaction">
+      <math display="block">
+        <mrow>
+          <mo>[</mo>
+          <msup>
+            <mi>H</mi>
+            <mo>&#x2b;</mo>
+          </msup>
+          <mo>]</mo>
+          <mo>=</mo>
+          <msqrt>
+            <mrow>
+              <mfrac>
+                <msub><mi>K</mi><mi>w</mi></msub>
+                <msub><mi>K</mi><mi>b</mi></msub>
+              </mfrac>
+              <mo>&#x00D7;</mo>
+              <mo>[</mo><mtext>G</mtext><mo>]</mo>
+            </mrow>
+          </msqrt>
+        </mrow>
+      </math>
+    </div>
+    <p>dengan [G] adalah konsentrasi garam.</p>
+
+    <h3>c. Garam dari asam lemah dan basa kuat</h3>
+    <p>Garam bersifat basa dan menghasilkan ion OH⁻. Hubungan tetapan hidrolisis:</p>
+    <div class="reaction">
+      <math display="block">
+        <mrow>
+          <msub><mi>K</mi><mi>h</mi></msub>
+          <mo>=</mo>
+          <mfrac>
+            <msub><mi>K</mi><mi>w</mi></msub>
+            <msub><mi>K</mi><mi>a</mi></msub>
+          </mfrac>
+        </mrow>
+      </math>
+    </div>
+    <p>Rumus pH:</p>
+    <div class="reaction">
+      <math display="block">
+        <mrow>
+          <mo>[</mo>
+          <msup>
+            <mi>OH</mi>
+            <mo>&#x2212;</mo>
+          </msup>
+          <mo>]</mo>
+          <mo>=</mo>
+          <msqrt>
+            <mrow>
+              <mfrac>
+                <msub><mi>K</mi><mi>w</mi></msub>
+                <msub><mi>K</mi><mi>a</mi></msub>
+              </mfrac>
+              <mo>&#x00D7;</mo>
+              <mo>[</mo><mtext>G</mtext><mo>]</mo>
+            </mrow>
+          </msqrt>
+        </mrow>
+      </math>
+    </div>
+    <p>dengan [G] adalah konsentrasi garam.</p>
+
+    <h3>d. Garam dari asam lemah dan basa lemah</h3>
+    <p>Sifat larutan ditentukan oleh perbandingan nilai K<sub>a</sub> dan K<sub>b</sub>:</p>
+    <div class="reaction">
+      <math display="block">
+        <mtable columnalign="left" rowspacing="0.6em">
+          <mtr>
+            <mtd>
+              <mrow>
+                <mtext>Jika&#xa0;</mtext>
+                <msub><mi>K</mi><mi>a</mi></msub>
+                <mo>&gt;</mo>
+                <msub><mi>K</mi><mi>b</mi></msub>
+                <mtext>&#xa0;&#x2192; larutan bersifat asam</mtext>
+              </mrow>
+            </mtd>
+          </mtr>
+          <mtr>
+            <mtd>
+              <mrow>
+                <mtext>Jika&#xa0;</mtext>
+                <msub><mi>K</mi><mi>b</mi></msub>
+                <mo>&gt;</mo>
+                <msub><mi>K</mi><mi>a</mi></msub>
+                <mtext>&#xa0;&#x2192; larutan bersifat basa</mtext>
+              </mrow>
+            </mtd>
+          </mtr>
+          <mtr>
+            <mtd>
+              <mrow>
+                <mtext>Jika&#xa0;</mtext>
+                <msub><mi>K</mi><mi>a</mi></msub>
+                <mo>=</mo>
+                <msub><mi>K</mi><mi>b</mi></msub>
+                <mtext>&#xa0;&#x2192; larutan bersifat netral</mtext>
+              </mrow>
+            </mtd>
+          </mtr>
+        </mtable>
+      </math>
+    </div>
+
+    <!-- =========================
+         VIDEO
+    ========================== -->
+    <h2>📺 Video</h2>
+    <p>
+      Untuk memperdalam pemahaman tentang hidrolisis garam, peserta didik dapat menonton video berikut.
+    </p>
+
+    <div class="video-container">
+      <div class="video-item">
+        <h4>Hydrolysis of Salts</h4>
+          <div class="video-meta">
+            Sumber:
+            <a href="https://www.youtube.com/watch?v=-vIwTn7LZiM" target="_blank" rel="noopener noreferrer">https://www.youtube.com/watch?v=-vIwTn7LZiM</a>
+          </div>
+        <video
+          class="local-video"
+          controls
+          preload="metadata"
+          poster=""
+        >
+          <source src="Hydrolysis of Salts.mp4" type="video/mp4">
+          <p style="color:red;text-align:center;padding:1rem">
+            ⚠️ Browser Anda tidak mendukung pemutaran video. Silakan gunakan browser lain.
+          </p>
+        </video>
+      </div>
+    </div>
+
+    <div class="nav-bottom">
+      <a href="4Modul 1 Pendahuluan.html">⬅️ Kembali ke Pendahuluan...</a>
+      <a href="4Modul 3 Simulasi.html">Lanjut ke Simulasi... ➡️</a>
+    </div>
+  </div>
+
+  <footer>&copy; 2026 Tsary ▏ Sumari ▏ Departemen Kimia ▏ Universitas Negeri Malang</footer>
+
+</body>
+</html>

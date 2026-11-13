@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Materi Hidrolisis Garam</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+
+:root{
+  --bg-primary:#f0f9ff;
+  --bg-secondary:#ffffff;
+  --text-primary:#1e293b;
+  --text-secondary:#64748b;
+  --accent:#06b6d4;
+  --accent-hover:#0891b2;
+  --accent-light:#67e8f9;
+  --shadow:rgba(6,182,212,0.15);
+}
+
+body{
+  font-family:'Poppins',sans-serif;
+  background:var(--bg-primary);
+  color:var(--text-primary);
+  min-height:100vh;
+}
+
+/* HEADER (SAMA DENGAN INDEX & PROFIL) */
+.header{
+  background:var(--bg-secondary);
+  padding:1rem 2rem;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  position:sticky;
+  top:0;
+  box-shadow:0 2px 8px var(--shadow);
+  z-index:1000;
+}
+
+.logo-section{
+  display:flex;
+  align-items:center;
+}
+
+.logo-section img{
+  width:50px;
+}
+
+.nav-menu{
+  display:flex;
+  gap:1rem;
+}
+
+.nav-btn{
+  background:transparent;
+  border:2px solid var(--accent);
+  padding:0.5rem 1.5rem;
+  border-radius:25px;
+  cursor:pointer;
+  transition:0.3s;
+  font-weight:500;
+}
+
+.nav-btn:hover{
+  background:var(--accent);
+  color:white;
+}
+
+/* GRID MODUL */
+.menu-grid{
+  display:flex;
+  flex-direction:column;
+  gap:1.5rem;
+  max-width:600px;
+  margin:2.5rem auto;
+  padding:0 1rem;
+}
+
+.menu-card{
+  text-align:center;
+  background:var(--bg-secondary);
+  padding:2.5rem;
+  border-radius:15px;
+  box-shadow:0 4px 12px var(--shadow);
+  cursor:pointer;
+  transition:0.3s;
+  border:2px solid transparent;
+  text-decoration:none;
+  color:var(--text-primary);
+}
+
+.menu-card:hover{
+  border-color:var(--accent);
+  background:var(--accent-light);
+  transform:translateY(-4px);
+}
+
+.menu-title{
+  font-size:1.5rem;
+  margin-bottom:0.5rem;
+}
+
+.menu-desc{
+  font-size:0.95rem;
+  color:var(--text-secondary);
+}
+
+/* FOOTER */
+footer{
+  background:var(--bg-secondary);
+  text-align:center;
+  padding:1.5rem;
+  margin-top:2rem;
+  color:var(--text-secondary);
+  box-shadow:0 -2px 8px var(--shadow);
+}
+
+/* === RESPONSIVE_GLOBAL_START === */
+html, body { max-width: 100%; overflow-x: hidden; }
+img, video, canvas, iframe { max-width: 100%; height: auto; }
+/* === RESPONSIVE_GLOBAL_END === */
+
+
+/* === NAV_UNIFORM_START === */
+.nav-menu{
+  display:flex;
+  gap:.5rem;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+  align-items:center;
+}
+.nav-menu .nav-btn{
+  appearance:none;
+  border:0;
+  cursor:pointer;
+  border-radius:999px;
+  padding:.55rem .95rem;
+  font-size:.95rem !important;
+  font-weight:500 !important;
+  line-height:1.1;
+  white-space:nowrap;
+}
+@media (max-width:600px){
+  .nav-menu{ justify-content:center; }
+  .nav-menu .nav-btn{
+    padding:.5rem .8rem;
+    font-size:.9rem !important;
+  }
+}
+/* === NAV_UNIFORM_END === */
+
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="logo-section">
+    <img src="logo um rev.png" alt="Logo UM">
+  </div>
+
+  <div class="nav-menu">
+    <button class="nav-btn" onclick="history.back()">← Kembali</button>
+    <button class="nav-btn" onclick="location.href='2Beranda.html'">🏠 Beranda</button>
+    <button class="nav-btn" onclick="location.href='2Profil.html'">👤 Profil</button>
+  </div>
+</div>
+
+<!-- GRID MODUL -->
+<div class="menu-grid">
+  <a href="4Modul 1 Pendahuluan.html" class="menu-card">
+    <h3 class="menu-title">Pendahuluan</h3>
+    <p class="menu-desc">Pendahuluan Hidrolisis Garam</p>
+  </a>
+
+  <a href="4Modul 2 Teori.html" class="menu-card">
+    <h3 class="menu-title">Teori</h3>
+    <p class="menu-desc">Teori Hidrolisis Garam</p>
+  </a>
+
+  <a href="4Modul 3 Simulasi.html" class="menu-card">
+    <h3 class="menu-title">Simulasi</h3>
+    <p class="menu-desc">Simulasi Hidrolisis Garam</p>
+  </a>
+
+  <a href="4Modul 4 LKPD.html" class="menu-card">
+    <h3 class="menu-title">Lembar Kerja Peserta Didik (LKPD)</h3>
+    <p class="menu-desc">LKPD Hidrolisis Garam</p>
+  </a>
+
+  <a href="4Modul 5 Latihan Soal.html" class="menu-card">
+    <h3 class="menu-title">Soal Latihan</h3>
+    <p class="menu-desc">Soal Latihan Hidrolisis Garam</p>
+  </a>
+</div>
+
+<footer>&copy; 2026 Tsary ▏ Sumari ▏ Departemen Kimia ▏  Universitas Negeri Malang</footer>
+
+</body>
+</html>

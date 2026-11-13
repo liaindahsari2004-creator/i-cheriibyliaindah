@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modul 1: Pendahuluan | Hidrolisis Garam</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * {margin:0; padding:0; box-sizing:border-box;}
+  :root {
+    --bg-primary:#f0f9ff;
+    --bg-secondary:#ffffff;
+    --text-primary:#1e293b;
+    --text-secondary:#475569;
+    --accent:#06b6d4;
+    --accent-hover:#0891b2;
+    --shadow:rgba(6,182,212,0.15);
+    --footer-bg:#ffffff;
+    --footer-text:#64748b;
+  }
+  body {
+    font-family:'Poppins',sans-serif;
+    background:var(--bg-primary);
+    color:var(--text-primary);
+    min-height:100vh;
+    transition:0.3s;
+  }
+  .header {
+    background:var(--bg-secondary);
+    padding:1rem 2rem;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    position:sticky;
+    top:0;
+    box-shadow:0 2px 8px var(--shadow);
+    z-index:1000;
+  }
+  .logo-section {display:flex;align-items:center;gap:0.75rem;}
+  .theme-toggle {
+    background:var(--accent);
+    color:white;
+    border:none;
+    padding:0.4rem 1rem;
+    border-radius:20px;
+    cursor:pointer;
+    font-size:0.85rem;
+    transition:0.3s;
+  }
+  .theme-toggle:hover {background:var(--accent-hover); transform:translateY(-2px);}
+  .nav-menu {display:flex;gap:1rem;}
+  .nav-btn {
+    background:transparent;
+    color:var(--text-primary);
+    border:2px solid var(--accent);
+    padding:0.5rem 1.5rem;
+    border-radius:25px;
+    cursor:pointer;
+    font-weight:500;
+    transition:0.3s;
+  }
+  .nav-btn:hover {background:var(--accent); color:white; transform:translateY(-2px);}
+  .container {
+    max-width:900px;
+    margin:2rem auto 4rem auto;
+    padding:1.5rem;
+    background:var(--bg-secondary);
+    border-radius:20px;
+    box-shadow:0 10px 20px rgba(0,0,0,0.1);
+  }
+  h1 {
+    text-align:center;
+    color:var(--accent);
+    margin-bottom:1rem;
+  }
+  p {
+    text-align:justify;
+    line-height:1.8;
+    color:var(--text-secondary);
+    margin-bottom:1rem;
+  }
+  strong {color:var(--accent);}
+  .highlight {
+    background:rgba(6,182,212,0.1);
+    padding:0.6rem 1rem;
+    border-radius:10px;
+    margin:1rem 0;
+  }
+  .concept-map {
+    display:flex;
+    justify-content:center;
+    margin-bottom:2rem;
+  }
+  .concept-map img {
+    max-width:80%;
+    border-radius:20px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.15);
+  }
+  .nav-bottom {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-top:2rem;
+  }
+  .nav-bottom a {
+    background:var(--accent);
+    color:white;
+    text-decoration:none;
+    padding:0.8rem 1.6rem;
+    border-radius:25px;
+    font-weight:600;
+    transition:0.3s;
+  }
+  .nav-bottom a:hover {background:var(--accent-hover); transform:translateY(-2px);}
+  footer {
+    background:var(--footer-bg);
+    color:var(--footer-text);
+    text-align:center;
+    padding:1.5rem 0;
+    box-shadow:0 -2px 8px var(--shadow);
+    transition:0.3s;
+  }
+  
+
+/* === RESPONSIVE_GLOBAL_START === */
+html, body { max-width: 100%; overflow-x: hidden; }
+img, video, canvas, iframe { max-width: 100%; height: auto; }
+/* === RESPONSIVE_GLOBAL_END === */
+
+
+/* === NAV_UNIFORM_START === */
+.nav-menu{
+  display:flex;
+  gap:.5rem;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+  align-items:center;
+}
+.nav-menu .nav-btn{
+  appearance:none;
+  border:0;
+  cursor:pointer;
+  border-radius:999px;
+  padding:.55rem .95rem;
+  font-size:.95rem !important;
+  font-weight:500 !important;
+  line-height:1.1;
+  white-space:nowrap;
+}
+@media (max-width:600px){
+  .nav-menu{ justify-content:center; }
+  .nav-menu .nav-btn{
+    padding:.5rem .8rem;
+    font-size:.9rem !important;
+  }
+}
+/* === NAV_UNIFORM_END === */
+
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="logo-section">
+    <img src="logo um rev.png" alt="Logo UM" width="50" height="50">
+  </div>
+  <div class="nav-menu">
+    <button class="nav-btn" onclick="history.back()">← Kembali</button>
+    <button class="nav-btn" onclick="location.href='2Beranda.html'">🏠 Beranda</button>
+    <button class="nav-btn" onclick="location.href='2Profil.html'">👤 Profil</button>
+  </div>
+</div>
+
+<!-- KONTEN UTAMA -->
+<div class="container">
+  <h1>Pendahuluan</h1>
+
+  <p>
+    Pernahkah kamu memperhatikan bagaimana pupuk yang ditambahkan ke tanah dapat memengaruhi pertumbuhan tanaman? Mengapa ada tanah yang menjadi terlalu asam setelah penggunaan pupuk tertentu? 🤔
+  </p>
+
+  <p>
+    Tanah yang terlalu asam atau terlalu basa dapat memengaruhi ketersediaan unsur hara bagi tanaman. Perubahan ini tidak terjadi begitu saja, tetapi berkaitan dengan reaksi kimia yang terjadi ketika suatu garam larut dalam air dan berinteraksi dengan lingkungannya.
+  </p>
+
+  <p>
+    Menariknya, tidak semua garam bersifat netral ketika dilarutkan dalam air. Ada garam yang membuat larutan menjadi asam, ada pula yang menjadikannya basa. Hal ini bergantung pada jenis asam dan basa penyusun garam tersebut.
+  </p>
+
+  <p>
+    Pada bagian ini, kamu akan mempelajari konsep hidrolisis garam, yaitu proses reaksi ion-ion garam dengan air yang dapat memengaruhi sifat larutan. Materi akan dipelajari secara bertahap, meliputi:
+  </p>
+  <ul style="margin-left:1.5rem; color:var(--text-secondary); line-height:1.8;">
+    <li>pengertian hidrolisis garam,</li>
+    <li>jenis-jenis garam berdasarkan sifat larutannya,</li>
+    <li>reaksi hidrolisis yang terjadi,</li>
+    <li>perhitungan pH larutan garam hasil hidrolisis, serta</li>
+    <li>video pembelajaran sebagai penguatan materi.</li>
+  </ul>
+
+  <p>
+    Melalui pembelajaran ini, kamu akan dapat menjelaskan mengapa suatu larutan garam bisa bersifat asam, basa, atau netral, serta memahami kaitannya dengan fenomena di sekitar.
+  </p>
+
+  <div class="highlight">
+    <h3 style="color:var(--accent); margin-bottom:0.5rem;">CAPAIAN PEMBELAJARAN</h3>
+    <p style="margin-bottom:0.5rem;">
+      Melalui pembelajaran ini, peserta didik diharapkan mampu:
+    </p>
+    <ul style="margin-left:1.5rem; line-height:1.8;">
+      <li>memahami konsep asam–basa dan kesetimbangan kimia yang berkaitan dengan sifat larutan garam,</li>
+      <li>menganalisis reaksi hidrolisis yang terjadi,</li>
+      <li>menentukan pH larutan garam hasil hidrolisis melalui perhitungan yang sesuai, serta</li>
+      <li>mengaitkan konsep yang dipelajari dengan fenomena kontekstual dalam kehidupan sehari-hari.</li>
+    </ul>
+  </div>
+
+  <div class="highlight">
+    <h3 style="color:var(--accent); margin-bottom:0.5rem;">TUJUAN PEMBELAJARAN</h3>
+    <p style="margin-bottom:0.5rem;">
+      Setelah mempelajari materi ini, peserta didik diharapkan dapat:
+    </p>
+    <ol style="margin-left:1.5rem; line-height:1.8;">
+      <li>Menganalisis sifat larutan garam berdasarkan konsep hidrolisis.</li>
+      <li>Menuliskan reaksi hidrolisis yang terjadi.</li>
+      <li>Menghitung pH larutan garam hasil hidrolisis dengan tepat.</li>
+    </ol>
+  </div>
+
+  <div class="highlight">
+    <h3 style="color:var(--accent); margin-bottom:0.5rem;">PETA KONSEP</h3>
+    <p>
+      Peta konsep disusun untuk membantu peserta didik memahami hubungan antar submateri. Peta konsep ini menunjukkan keterkaitan antara konsep-konsep dalam hidrolisis garam.
+    </p>
+  </div>
+
+  <div class="concept-map">
+    <img src="peta konsep hidrolisis garam.png" alt="Peta Konsep Hidrolisis Garam">
+  </div>
+
+  <div class="nav-bottom">
+    <a href="2Beranda.html">⬅️ Sebelumnya</a>
+    <a href="4Modul 2 Teori.html">Lanjut ke Teori... ➡️</a>
+  </div>
+</div>
+
+<footer>&copy; 2026 Tsary ▏ Sumari ▏ Departemen Kimia ▏  Universitas Negeri Malang</footer>
+
+</body>
+</html>

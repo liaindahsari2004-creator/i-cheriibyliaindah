@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Glosarium Hidrolisis Garam</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+
+:root{
+  --bg-primary:#f0f9ff;
+  --bg-secondary:#ffffff;
+  --text-primary:#06b6d4;
+  --text-secondary:#64748b;
+  --accent:#06b6d4;
+  --accent-hover:#0891b2;
+  --shadow:rgba(6,182,212,0.15);
+}
+
+body{
+  font-family:'Poppins',sans-serif;
+  background:var(--bg-primary);
+  color:var(--text-primary);
+  min-height:100vh;
+}
+
+/* HEADER */
+.header{
+  background:var(--bg-secondary);
+  padding:1rem 2rem;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  position:sticky;
+  top:0;
+  box-shadow:0 2px 8px var(--shadow);
+  z-index:1000;
+}
+
+.logo-section img{
+  width:50px;
+}
+
+.nav-menu{
+  display:flex;
+  gap:1rem;
+}
+
+.nav-btn{
+  background:transparent;
+  border:2px solid var(--accent);
+  padding:0.5rem 1.5rem;
+  border-radius:25px;
+  cursor:pointer;
+  font-weight:500;
+  transition:0.3s;
+}
+
+.nav-btn:hover{
+  background:var(--accent);
+  color:white;
+}
+
+/* CONTENT */
+.container{
+  max-width:1000px;
+  margin:2.5rem auto;
+  padding:2.5rem;
+}
+
+.content-title{
+  text-align:center;
+  color:#667eea;
+  font-size:2rem;
+  margin-bottom:2rem;
+  font-weight:700;
+}
+
+.glossary-item{
+  background:var(--bg-secondary);
+  padding:1.2rem 1.8rem;
+  margin:1rem 0;
+  border-radius:18px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.1);
+}
+
+.glossary-term{
+  font-weight:600;
+  color:var(--accent);
+  margin-bottom:0.4rem;
+}
+
+.content-text p{
+  line-height:1.6;
+  color:var(--text-secondary);
+}
+
+/* FOOTER */
+footer{
+  background:var(--bg-secondary);
+  text-align:center;
+  padding:1.5rem;
+  margin-top:2rem;
+  color:var(--text-secondary);
+  box-shadow:0 -2px 8px var(--shadow);
+}
+
+/* === RESPONSIVE_GLOBAL_START === */
+html, body { max-width: 100%; overflow-x: hidden; }
+img, video, canvas, iframe { max-width: 100%; height: auto; }
+/* === RESPONSIVE_GLOBAL_END === */
+
+
+/* === NAV_UNIFORM_START === */
+.nav-menu{
+  display:flex;
+  gap:.5rem;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+  align-items:center;
+}
+.nav-menu .nav-btn{
+  appearance:none;
+  border:0;
+  cursor:pointer;
+  border-radius:999px;
+  padding:.55rem .95rem;
+  font-size:.95rem !important;
+  font-weight:500 !important;
+  line-height:1.1;
+  white-space:nowrap;
+}
+@media (max-width:600px){
+  .nav-menu{ justify-content:center; }
+  .nav-menu .nav-btn{
+    padding:.5rem .8rem;
+    font-size:.9rem !important;
+  }
+}
+/* === NAV_UNIFORM_END === */
+
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="logo-section">
+    <img src="logo um rev.png" alt="Logo Universitas Negeri Malang">
+  </div>
+  <div class="nav-menu">
+    <button class="nav-btn" onclick="history.back()">← Kembali</button>
+    <button class="nav-btn" onclick="location.href='2Beranda.html'">🏠 Beranda</button>
+    <button class="nav-btn" onclick="location.href='2Profil.html'">👤 Profil</button>
+  </div>
+</div>
+
+<!-- CONTENT -->
+<div class="container">
+  <h2 class="content-title">Glosarium</h2>
+
+  <div class="content-text">
+  <h3 class="content-text">A</h3>
+    <div class="glossary-item">
+      <div class="glossary-term">Air (H₂O)</div>
+      <p>Zat pelarut yang dapat bereaksi dengan ion garam tertentu membentuk kesetimbangan hidrolisis.</p>
+    </div>
+
+    <div class="glossary-item">
+      <div class="glossary-term">Anion</div>
+      <p>Ion bermuatan negatif yang dapat berasal dari asam kuat atau asam lemah.
+Anion dari asam lemah dapat mengalami hidrolisis.</p>
+    </div>
+
+    <div class="glossary-item">
+      <div class="glossary-term">Asam Kuat</div>
+      <p>Asam yang terionisasi sempurna dalam air dan anionnya tidak terhidrolisis.</p>
+    </div>
+
+    <div class="glossary-item">
+      <div class="glossary-term">Asam Lemah</div>
+      <p>Asam yang terionisasi sebagian dalam air dan anionnya dapat mengalami hidrolisis.</p>
+    </div>
+
+  <h3 class="content-text">B</h3>
+    <div class="glossary-item">
+      <div class="glossary-term">Basa Kuat</div>
+      <p>Basa yang terionisasi sempurna dalam air dan kationnya tidak terhidrolisis.</p>
+    </div>
+
+    <div class="glossary-item">
+      <div class="glossary-term">Basa Lemah</div>
+      <p>Basa yang terionisasi sebagian dalam air dan kationnya dapat mengalami hidrolisis.</p>
+    </div>
+
+      <h3 class="content-text">G</h3>
+    <div class="glossary-item">
+      <div class="glossary-term">Garam</div>
+      <p>Senyawa hasil reaksi netralisasi antara asam dan basa. </p>
+    </div>
+
+      <h3 class="content-text">H</h3>
+    <div class="glossary-item">
+      <div class="glossary-term">Hidrolisis</div>
+      <p>Reaksi antara ion garam yang berasal dari asam lemah atau basa lemah dengan air membentuk kesetimbangan.</p>
+    </div>
+
+        <div class="glossary-item">
+      <div class="glossary-term">Hidrolisis Parsial</div>
+      <p>Hidrolisis yang terjadi jika hanya salah satu ion (kation atau anion) yang bereaksi dengan air.</p>
+    </div>
+
+        <div class="glossary-item">
+      <div class="glossary-term">Hidrolisis Total</div>
+      <p>Hidrolisis yang terjadi jika kedua ion (kation dan anion) bereaksi dengan air.</p>
+    </div>
+
+         <h3 class="content-text">K</h3>
+    <div class="glossary-item">
+      <div class="glossary-term">Ka (Tetapan Ionisasi Asam)</div>
+      <p>Tetapan kesetimbangan ionisasi asam lemah.</p>
+    </div>
+    <div class="glossary-item">
+      <div class="glossary-term">Kb (Tetapan Ionisasi Basa)</div>
+      <p>Tetapan kesetimbangan ionisasi basa lemah.</p>
+    </div>
+        <div class="glossary-item">
+      <div class="glossary-term">Kw (Tetapan Ionisasi Air)</div>
+      <p>Hasil kali konsentrasi ion H⁺ dan OH⁻ dalam air.</p>
+    </div>
+            <div class="glossary-item">
+      <div class="glossary-term">Kh (Tetapan Hidrolisis)</div>
+      <p>Tetapan kesetimbangan reaksi hidrolisis garam.</p>
+    </div>
+  <h3 class="content-text">P</h3>
+    <div class="glossary-item">
+      <div class="glossary-term">pH</div>
+      <p>Ukuran derajat keasaman larutan.</p>
+    </div>
+    <div class="glossary-item">
+      <div class="glossary-term">pOH</div>
+      <p>Ukuran kebasaan larutan:</p>
+    </div>
+  </div>
+</div>
+
+<footer>&copy; 2026 Tsary ▏ Sumari ▏ Departemen Kimia ▏  Universitas Negeri Malang</footer>
+
+</body>
+</html>

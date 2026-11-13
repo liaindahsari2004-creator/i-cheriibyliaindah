@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profil Pengembang</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+
+:root{
+  --bg-primary:#f0f9ff;
+  --bg-secondary:#ffffff;
+  --text-primary:#1e293b;
+  --text-secondary:#64748b;
+  --accent:#06b6d4;
+  --accent-hover:#0891b2;
+  --shadow:rgba(6,182,212,0.15);
+}
+
+body{
+  font-family:'Poppins',sans-serif;
+  background:var(--bg-primary);
+  color:var(--text-primary);
+  min-height:100vh;
+}
+
+/* HEADER */
+.header{
+  background:var(--bg-secondary);
+  padding:1rem 2rem;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  position:sticky;
+  top:0;
+  box-shadow:0 2px 8px var(--shadow);
+  z-index:1000;
+}
+
+.logo-section{
+  display:flex;
+  align-items:center;
+  gap:0.75rem;
+}
+
+.nav-menu{
+  display:flex;
+  gap:1rem;
+}
+
+.nav-btn{
+  background:transparent;
+  border:2px solid var(--accent);
+  padding:0.5rem 1.5rem;
+  border-radius:25px;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.nav-btn:hover{
+  background:var(--accent);
+  color:white;
+}
+
+/* BACK */
+.back-header{
+  padding:1rem 2rem;
+}
+
+.back-btn{
+  background:var(--accent);
+  color:white;
+  border:none;
+  padding:0.6rem 1.2rem;
+  border-radius:25px;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.back-btn:hover{
+  background:var(--accent-hover);
+  transform:translateY(-2px);
+}
+
+/* CONTENT */
+.container{
+  max-width:1000px;
+  margin:2rem auto;
+  padding:2rem;
+}
+
+.content-title{
+  text-align:center;
+  font-size:2rem;
+  color:#667eea;
+  margin-bottom:2rem;
+}
+
+.profile-container{
+  display:flex;
+  gap:2rem;
+  justify-content:center;
+  flex-wrap:wrap;
+}
+
+.profile-card{
+  background:var(--bg-secondary);
+  border-radius:20px;
+  padding:2rem;
+  max-width:400px;
+  text-align:center;
+  box-shadow:0 20px 60px rgba(0,0,0,0.15);
+  transition:0.3s;
+}
+
+
+.profile-card:hover{
+  transform:translateY(-10px);
+}
+
+/* ROLE BADGE */
+.role-badge{
+  display:inline-block;
+  background:var(--accent);
+  color:white;
+  padding:0.3rem 1rem;
+  border-radius:20px;
+  font-size:0.85rem;
+  margin-bottom:1rem;
+}
+
+.profile-card img{
+  border-radius:15px;
+  margin-bottom:1rem;
+}
+
+.profile-card h2{
+  color:#667eea;
+  margin-bottom:0.5rem;
+}
+
+.content-text{
+  color:var(--text-secondary);
+  line-height:1.6;
+  margin-bottom:1rem;
+}
+
+/* EMAIL */
+.social-media img{
+  width:32px;
+  transition:0.3s;
+}
+
+.social-media img:hover{
+  transform:scale(1.2);
+}
+
+/* FOOTER */
+footer{
+  background:var(--bg-secondary);
+  text-align:center;
+  padding:1.5rem;
+  margin-top:2rem;
+  color:var(--text-secondary);
+  box-shadow:0 -2px 8px var(--shadow);
+}
+
+/* === RESPONSIVE_GLOBAL_START === */
+html, body { max-width: 100%; overflow-x: hidden; }
+img, video, canvas, iframe { max-width: 100%; height: auto; }
+/* === RESPONSIVE_GLOBAL_END === */
+
+
+/* === NAV_UNIFORM_START === */
+.nav-menu{
+  display:flex;
+  gap:.5rem;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+  align-items:center;
+}
+.nav-menu .nav-btn{
+  appearance:none;
+  border:0;
+  cursor:pointer;
+  border-radius:999px;
+  padding:.55rem .95rem;
+  font-size:.95rem !important;
+  font-weight:500 !important;
+  line-height:1.1;
+  white-space:nowrap;
+}
+@media (max-width:600px){
+  .nav-menu{ justify-content:center; }
+  .nav-menu .nav-btn{
+    padding:.5rem .8rem;
+    font-size:.9rem !important;
+  }
+}
+/* === NAV_UNIFORM_END === */
+
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="logo-section">
+    <img src="logo um rev.png" width="50">
+  </div>
+  <div class="nav-menu">
+    <button class="nav-btn" onclick="history.back()">← Kembali</button>
+    <button class="nav-btn" onclick="location.href='2Beranda.html'">🏠 Beranda</button>
+    <button class="nav-btn" onclick="location.href='2Profil.html'">👤 Profil</button>
+  </div>
+</div>
+
+
+
+<!-- CONTENT -->
+<div class="container">
+  <h1 class="content-title">Profil Pengembang</h1>
+
+  <div class="profile-container">
+
+    <!-- MAHASISWA -->
+    <div class="profile-card">
+      <span class="role-badge">Mahasiswa</span>
+      <img src="profil web 1.png" width="250">
+      <h2>Tsary Aqilah Arinanta</h2>
+      <div class="content-text">
+        Mahasiswa Program Studi Pendidikan Kimia, Fakultas Matematika dan Ilmu Pengetahuan Alam (FMIPA), Universitas Negeri Malang. Pengembangan website pembelajaran ini merupakan bagian dari upaya penyediaan media belajar interaktif yang diharapkan dapat membantu peserta didik dalam memahami konsep kimia secara lebih sistematis dan aplikatif.
+      </div>
+      <div class="social-media">
+        <a href="mailto:tsaryaqilah@gmail.com" style="font-size:1.2rem;">📧
+        </a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer>&copy; 2026 Tsary ▏ Sumari ▏ Departemen Kimia ▏  Universitas Negeri Malang</footer>
+
+</body>
+</html>

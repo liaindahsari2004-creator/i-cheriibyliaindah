@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kuis Interaktif Hidrolisis Garam</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root{
+  --bg-primary:#f0f9ff;
+  --bg-secondary:#ffffff;
+  --text-primary:#1e293b;
+  --text-secondary:#64748b;
+  --accent:#06b6d4;
+  --accent-hover:#0891b2;
+  --shadow:rgba(6,182,212,0.15);
+}
+
+body{
+  font-family:'Poppins',sans-serif;
+  background:linear-gradient(135deg,#e0f2fe,#f0f9ff);
+  color:var(--text-primary);
+  min-height:100vh;
+}
+
+/* HEADER */
+.header{
+  background:var(--bg-secondary);
+  padding:1rem 2rem;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  position:sticky;
+  top:0;
+  box-shadow:0 2px 8px var(--shadow);
+  z-index:1000;
+}
+
+.logo-section img{
+  width:50px;
+}
+
+.nav-menu{
+  display:flex;
+  gap:1rem;
+  flex-wrap:wrap;
+}
+
+.nav-btn{
+  background:transparent;
+  border:2px solid var(--accent);
+  padding:0.5rem 1.5rem;
+  border-radius:25px;
+  cursor:pointer;
+  font-weight:500;
+  transition:0.3s;
+  font-family:'Poppins',sans-serif;
+  color:var(--text-primary);
+}
+
+.nav-btn:hover{
+  background:var(--accent);
+  color:white;
+  transform:translateY(-2px);
+}
+
+/* CONTENT */
+.container{
+  max-width:1100px;
+  margin:1rem auto 3rem auto;
+  padding:1rem;
+}
+
+.page-title{
+  text-align:center;
+  color:var(--accent);
+  font-size:2.5rem;
+  margin:2rem 0 1rem 0;
+  font-weight:700;
+}
+
+.intro-text{
+  text-align:center;
+  color:var(--text-secondary);
+  font-size:1.1rem;
+  margin-bottom:2rem;
+}
+
+.card{
+  background:#ffffff;
+  border-radius:20px;
+  padding:25px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.08);
+  margin-bottom:25px;
+  border:2px solid transparent;
+  transition:all 0.3s ease;
+}
+
+.card:hover{
+  border-color:var(--accent);
+  box-shadow:0 12px 30px rgba(0,0,0,0.12);
+  transform:translateY(-3px);
+}
+
+.card-number{
+  background:linear-gradient(135deg,var(--accent),#0891b2);
+  color:white;
+  padding:6px 16px;
+  border-radius:20px;
+  font-size:0.9rem;
+  font-weight:600;
+  display:inline-block;
+  margin-bottom:12px;
+}
+
+.instruksi{
+  font-weight:600;
+  color:var(--text-primary);
+  margin-bottom:15px;
+  font-size:1.05rem;
+}
+
+/* INPUT & FORM */
+textarea, input[type="text"]{
+  width:100%;
+  max-width:300px;
+  margin-top:8px;
+  border-radius:10px;
+  border:2px solid #ddd;
+  padding:10px 15px;
+  font-family:'Poppins',sans-serif;
+  font-size:1rem;
+  transition:all 0.3s;
+}
+
+input[type="text"]:focus{
+  outline:none;
+  border-color:var(--accent);
+  box-shadow:0 0 0 3px rgba(6,182,212,0.1);
+}
+
+input[type="radio"], input[type="checkbox"]{
+  width:18px;
+  height:18px;
+  margin-right:8px;
+  cursor:pointer;
+  accent-color:var(--accent);
+}
+
+label{
+  display:block;
+  padding:10px 15px;
+  margin:8px 0;
+  cursor:pointer;
+  border-radius:10px;
+  transition:all 0.3s;
+  font-size:1rem;
+}
+
+label:hover{
+  background:#f0f9ff;
+}
+
+/* DRAG & DROP */
+.dropzone{
+  display:inline-block;
+  border:2px dashed var(--accent);
+  min-width:120px;
+  min-height:42px;
+  border-radius:10px;
+  padding:10px 15px;
+  margin:5px 8px;
+  background:#f0f9ff;
+  transition:all 0.3s;
+  vertical-align:middle;
+  text-align:center;
+  font-weight:500;
+  line-height:1.4;
+}
+
+.dropzone:hover{
+  background:#e0f2fe;
+  border-color:var(--accent-hover);
+}
+
+.draggable{
+  display:inline-block;
+  background:linear-gradient(135deg,var(--accent),#0891b2);
+  color:white;
+  padding:10px 18px;
+  border-radius:10px;
+  margin:8px 5px;
+  cursor:grab;
+  transition:all 0.3s;
+  font-weight:500;
+  box-shadow:0 4px 12px rgba(6,182,212,0.3);
+}
+
+.draggable:hover{
+  transform:translateY(-3px);
+  box-shadow:0 6px 16px rgba(6,182,212,0.4);
+}
+
+.draggable:active{
+  cursor:grabbing;
+  transform:scale(0.95);
+}
+
+/* MATCHING */
+.match-container{
+  display:flex;
+  justify-content:space-between;
+  position:relative;
+  padding:2rem 1rem;
+  gap:3rem;
+}
+
+.match-item{
+  padding:15px 20px;
+  margin:12px 0;
+  background:#f1f5f9;
+  border-radius:12px;
+  cursor:pointer;
+  text-align:center;
+  border:2px solid #cbd5e1;
+  transition:all 0.3s;
+  font-weight:500;
+  box-shadow:0 2px 8px rgba(0,0,0,0.05);
+}
+
+.match-item:hover{
+  transform:translateX(5px);
+  box-shadow:0 4px 12px rgba(0,0,0,0.1);
+  border-color:var(--accent);
+}
+
+.match-item.selected{
+  background:var(--accent);
+  color:white;
+  border-color:var(--accent);
+  transform:scale(1.05);
+  box-shadow:0 6px 16px rgba(6,182,212,0.3);
+}
+
+#lines{
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  pointer-events:none;
+}
+
+/* FEEDBACK */
+.correct{
+  background:#d1fae5 !important;
+  border-color:#10b981 !important;
+  animation:successPulse 0.5s;
+}
+
+.wrong{
+  background:#fee2e2 !important;
+  border-color:#ef4444 !important;
+  animation:errorShake 0.5s;
+}
+
+@keyframes successPulse{
+  0%,100%{transform:scale(1);}
+  50%{transform:scale(1.05);}
+}
+
+@keyframes errorShake{
+  0%,100%{transform:translateX(0);}
+  25%{transform:translateX(-8px);}
+  75%{transform:translateX(8px);}
+}
+
+.explain{
+  display:none;
+  margin-top:15px;
+  padding:15px 20px;
+  background:linear-gradient(135deg,#fef3c7,#fde68a);
+  border-radius:12px;
+  border-left:5px solid #f59e0b;
+  animation:slideDown 0.4s;
+  line-height:1.6;
+}
+
+@keyframes slideDown{
+  from{opacity:0;transform:translateY(-10px);}
+  to{opacity:1;transform:translateY(0);}
+}
+
+/* BUTTONS */
+.button-container{
+  text-align:center;
+  margin-top:2.5rem;
+  display:flex;
+  gap:15px;
+  justify-content:center;
+  flex-wrap:wrap;
+}
+
+.button-container button{
+  padding:12px 30px;
+  border:none;
+  border-radius:25px;
+  background:linear-gradient(135deg,var(--accent),#0891b2);
+  color:white;
+  cursor:pointer;
+  font-family:'Poppins',sans-serif;
+  font-weight:600;
+  font-size:1rem;
+  transition:all 0.3s;
+  box-shadow:0 4px 15px rgba(6,182,212,0.3);
+}
+
+.button-container button:hover{
+  transform:translateY(-3px);
+  box-shadow:0 6px 20px rgba(6,182,212,0.4);
+}
+
+.button-container button:active{
+  transform:translateY(0);
+}
+
+.btn-secondary{
+  background:linear-gradient(135deg,#64748b,#475569) !important;
+}
+
+/* SCORE MODAL */
+.score-modal{
+  display:none;
+  position:fixed;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  background:white;
+  padding:3rem;
+  border-radius:25px;
+  box-shadow:0 20px 60px rgba(0,0,0,0.3);
+  z-index:2000;
+  text-align:center;
+  min-width:400px;
+  animation:modalPop 0.4s;
+}
+
+@keyframes modalPop{
+  from{opacity:0;transform:translate(-50%,-50%) scale(0.8);}
+  to{opacity:1;transform:translate(-50%,-50%) scale(1);}
+}
+
+.modal-overlay{
+  display:none;
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.5);
+  z-index:1999;
+}
+
+.score-number{
+  font-size:4rem;
+  font-weight:700;
+  background:linear-gradient(135deg,var(--accent),#0891b2);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  margin:1rem 0;
+}
+
+.score-modal button{
+  margin-top:1.5rem;
+  padding:12px 35px;
+  border:none;
+  border-radius:25px;
+  background:linear-gradient(135deg,var(--accent),#0891b2);
+  color:white;
+  cursor:pointer;
+  font-family:'Poppins',sans-serif;
+  font-weight:600;
+  font-size:1rem;
+}
+
+/* FOOTER */
+footer{
+  background:#ffffff;
+  text-align:center;
+  padding:1.5rem;
+  margin-top:3rem;
+  box-shadow:0 -2px 8px var(--shadow);
+  color:var(--text-secondary);
+}
+
+/* RESPONSIVE */
+@media (max-width:768px){
+  .header{
+    flex-direction:column;
+    gap:1rem;
+  }
+  
+  .match-container{
+    flex-direction:column;
+    gap:1rem;
+  }
+  
+  .container{
+    padding:0.5rem;
+  }
+  
+  .page-title{
+    font-size:1.8rem;
+  }
+  
+  .card{
+    padding:20px;
+  }
+  
+  .score-modal{
+    min-width:90%;
+    padding:2rem;
+  }
+  
+  .score-number{
+    font-size:3rem;
+  }
+}
+
+/* PROGRESS INDICATOR */
+.progress-bar{
+  width:100%;
+  height:8px;
+  background:#e0f2fe;
+  border-radius:10px;
+  overflow:hidden;
+  margin:1.5rem 0;
+}
+
+.progress-fill{
+  height:100%;
+  background:linear-gradient(90deg,var(--accent),#0891b2);
+  width:0%;
+  transition:width 0.5s ease;
+}
+
+
+/* === RESPONSIVE_GLOBAL_START === */
+html, body { max-width: 100%; overflow-x: hidden; }
+img, video, canvas, iframe { max-width: 100%; height: auto; }
+/* === RESPONSIVE_GLOBAL_END === */
+
+
+/* === NAV_UNIFORM_START === */
+.nav-menu{
+  display:flex;
+  gap:.5rem;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+  align-items:center;
+}
+.nav-menu .nav-btn{
+  appearance:none;
+  border:0;
+  cursor:pointer;
+  border-radius:999px;
+  padding:.55rem .95rem;
+  font-size:.95rem !important;
+  font-weight:500 !important;
+  line-height:1.1;
+  white-space:nowrap;
+}
+@media (max-width:600px){
+  .nav-menu{ justify-content:center; }
+  .nav-menu .nav-btn{
+    padding:.5rem .8rem;
+    font-size:.9rem !important;
+  }
+}
+/* === NAV_UNIFORM_END === */
+
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="logo-section">
+    <img src="logo um rev.png" alt="Logo UM">
+  </div>
+  <div class="nav-menu">
+    <button class="nav-btn" onclick="history.back()">← Kembali</button>
+    <button class="nav-btn" onclick="location.href='2Beranda.html'">🏠 Beranda</button>
+    <button class="nav-btn" onclick="location.href='2Profil.html'">👤 Profil</button>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="container">
+  <h1 class="page-title">🧪 Kuis Interaktif Hidrolisis Garam</h1>
+  <p class="intro-text">Uji pemahamanmu tentang hidrolisis garam dengan kuis interaktif di bawah ini!</p>
+
+  <!-- Progress Bar -->
+  <div class="progress-bar">
+    <div class="progress-fill" id="progressFill"></div>
+  </div>
+
+  <!-- Kuis 1: DRAG ION -->
+  <div class="card">
+    <span class="card-number">Kuis 1</span>
+    <div class="instruksi">Pasangkan jenis ion dengan muatannya (Drag & Drop)</div>
+    <div style="line-height: 2.5; margin:1rem 0;">
+      <strong>Kation</strong> → <span class="dropzone" data-answer="ion positif"></span><br>
+      <strong>Anion</strong> → <span class="dropzone" data-answer="ion negatif"></span>
+    </div>
+    <div style="margin-top: 1.5rem;">
+      <strong>Pilihan:</strong><br>
+      <span class="draggable" draggable="true">ion positif</span>
+      <span class="draggable" draggable="true">ion negatif</span>
+    </div>
+    <div class="explain">💡 <strong>Pembahasan:</strong> Kation adalah ion yang bermuatan positif (kehilangan elektron), sedangkan anion adalah ion yang bermuatan negatif (menerima elektron).</div>
+  </div>
+
+  <!-- Kuis 2: ISIAN -->
+  <div class="card">
+    <span class="card-number">Kuis 2</span>
+    <div class="instruksi">Isilah bagian berikut dengan jawaban yang tepat</div>
+    <p style="font-size: 1.05rem; margin:1rem 0;">Garam umumnya berwujud <input type="text" id="i1" placeholder="ketik di sini..."></p>
+    <div class="explain">💡 <strong>Pembahasan:</strong> Sebagian besar garam pada suhu ruang berwujud <strong>padat</strong> (kristal) karena memiliki ikatan ionik yang kuat.</div>
+  </div>
+
+  <!-- Kuis 3: PILIHAN GANDA -->
+  <div class="card">
+    <span class="card-number">Kuis 3</span>
+    <div class="instruksi">Pilih jawaban yang paling tepat</div>
+    <p style="margin:1rem 0; font-weight: 500; font-size:1.05rem;">Larutan NH₄Cl bersifat:</p>
+    <label><input type="radio" name="s3" value="asam"> Asam</label>
+    <label><input type="radio" name="s3" value="basa"> Basa</label>
+    <label><input type="radio" name="s3" value="netral"> Netral</label>
+    <div class="explain">💡 <strong>Pembahasan:</strong> NH₄Cl terbentuk dari asam kuat (HCl) dan basa lemah (NH₃). Ion NH₄⁺ mengalami hidrolisis menghasilkan H₃O⁺ sehingga larutan bersifat <strong>asam</strong>.</div>
+  </div>
+
+  <!-- Kuis 4: CHECKBOX -->
+  <div class="card">
+    <span class="card-number">Kuis 4</span>
+    <div class="instruksi">Pilih semua jawaban yang benar (bisa lebih dari satu)</div>
+    <p style="margin:1rem 0; font-weight: 500; font-size:1.05rem;">Garam dapat bersifat:</p>
+    <label><input type="checkbox" class="cb4" value="asam"> Asam</label>
+    <label><input type="checkbox" class="cb4" value="basa"> Basa</label>
+    <label><input type="checkbox" class="cb4" value="netral"> Netral</label>
+    <label><input type="checkbox" class="cb4" value="selalu"> Selalu netral</label>
+    <div class="explain">💡 <strong>Pembahasan:</strong> Larutan garam dapat bersifat <strong>asam</strong> (dari asam kuat + basa lemah), <strong>basa</strong> (dari asam lemah + basa kuat), atau <strong>netral</strong> (dari asam kuat + basa kuat). Tidak semua garam selalu netral.</div>
+  </div>
+
+  <!-- Kuis 5: BENAR/SALAH -->
+  <div class="card">
+    <span class="card-number">Kuis 5</span>
+    <div class="instruksi">Tentukan apakah pernyataan berikut benar atau salah</div>
+    <p style="margin:1rem 0; font-weight: 500; font-size:1.05rem;">Pernyataan: "NaCl mengalami hidrolisis dalam air"</p>
+    <label><input type="radio" name="s5" value="benar"> Benar</label>
+    <label><input type="radio" name="s5" value="salah"> Salah</label>
+    <div class="explain">💡 <strong>Pembahasan:</strong> Pernyataan ini <strong>SALAH</strong>. NaCl terbentuk dari asam kuat (HCl) dan basa kuat (NaOH). Kedua ion (Na⁺ dan Cl⁻) tidak terhidrolisis, sehingga larutan bersifat netral.</div>
+  </div>
+
+  <!-- Kuis 6: REAKSI DRAG -->
+  <div class="card">
+    <span class="card-number">Kuis 6</span>
+    <div class="instruksi">Lengkapi persamaan reaksi hidrolisis berikut dengan drag and drop</div>
+
+    <div style="line-height: 2.8; font-size: 1.05rem; margin:1.5rem 0;">
+      <p><strong>1.</strong> NH₄⁺ + H₂O ⇌ <span class="dropzone" data-answer="NH₃"></span> + <span class="dropzone" data-answer="H₃O⁺"></span></p>
+
+      <p><strong>2.</strong> Al³⁺ + 3H₂O ⇌ <span class="dropzone" data-answer="Al(OH)₃"></span> + 3H⁺</p>
+
+      <p><strong>3.</strong> CO₃²⁻ + H₂O ⇌ <span class="dropzone" data-answer="HCO₃⁻"></span> + <span class="dropzone" data-answer="OH⁻"></span></p>
+
+      <p><strong>4.</strong> CH₃COO⁻ + H₂O ⇌ <span class="dropzone" data-answer="CH₃COOH"></span> + <span class="dropzone" data-answer="OH⁻"></span></p>
+    </div>
+
+    <div style="margin-top: 1.5rem;">
+      <strong>Pilihan jawaban:</strong><br>
+      <span class="draggable" draggable="true">NH₃</span>
+      <span class="draggable" draggable="true">H₃O⁺</span>
+      <span class="draggable" draggable="true">Al(OH)₃</span>
+      <span class="draggable" draggable="true">HCO₃⁻</span>
+      <span class="draggable" draggable="true">OH⁻</span>
+      <span class="draggable" draggable="true">CH₃COOH</span>
+    </div>
+
+    <div class="explain">💡 <strong>Pembahasan:</strong> Kation dari basa lemah bereaksi dengan air menghasilkan H₃O⁺ (asam). Anion dari asam lemah bereaksi dengan air menghasilkan OH⁻ (basa).</div>
+  </div>
+
+  <!-- Kuis 7: MATCHING -->
+  <div class="card">
+    <span class="card-number">Kuis 7</span>
+    <div class="instruksi">Pasangkan garam dengan sifat larutannya</div>
+    <p style="font-style:italic; color:var(--text-secondary); margin-bottom:1rem;">Klik item di kolom kiri, kemudian klik pasangannya di kolom kanan</p>
+
+    <div class="match-container">
+      <!-- KIRI -->
+      <div>
+        <div class="match-item left" data-match="asam">NH₄Cl</div>
+        <div class="match-item left" data-match="basa">Na₂CO₃</div>
+        <div class="match-item left" data-match="netral">NaCl</div>
+      </div>
+
+      <!-- KANAN -->
+      <div>
+        <div class="match-item right" data-match="asam">Asam</div>
+        <div class="match-item right" data-match="basa">Basa</div>
+        <div class="match-item right" data-match="netral">Netral</div>
+      </div>
+
+      <svg id="lines"></svg>
+    </div>
+
+    <div class="explain">💡 <strong>Pembahasan:</strong><br>
+    • <strong>NH₄Cl</strong> → Asam (dari asam kuat HCl + basa lemah NH₃)<br>
+    • <strong>Na₂CO₃</strong> → Basa (dari asam lemah H₂CO₃ + basa kuat NaOH)<br>
+    • <strong>NaCl</strong> → Netral (dari asam kuat HCl + basa kuat NaOH)</div>
+  </div>
+
+  <!-- TOMBOL AKSI -->
+  <div class="button-container">
+    <button onclick="cekJawaban()">✓ Cek Jawaban</button>
+    <button class="btn-secondary" onclick="lihatPembahasan()">💡 Lihat Pembahasan</button>
+    <button class="btn-secondary" onclick="resetKuis()">🔄 Reset Kuis</button>
+  </div>
+
+</div>
+
+<!-- SCORE MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal()"></div>
+<div class="score-modal" id="scoreModal">
+  <div style="font-size:3.5rem;">🎉</div>
+  <h2 style="margin:1rem 0; color:var(--text-primary);">Hasil Kuis Anda</h2>
+  <div class="score-number" id="scoreDisplay">0/7</div>
+  <p id="scoreMessage" style="color:var(--text-secondary); font-size:1.1rem;"></p>
+  <button onclick="closeModal()">Tutup</button>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  &copy; 2026 Tsary ▏ Sumari ▏ Departemen Kimia ▏ Universitas Negeri Malang
+</footer>
+
+<script>
+// ========== DRAG & DROP ==========
+document.querySelectorAll(".draggable").forEach(el => {
+  el.addEventListener("dragstart", e => {
+    e.target.style.opacity = "0.5";
+    e.dataTransfer.setData("text", e.target.textContent);
+  });
+  el.addEventListener("dragend", e => {
+    e.target.style.opacity = "1";
+  });
+});
+
+document.querySelectorAll(".dropzone").forEach(zone => {
+  zone.addEventListener("dragover", e => {
+    e.preventDefault();
+    zone.style.background = "#bae6fd";
+  });
+  zone.addEventListener("dragleave", e => {
+    zone.style.background = "#f0f9ff";
+  });
+  zone.addEventListener("drop", e => {
+    e.preventDefault();
+    zone.textContent = e.dataTransfer.getData("text");
+    zone.style.background = "#f0f9ff";
+    zone.classList.remove("correct", "wrong");
+  });
+});
+
+// ========== CEK JAWABAN ==========
+let totalScore = 0;
+
+function cekJawaban() {
+  totalScore = 0;
+  let totalQuestions = 7;
+  
+  // Cek dropzone (Soal 1 & 6)
+  let dropzoneCorrect = 0;
+  let dropzoneTotal = 0;
+  document.querySelectorAll(".dropzone").forEach(z => {
+    dropzoneTotal++;
+    if (z.textContent.trim() === z.dataset.answer) {
+      z.classList.add("correct");
+      z.classList.remove("wrong");
+      dropzoneCorrect++;
+    } else if (z.textContent.trim() !== "") {
+      z.classList.add("wrong");
+      z.classList.remove("correct");
+    }
+  });
+  
+  // Soal 1 (2 dropzones)
+  if (dropzoneCorrect >= 2) totalScore += 1;
+  
+  // Soal 6 (6 dropzones)
+  if (dropzoneCorrect >= 8) totalScore += 1;
+
+  // Cek isian (Soal 2)
+  const i1 = document.getElementById("i1");
+  if (i1.value.toLowerCase().trim() === "padat") {
+    i1.classList.add("correct");
+    i1.classList.remove("wrong");
+    totalScore++;
+  } else if (i1.value.trim() !== "") {
+    i1.classList.add("wrong");
+    i1.classList.remove("correct");
+  }
+
+  // Cek pilihan ganda (Soal 3)
+  const pg = document.querySelector("input[name=s3]:checked");
+  document.querySelectorAll("input[name=s3]").forEach(r => {
+    r.parentElement.style.color = "";
+    r.parentElement.style.fontWeight = "";
+  });
+  if (pg) {
+    if (pg.value === "asam") {
+      pg.parentElement.style.color = "#10b981";
+      pg.parentElement.style.fontWeight = "600";
+      totalScore++;
+    } else {
+      pg.parentElement.style.color = "#ef4444";
+      pg.parentElement.style.fontWeight = "600";
+    }
+  }
+
+  // Cek checkbox (Soal 4)
+  const checkboxes = document.querySelectorAll('.cb4');
+  const correctValues = ["asam", "basa", "netral"];
+  const checkedValues = [];
+  
+  checkboxes.forEach(cb => {
+    cb.parentElement.style.color = "";
+    cb.parentElement.style.fontWeight = "";
+    if (cb.checked) {
+      checkedValues.push(cb.value);
+    }
+  });
+  
+  const isCheckboxCorrect = correctValues.every(v => checkedValues.includes(v)) && 
+                           checkedValues.length === correctValues.length;
+  
+  checkboxes.forEach(cb => {
+    if (cb.checked) {
+      if (correctValues.includes(cb.value)) {
+        cb.parentElement.style.color = "#10b981";
+        cb.parentElement.style.fontWeight = "600";
+      } else {
+        cb.parentElement.style.color = "#ef4444";
+        cb.parentElement.style.fontWeight = "600";
+      }
+    }
+  });
+  
+  if (isCheckboxCorrect) totalScore++;
+
+  // Cek benar/salah (Soal 5)
+  const bs = document.querySelector("input[name=s5]:checked");
+  document.querySelectorAll("input[name=s5]").forEach(r => {
+    r.parentElement.style.color = "";
+    r.parentElement.style.fontWeight = "";
+  });
+  if (bs) {
+    if (bs.value === "salah") {
+      bs.parentElement.style.color = "#10b981";
+      bs.parentElement.style.fontWeight = "600";
+      totalScore++;
+    } else {
+      bs.parentElement.style.color = "#ef4444";
+      bs.parentElement.style.fontWeight = "600";
+    }
+  }
+
+  // Cek matching (Soal 7) - sudah tercek saat klik
+  const matchedCorrect = document.querySelectorAll(".match-item.matched-correct").length / 2;
+  if (matchedCorrect === 3) totalScore++;
+
+  // Update progress bar
+  updateProgress();
+  
+  // Tampilkan score modal
+  showScore();
+}
+
+function updateProgress() {
+  const percentage = (totalScore / 7) * 100;
+  document.getElementById("progressFill").style.width = percentage + "%";
+}
+
+function showScore() {
+  const percentage = (totalScore / 7) * 100;
+  let message = "";
+  
+  if (percentage >= 85) {
+    message = "Luar biasa! Pemahaman Anda sangat baik! 🌟";
+  } else if (percentage >= 70) {
+    message = "Bagus! Terus tingkatkan pemahaman Anda! 👍";
+  } else if (percentage >= 50) {
+    message = "Cukup baik, masih ada ruang untuk berkembang! 💪";
+  } else {
+    message = "Tetap semangat! Pelajari kembali materinya! 📚";
+  }
+  
+  document.getElementById("scoreDisplay").textContent = totalScore + "/7";
+  document.getElementById("scoreMessage").textContent = message;
+  document.getElementById("modalOverlay").style.display = "block";
+  document.getElementById("scoreModal").style.display = "block";
+}
+
+function closeModal() {
+  document.getElementById("modalOverlay").style.display = "none";
+  document.getElementById("scoreModal").style.display = "none";
+}
+
+// ========== LIHAT PEMBAHASAN ==========
+function lihatPembahasan() {
+  document.querySelectorAll(".explain").forEach(e => {
+    e.style.display = "block";
+  });
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+// ========== RESET KUIS ==========
+function resetKuis() {
+  // Reset dropzone
+  document.querySelectorAll(".dropzone").forEach(z => {
+    z.textContent = "";
+    z.classList.remove("correct", "wrong");
+    z.style.background = "#f0f9ff";
+  });
+
+  // Reset isian
+  document.querySelectorAll("input[type=text]").forEach(inp => {
+    inp.value = "";
+    inp.classList.remove("correct", "wrong");
+  });
+
+  // Reset radio & checkbox
+  document.querySelectorAll("input[type=radio], input[type=checkbox]").forEach(inp => {
+    inp.checked = false;
+    inp.parentElement.style.color = "";
+    inp.parentElement.style.fontWeight = "";
+  });
+
+  // Reset matching
+  document.querySelectorAll(".match-item").forEach(item => {
+    item.style.background = "#f1f5f9";
+    item.style.borderColor = "#cbd5e1";
+    item.classList.remove("selected", "matched-correct");
+  });
+  document.getElementById("lines").innerHTML = "";
+
+  // Hide pembahasan
+  document.querySelectorAll(".explain").forEach(e => {
+    e.style.display = "none";
+  });
+
+  // Reset progress
+  document.getElementById("progressFill").style.width = "0%";
+  
+  totalScore = 0;
+  selectedLeft = null;
+
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+// ========== MATCHING ==========
+let selectedLeft = null;
+const svg = document.getElementById("lines");
+
+document.querySelectorAll(".left").forEach(item => {
+  item.addEventListener("click", () => {
+    if (item.classList.contains("matched-correct")) return;
+    
+    document.querySelectorAll(".left").forEach(i => i.classList.remove("selected"));
+    selectedLeft = item;
+    item.classList.add("selected");
+  });
+});
+
+document.querySelectorAll(".right").forEach(item => {
+  item.addEventListener("click", () => {
+    if (!selectedLeft || item.classList.contains("matched-correct")) return;
+
+    drawLine(selectedLeft, item);
+
+    if (selectedLeft.dataset.match === item.dataset.match) {
+      selectedLeft.style.background = "#d1fae5";
+      selectedLeft.style.borderColor = "#10b981";
+      selectedLeft.classList.add("matched-correct");
+      
+      item.style.background = "#d1fae5";
+      item.style.borderColor = "#10b981";
+      item.classList.add("matched-correct");
+    } else {
+      selectedLeft.style.background = "#fee2e2";
+      selectedLeft.style.borderColor = "#ef4444";
+      item.style.background = "#fee2e2";
+      item.style.borderColor = "#ef4444";
+      
+      setTimeout(() => {
+        if (!selectedLeft.classList.contains("matched-correct")) {
+          selectedLeft.style.background = "#f1f5f9";
+          selectedLeft.style.borderColor = "#cbd5e1";
+        }
+        if (!item.classList.contains("matched-correct")) {
+          item.style.background = "#f1f5f9";
+          item.style.borderColor = "#cbd5e1";
+        }
+      }, 1000);
+    }
+
+    selectedLeft.classList.remove("selected");
+    selectedLeft = null;
+  });
+});
+
+function drawLine(el1, el2) {
+  const r1 = el1.getBoundingClientRect();
+  const r2 = el2.getBoundingClientRect();
+  const svgRect = svg.getBoundingClientRect();
+
+  const x1 = r1.right - svgRect.left;
+  const y1 = r1.top + r1.height / 2 - svgRect.top;
+  const x2 = r2.left - svgRect.left;
+  const y2 = r2.top + r2.height / 2 - svgRect.top;
+
+  const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+  line.setAttribute("x1", x1);
+  line.setAttribute("y1", y1);
+  line.setAttribute("x2", x2);
+  line.setAttribute("y2", y2);
+  
+  const isCorrect = el1.dataset.match === el2.dataset.match;
+  line.setAttribute("stroke", isCorrect ? "#10b981" : "#ef4444");
+  line.setAttribute("stroke-width", "3");
+  line.setAttribute("stroke-linecap", "round");
+  
+  svg.appendChild(line);
+}
+
+// ========== ANIMATIONS ON LOAD ==========
+window.addEventListener("load", () => {
+  document.querySelectorAll(".card").forEach((card, index) => {
+    card.style.opacity = "0";
+    card.style.transform = "translateY(30px)";
+    
+    setTimeout(() => {
+      card.style.transition = "all 0.5s ease";
+      card.style.opacity = "1";
+      card.style.transform = "translateY(0)";
+    }, index * 100);
+  });
+});
+</script>
+
+</body>
+</html>

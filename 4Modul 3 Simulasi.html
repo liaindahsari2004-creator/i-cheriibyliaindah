@@ -1,0 +1,3679 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modul 3: Simulasi Hidrolisis Garam | Pembelajaran Kimia Interaktif</title>
+  <meta name="description" content="Simulasi interaktif submikroskopik dan makroskopik hidrolisis garam dalam air dengan visualisasi molekul H2O, kation, anion, dan transfer proton.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+/* ========================================================
+   Simulasi Hidrolisis Garam - Advanced Chemical Education UI
+   Modern Dark Glassmorphic Design System (All-in-One Standalone)
+   ======================================================== */
+
+:root {
+  --bg-primary: #070d18;
+  --bg-secondary: #0f172a;
+  --bg-card: rgba(15, 23, 42, 0.85);
+  --bg-card-hover: rgba(30, 41, 59, 0.85);
+  --border-subtle: rgba(255, 255, 255, 0.09);
+  --border-accent: rgba(56, 189, 248, 0.35);
+
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+
+  --accent-cyan: #38bdf8;
+  --accent-blue: #3b82f6;
+  --accent-purple: #a855f7;
+  --accent-emerald: #10b981;
+  --accent-amber: #f59e0b;
+  --accent-rose: #f43f5e;
+
+  /* Molecule Colors */
+  --color-oxygen: #ef4444;
+  --color-hydrogen: #e2e8f0;
+  --color-cation-default: #f59e0b;
+  --color-anion-default: #10b981;
+  --color-h3o: #f43f5e;
+  --color-oh: #06b6d4;
+
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-full: 9999px;
+
+  --font-main: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --shadow-glow-cyan: 0 0 25px rgba(56, 189, 248, 0.2);
+  --shadow-glow-purple: 0 0 25px rgba(168, 85, 247, 0.2);
+  --transition-smooth: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-main);
+  background: var(--bg-primary);
+  background-image: 
+    radial-gradient(circle at 15% 20%, rgba(56, 189, 248, 0.08) 0%, transparent 40%),
+    radial-gradient(circle at 85% 80%, rgba(168, 85, 247, 0.07) 0%, transparent 40%),
+    linear-gradient(to bottom, #070d18, #0a1122);
+  color: var(--text-primary);
+  min-height: 100vh;
+  line-height: 1.5;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ================= Header ================= */
+.app-header {
+  border-bottom: 1px solid var(--border-subtle);
+  background: rgba(7, 13, 24, 0.85);
+  backdrop-filter: blur(16px);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  padding: 12px 24px;
+}
+
+.header-container {
+  max-width: 1720px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.brand-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.4));
+  animation: logoPulse 4s ease-in-out infinite;
+}
+
+@keyframes logoPulse {
+  0%, 100% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.3)); }
+  50% { transform: scale(1.05); filter: drop-shadow(0 0 16px rgba(168, 85, 247, 0.5)); }
+}
+
+.brand-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, #ffffff 40%, #38bdf8 80%, #c084fc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.brand-subtitle {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.ph-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  background: rgba(15, 23, 42, 0.9);
+  border: 1px solid var(--border-subtle);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+.ph-label {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.ph-value {
+  font-family: var(--font-mono);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--accent-cyan);
+}
+
+.ph-status {
+  font-size: 0.72rem;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.ph-status.neutral {
+  background: rgba(16, 185, 129, 0.2);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.4);
+}
+
+.ph-status.basic {
+  background: rgba(56, 189, 248, 0.2);
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.4);
+}
+
+.ph-status.acidic {
+  background: rgba(244, 63, 94, 0.2);
+  color: #fb7185;
+  border: 1px solid rgba(244, 63, 94, 0.4);
+}
+
+.icon-btn {
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.icon-btn:hover {
+  color: var(--text-primary);
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.25);
+}
+
+.icon-btn.muted {
+  color: var(--text-muted);
+  opacity: 0.5;
+}
+
+/* ================= Main Layout ================= */
+.main-layout {
+  max-width: 1720px;
+  margin: 16px auto;
+  padding: 0 20px 24px;
+  display: grid;
+  grid-template-columns: 330px 1fr 390px;
+  gap: 20px;
+  align-items: start;
+}
+
+@media (max-width: 1400px) {
+  .main-layout {
+    grid-template-columns: 310px 1fr 340px;
+    gap: 16px;
+  }
+}
+
+@media (max-width: 1100px) {
+  .main-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ================= Cards & Panels ================= */
+.sidebar-panel,
+.details-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(12px);
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+  transition: var(--transition-smooth);
+}
+
+.card:hover {
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.card-header {
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.card-header h2, .card-header h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+}
+
+.card-icon {
+  font-size: 1.15rem;
+}
+
+.card-body {
+  padding: 16px;
+}
+
+.instruction-text {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+}
+
+/* Preset Salt Buttons */
+.preset-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.preset-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 10px 14px;
+  border-radius: var(--radius-md);
+  background: rgba(30, 41, 59, 0.45);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+  cursor: pointer;
+  text-align: left;
+  transition: var(--transition-smooth);
+  position: relative;
+  overflow: hidden;
+}
+
+.preset-btn:hover {
+  background: rgba(51, 65, 85, 0.6);
+  border-color: rgba(56, 189, 248, 0.4);
+  transform: translateY(-1px);
+}
+
+.preset-btn.active {
+  background: linear-gradient(135deg, rgba(56, 189, 248, 0.15), rgba(168, 85, 247, 0.1));
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 18px rgba(56, 189, 248, 0.25);
+}
+
+.preset-btn.active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--accent-cyan);
+}
+
+.preset-formula {
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.preset-name {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+}
+
+.preset-type {
+  font-size: 0.7rem;
+  font-weight: 600;
+  margin-top: 4px;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  display: inline-block;
+}
+
+.type-neutral {
+  background: rgba(16, 185, 129, 0.15);
+  color: #34d399;
+}
+.type-basic {
+  background: rgba(56, 189, 248, 0.15);
+  color: #38bdf8;
+}
+.type-acidic {
+  background: rgba(244, 63, 94, 0.15);
+  color: #fb7185;
+}
+.type-total {
+  background: rgba(168, 85, 247, 0.15);
+  color: #c084fc;
+}
+
+/* Custom Builder Styles */
+.custom-select-group {
+  margin-bottom: 14px;
+}
+
+.custom-select-group label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+
+.label-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.cation-dot { background: var(--accent-amber); box-shadow: 0 0 8px var(--accent-amber); }
+.anion-dot { background: var(--accent-emerald); box-shadow: 0 0 8px var(--accent-emerald); }
+
+.styled-select, .styled-select-sm {
+  width: 100%;
+  padding: 9px 12px;
+  background: rgba(15, 23, 42, 0.9);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-family: var(--font-main);
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.styled-select:focus, .styled-select-sm:focus {
+  outline: none;
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
+}
+
+.styled-select option {
+  background: #0f172a;
+  color: #ffffff;
+}
+
+.ion-badge {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  margin-top: 5px;
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+/* Info Summary Card */
+.equation-box {
+  margin-bottom: 12px;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.eq-label {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.eq-formula {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: #e2e8f0;
+  word-break: break-word;
+}
+
+.eq-formula.highlight {
+  color: var(--accent-cyan);
+  font-weight: 600;
+}
+
+.property-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.prop-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 10px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+}
+
+.prop-title {
+  color: var(--text-secondary);
+}
+
+.prop-val {
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+/* ================= Buttons ================= */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 9px 18px;
+  font-size: 0.84rem;
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  border: none;
+  font-family: var(--font-main);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #0284c7, #38bdf8);
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.35);
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #0369a1, #0ea5e9);
+  box-shadow: 0 6px 20px rgba(56, 189, 248, 0.5);
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background: rgba(30, 41, 59, 0.8);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+}
+
+.btn-secondary:hover {
+  background: rgba(51, 65, 85, 0.9);
+  border-color: var(--accent-purple);
+  box-shadow: 0 0 14px rgba(168, 85, 247, 0.3);
+}
+
+.btn-outline {
+  background: transparent;
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+}
+
+.btn-outline:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-primary);
+  border-color: var(--border-accent);
+}
+
+.w-full {
+  width: 100%;
+}
+
+/* ================= Simulation Area ================= */
+.simulation-area {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sim-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--bg-card);
+  padding: 10px 18px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.toolbar-left, .toolbar-center, .toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.step-indicator-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.step-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  background: linear-gradient(135deg, #a855f7, #6366f1);
+  color: #fff;
+  letter-spacing: 0.03em;
+}
+
+.step-title {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.speed-control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.styled-select-sm {
+  width: auto;
+  padding: 6px 10px;
+  font-size: 0.78rem;
+}
+
+/* Canvas Wrapper & Beaker Frame */
+.canvas-wrapper {
+  position: relative;
+  width: 100%;
+  height: 580px;
+  background: #050914;
+  border: 2px solid rgba(56, 189, 248, 0.25);
+  border-radius: 0 0 28px 28px;
+  box-shadow: 
+    inset 0 0 40px rgba(0, 0, 0, 0.8),
+    0 12px 40px rgba(0, 0, 0, 0.5),
+    0 0 30px rgba(56, 189, 248, 0.12);
+  overflow: hidden;
+  user-select: none;
+}
+
+/* Glass Beaker Rim & Lip Effect at top */
+.canvas-wrapper::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 10px;
+  background: linear-gradient(90deg, 
+    rgba(255, 255, 255, 0.1) 0%, 
+    rgba(56, 189, 248, 0.3) 25%, 
+    rgba(255, 255, 255, 0.4) 50%, 
+    rgba(56, 189, 248, 0.3) 75%, 
+    rgba(255, 255, 255, 0.1) 100%
+  );
+  border-radius: 6px 6px 0 0;
+  z-index: 10;
+  pointer-events: none;
+}
+
+#chemCanvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  cursor: grab;
+}
+
+#chemCanvas:active {
+  cursor: grabbing;
+}
+
+/* Beaker Overlays */
+.beaker-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* Solution Tint Layer */
+.beaker-solution-tint {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 82%;
+  background: linear-gradient(180deg, rgba(56, 189, 248, 0.05) 0%, rgba(16, 185, 129, 0.06) 100%);
+  transition: background 1.5s ease;
+  pointer-events: none;
+}
+
+/* Beaker Graduation Marks */
+.beaker-graduation {
+  position: absolute;
+  right: 20px;
+  bottom: 60px;
+  top: 140px;
+  width: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+  opacity: 0.35;
+}
+
+.beaker-graduation .mark {
+  border-bottom: 2px solid #ffffff;
+  width: 18px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  padding-right: 6px;
+}
+
+.beaker-graduation .mark:nth-child(even) {
+  width: 28px;
+}
+
+.beaker-graduation .mark span {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: #ffffff;
+  transform: translateY(-2px);
+  margin-right: 8px;
+}
+
+/* Digital pH Meter inside Canvas */
+.digital-ph-meter {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  z-index: 12;
+  pointer-events: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ph-probe-tip {
+  width: 6px;
+  height: 120px;
+  background: linear-gradient(180deg, #94a3b8 0%, #cbd5e1 90%, #38bdf8 100%);
+  border-radius: 3px;
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.4);
+  position: absolute;
+  top: 85px;
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.ph-screen {
+  background: rgba(10, 15, 30, 0.92);
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  border-radius: var(--radius-sm);
+  padding: 8px 12px;
+  width: 140px;
+  text-align: center;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.6);
+}
+
+.ph-screen-header {
+  font-size: 0.6rem;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  font-weight: 700;
+}
+
+.ph-screen-val {
+  font-family: var(--font-mono);
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--accent-cyan);
+  line-height: 1.1;
+  margin: 2px 0 6px;
+  text-shadow: 0 0 12px rgba(56, 189, 248, 0.5);
+  transition: color 0.6s ease;
+}
+
+.ph-screen-bar {
+  position: relative;
+  height: 6px;
+  border-radius: 3px;
+  background: linear-gradient(90deg, #f43f5e 0%, #fbbf24 35%, #10b981 50%, #38bdf8 75%, #8b5cf6 100%);
+  margin-bottom: 4px;
+}
+
+.ph-needle {
+  position: absolute;
+  top: -2px;
+  width: 4px;
+  height: 10px;
+  background: #ffffff;
+  border-radius: 2px;
+  box-shadow: 0 0 5px #ffffff;
+  transform: translateX(-50%);
+  transition: left 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.ph-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.55rem;
+  color: var(--text-muted);
+}
+
+/* Event Banner */
+.sim-banner {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  max-width: 380px;
+  background: rgba(15, 23, 42, 0.88);
+  border: 1px solid var(--border-accent);
+  border-radius: var(--radius-md);
+  padding: 10px 14px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+  pointer-events: auto;
+  transition: var(--transition-smooth);
+}
+
+.banner-icon {
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+.banner-title {
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: var(--accent-cyan);
+  margin-bottom: 2px;
+}
+
+.banner-desc {
+  font-size: 0.74rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+/* Tooltip on Canvas */
+.molecule-tooltip {
+  position: absolute;
+  display: none;
+  background: rgba(15, 23, 42, 0.95);
+  border: 1px solid var(--accent-cyan);
+  border-radius: var(--radius-sm);
+  padding: 8px 12px;
+  font-size: 0.76rem;
+  color: #fff;
+  z-index: 30;
+  pointer-events: none;
+  transform: translate(-50%, -120%);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.6);
+  white-space: nowrap;
+}
+
+.tooltip-header {
+  font-weight: 700;
+  color: var(--accent-cyan);
+  margin-bottom: 2px;
+}
+
+.tooltip-body {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+}
+
+/* Controls view overlay (Toggles at bottom of canvas) */
+.canvas-controls-overlay {
+  position: absolute;
+  bottom: 14px;
+  left: 18px;
+  display: flex;
+  gap: 8px;
+  z-index: 10;
+  pointer-events: auto;
+  flex-wrap: wrap;
+}
+
+.toggle-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid var(--border-subtle);
+  padding: 5px 10px;
+  border-radius: var(--radius-full);
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  backdrop-filter: blur(8px);
+}
+
+.toggle-pill:hover {
+  background: rgba(30, 41, 59, 0.9);
+  color: var(--text-primary);
+  border-color: var(--accent-cyan);
+}
+
+.toggle-pill input {
+  accent-color: var(--accent-cyan);
+  cursor: pointer;
+}
+
+/* Simulation Footer / Particle Counter */
+.sim-footer {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 10px 16px;
+}
+
+.particle-counter-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.counter-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+}
+
+.counter-badge strong {
+  font-family: var(--font-mono);
+  color: #fff;
+  font-size: 0.88rem;
+}
+
+.dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.dot-h2o { background: var(--color-oxygen); box-shadow: 0 0 6px var(--color-oxygen); }
+.dot-cation { background: var(--accent-amber); box-shadow: 0 0 6px var(--accent-amber); }
+.dot-anion { background: var(--accent-emerald); box-shadow: 0 0 6px var(--accent-emerald); }
+.dot-h3o { background: var(--color-h3o); box-shadow: 0 0 6px var(--color-h3o); }
+.dot-oh { background: var(--color-oh); box-shadow: 0 0 6px var(--color-oh); }
+.dot-prod { background: var(--accent-purple); box-shadow: 0 0 6px var(--accent-purple); }
+
+/* ================= Details Panel (Tabs) ================= */
+.tab-nav {
+  display: flex;
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 4px;
+  gap: 4px;
+}
+
+.tab-btn {
+  flex: 1;
+  padding: 8px 10px;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-family: var(--font-main);
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.tab-btn:hover {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.tab-btn.active {
+  background: linear-gradient(135deg, rgba(56, 189, 248, 0.2), rgba(168, 85, 247, 0.15));
+  color: var(--accent-cyan);
+  border: 1px solid rgba(56, 189, 248, 0.4);
+}
+
+.tab-pane {
+  display: none;
+}
+
+.tab-pane.active {
+  display: block;
+}
+
+.explanation-p {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin-bottom: 14px;
+}
+
+/* Molecule Legend */
+.molecule-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 10px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-sm);
+}
+
+.legend-preview {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.preview-h2o {
+  background: radial-gradient(circle at 35% 35%, #f87171, #dc2626);
+  border: 1px solid #ef4444;
+}
+
+.preview-cation {
+  background: radial-gradient(circle at 35% 35%, #fbbf24, #d97706);
+  box-shadow: 0 0 10px rgba(245, 158, 11, 0.5);
+}
+
+.preview-anion {
+  background: radial-gradient(circle at 35% 35%, #34d399, #059669);
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+}
+
+.preview-h3o {
+  background: radial-gradient(circle at 35% 35%, #fb7185, #e11d48);
+  box-shadow: 0 0 10px rgba(244, 63, 94, 0.5);
+}
+
+.preview-oh {
+  background: radial-gradient(circle at 35% 35%, #22d3ee, #0891b2);
+  box-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
+}
+
+.legend-text {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.76rem;
+}
+
+.legend-text strong {
+  color: var(--text-primary);
+}
+
+.legend-text span {
+  color: var(--text-muted);
+  font-size: 0.72rem;
+}
+
+.deep-dive-box {
+  background: rgba(56, 189, 248, 0.06);
+  border-left: 3px solid var(--accent-cyan);
+  padding: 10px 14px;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  font-size: 0.78rem;
+  line-height: 1.5;
+}
+
+.deep-dive-box h4 {
+  color: var(--accent-cyan);
+  font-size: 0.82rem;
+  margin-bottom: 4px;
+}
+
+.deep-dive-box p {
+  color: var(--text-secondary);
+}
+
+/* Symbolic block styling */
+.symbolic-block {
+  margin-bottom: 14px;
+}
+
+.symbolic-block h4 {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+}
+
+.code-math {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-sm);
+  padding: 8px 12px;
+  color: #38bdf8;
+  word-break: break-word;
+}
+
+/* Macroscopic View Tab */
+.macro-display {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: var(--radius-sm);
+}
+
+.beaker-mini-preview {
+  width: 50px;
+  height: 65px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 0 0 10px 10px;
+  position: relative;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.mini-water {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 70%;
+  background: rgba(16, 185, 129, 0.35);
+  transition: background 1s ease;
+}
+
+.macro-info h4 {
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.macro-info p {
+  font-size: 0.76rem;
+  color: var(--text-muted);
+}
+
+.indicator-table-wrapper {
+  overflow-x: auto;
+}
+
+.indicator-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.76rem;
+}
+
+.indicator-table th, .indicator-table td {
+  padding: 8px 10px;
+  text-align: left;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.indicator-table th {
+  color: var(--text-muted);
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.indicator-table td {
+  color: var(--text-secondary);
+}
+
+.indicator-table td:nth-child(2) {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* Quiz Tab */
+.quiz-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.quiz-question-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--accent-purple);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.quiz-question {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+  line-height: 1.45;
+}
+
+.quiz-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.quiz-option-btn {
+  text-align: left;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.quiz-option-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-primary);
+  border-color: var(--border-accent);
+}
+
+.quiz-option-btn.correct {
+  background: rgba(16, 185, 129, 0.2);
+  border-color: #10b981;
+  color: #34d399;
+}
+
+.quiz-option-btn.wrong {
+  background: rgba(244, 63, 94, 0.2);
+  border-color: #f43f5e;
+  color: #fb7185;
+}
+
+.quiz-feedback {
+  margin-top: 10px;
+  font-size: 0.78rem;
+  line-height: 1.4;
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  display: none;
+}
+
+.quiz-feedback.show {
+  display: block;
+}
+
+.quiz-feedback.success {
+  background: rgba(16, 185, 129, 0.15);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.quiz-feedback.error {
+  background: rgba(244, 63, 94, 0.15);
+  color: #fb7185;
+  border: 1px solid rgba(244, 63, 94, 0.3);
+}
+
+/* ========================================================
+   Integrasi Navigasi Website Pembelajaran Skripsi & Footer
+   ======================================================== */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.brand-site-logo {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.4));
+  flex-shrink: 0;
+  border-radius: 8px;
+}
+.site-nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: 6px;
+  flex-wrap: wrap;
+}
+.site-nav-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(30, 41, 59, 0.75);
+  color: var(--text-primary);
+  border: 1px solid var(--border-accent);
+  border-radius: var(--radius-full);
+  padding: 7px 15px;
+  font-family: var(--font-main);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.site-nav-btn:hover {
+  background: rgba(56, 189, 248, 0.22);
+  border-color: var(--accent-cyan);
+  color: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 0 14px rgba(56, 189, 248, 0.35);
+}
+.site-nav-btn svg {
+  flex-shrink: 0;
+}
+
+/* Modul Bottom Navigation */
+.module-bottom-nav {
+  max-width: 1720px;
+  margin: 24px auto 36px;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.btn-nav-module {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 26px;
+  border-radius: var(--radius-md);
+  font-size: 0.92rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: var(--transition-smooth);
+}
+.btn-nav-prev {
+  background: var(--bg-card);
+  color: var(--accent-cyan);
+  border: 1px solid var(--border-accent);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+}
+.btn-nav-prev:hover {
+  background: rgba(56, 189, 248, 0.16);
+  border-color: var(--accent-cyan);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 22px rgba(56, 189, 248, 0.35);
+}
+.btn-nav-next {
+  background: linear-gradient(135deg, #0284c7, #38bdf8);
+  color: #ffffff;
+  border: 1px solid transparent;
+  box-shadow: 0 4px 18px rgba(2, 132, 199, 0.45);
+}
+.btn-nav-next:hover {
+  background: linear-gradient(135deg, #0369a1, #0ea5e9);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 26px rgba(56, 189, 248, 0.6);
+}
+
+/* Site Footer */
+.site-footer {
+  border-top: 1px solid var(--border-subtle);
+  background: rgba(7, 13, 24, 0.96);
+  backdrop-filter: blur(12px);
+  color: var(--text-muted);
+  text-align: center;
+  padding: 24px 20px;
+  font-size: 0.85rem;
+}
+
+@media (max-width: 900px) {
+  .header-container {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+  .header-actions {
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  .site-nav-menu {
+    margin-left: 0;
+    width: 100%;
+    justify-content: center;
+  }
+  .module-bottom-nav {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .btn-nav-module {
+    justify-content: center;
+  }
+}
+  </style>
+</head>
+<body>
+  <!-- Header App -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="brand">
+        <img src="logo um rev.png" alt="Logo UM" class="brand-site-logo" onerror="this.style.display='none'">
+        <div class="brand-logo">
+          <svg viewBox="0 0 40 40" width="36" height="36" fill="none">
+            <circle cx="20" cy="20" r="18" stroke="url(#logo-grad)" stroke-width="2.5" stroke-dasharray="4 2"/>
+            <circle cx="14" cy="16" r="6" fill="#ef4444"/>
+            <circle cx="26" cy="14" r="4.5" fill="#38bdf8"/>
+            <circle cx="22" cy="26" r="5" fill="#10b981"/>
+            <path d="M14 16 L22 26 M26 14 L22 26" stroke="#94a3b8" stroke-width="1.5" stroke-linecap="round"/>
+            <defs>
+              <linearGradient id="logo-grad" x1="0" y1="0" x2="40" y2="40">
+                <stop stop-color="#38bdf8"/>
+                <stop offset="1" stop-color="#a855f7"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <div>
+          <h1 class="brand-title">ChemLab: Hidrolisis Garam</h1>
+          <p class="brand-subtitle">Modul 3: Visualisasi Simulasi Molekuler (Submikroskopik &bull; Simbolik &bull; Makroskopik)</p>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <div class="ph-badge" id="headerPhBadge">
+          <span class="ph-label">pH Larutan:</span>
+          <span class="ph-value" id="headerPhVal">7.00</span>
+          <span class="ph-status neutral" id="headerPhStatus">Netral</span>
+        </div>
+        <button id="soundToggleBtn" class="icon-btn" title="Aktifkan/Matikan Suara Audio Sintesis" aria-label="Toggle Sound">
+          <svg id="soundIcon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+          </svg>
+        </button>
+
+        <nav class="site-nav-menu" aria-label="Navigasi Website">
+          <button class="site-nav-btn" onclick="history.back()" title="Kembali ke halaman sebelumnya">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+            Kembali
+          </button>
+          <button class="site-nav-btn" onclick="location.href='2Beranda.html'" title="Halaman Utama Beranda">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+            Beranda
+          </button>
+          <button class="site-nav-btn" onclick="location.href='2Profil.html'" title="Profil Pengembang">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            Profil
+          </button>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-layout">
+    <!-- Kolom Kiri: Kontrol & Pilihan Garam -->
+    <aside class="sidebar-panel">
+      <!-- Preset Garam Card -->
+      <section class="card control-card">
+        <div class="card-header">
+          <span class="card-icon">🧪</span>
+          <h2>Pilih Garam (Preset)</h2>
+        </div>
+        <div class="card-body">
+          <p class="instruction-text">Pilih contoh garam umum untuk melihat tipe hidrolisisnya:</p>
+          <div class="preset-grid" id="presetButtons">
+            <button class="preset-btn active" data-preset="nacl">
+              <span class="preset-formula">NaCl</span>
+              <span class="preset-name">Natrium Klorida</span>
+              <span class="preset-type type-neutral">Tidak Terhidrolisis</span>
+            </button>
+            <button class="preset-btn" data-preset="ch3coona">
+              <span class="preset-formula">CH₃COONa</span>
+              <span class="preset-name">Natrium Asetat</span>
+              <span class="preset-type type-basic">Hidrolisis Anion (Basa)</span>
+            </button>
+            <button class="preset-btn" data-preset="nh4cl">
+              <span class="preset-formula">NH₄Cl</span>
+              <span class="preset-name">Amonium Klorida</span>
+              <span class="preset-type type-acidic">Hidrolisis Kation (Asam)</span>
+            </button>
+            <button class="preset-btn" data-preset="ch3coonh4">
+              <span class="preset-formula">CH₃COONH₄</span>
+              <span class="preset-name">Amonium Asetat</span>
+              <span class="preset-type type-total">Hidrolisis Total</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Custom Builder Card -->
+      <section class="card control-card">
+        <div class="card-header">
+          <span class="card-icon">⚡</span>
+          <h2>Rancang Sendiri (Custom)</h2>
+        </div>
+        <div class="card-body">
+          <p class="instruction-text">Kombinasikan kation dan anion pilihan Anda:</p>
+          
+          <div class="custom-select-group">
+            <label for="cationSelect">
+              <span class="label-dot cation-dot"></span>
+              <strong>Pilih Kation (+)</strong>
+            </label>
+            <select id="cationSelect" class="styled-select">
+              <option value="Na" selected>Na⁺ (dari Basa Kuat: NaOH - Tak Terhidrolisis)</option>
+              <option value="K">K⁺ (dari Basa Kuat: KOH - Tak Terhidrolisis)</option>
+              <option value="NH4">NH₄⁺ (dari Basa Lemah: NH₃ - Terhidrolisis)</option>
+              <option value="Ca">Ca²⁺ (dari Basa Kuat: Ca(OH)₂ - Tak Terhidrolisis)</option>
+              <option value="Al">Al³⁺ (dari Basa Lemah: Al(OH)₃ - Terhidrolisis)</option>
+            </select>
+            <div class="ion-badge" id="cationBadge">Asal: Basa Kuat &bull; Tidak Bereaksi dengan H₂O</div>
+          </div>
+
+          <div class="custom-select-group">
+            <label for="anionSelect">
+              <span class="label-dot anion-dot"></span>
+              <strong>Pilih Anion (-)</strong>
+            </label>
+            <select id="anionSelect" class="styled-select">
+              <option value="Cl" selected>Cl⁻ (dari Asam Kuat: HCl - Tak Terhidrolisis)</option>
+              <option value="NO3">NO₃⁻ (dari Asam Kuat: HNO₃ - Tak Terhidrolisis)</option>
+              <option value="CH3COO">CH₃COO⁻ (dari Asam Lemah: CH₃COOH - Terhidrolisis)</option>
+              <option value="CN">CN⁻ (dari Asam Lemah: HCN - Terhidrolisis)</option>
+              <option value="F">F⁻ (dari Asam Lemah: HF - Terhidrolisis)</option>
+            </select>
+            <div class="ion-badge" id="anionBadge">Asal: Asam Kuat &bull; Tidak Bereaksi dengan H₂O</div>
+          </div>
+
+          <button id="applyCustomBtn" class="btn btn-secondary w-full">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 5v14M5 12h14"/>
+            </svg>
+            Gunakan Kombinasi Ini
+          </button>
+        </div>
+      </section>
+
+      <!-- Panel Informasi Reaksi Cepat -->
+      <section class="card info-summary-card">
+        <div class="card-header">
+          <span class="card-icon">📋</span>
+          <h2>Ringkasan Reaksi</h2>
+        </div>
+        <div class="card-body">
+          <div class="equation-box">
+            <span class="eq-label">Ionisasi Garam:</span>
+            <div class="eq-formula" id="eqIonization">NaCl(s) &rarr; Na⁺(aq) + Cl⁻(aq)</div>
+          </div>
+          <div class="equation-box">
+            <span class="eq-label">Reaksi Hidrolisis:</span>
+            <div class="eq-formula highlight" id="eqHydrolysis">Tidak ada kation maupun anion yang bereaksi dengan H₂O</div>
+          </div>
+          <div class="property-grid">
+            <div class="prop-item">
+              <span class="prop-title">Sifat Larutan:</span>
+              <span class="prop-val" id="propNature">Netral (pH = 7)</span>
+            </div>
+            <div class="prop-item">
+              <span class="prop-title">Tipe Hidrolisis:</span>
+              <span class="prop-val" id="propType">Tidak Terhidrolisis</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </aside>
+
+    <!-- Area Tengah: Simulasi Kanvas Beaker & Animasi Molekul -->
+    <section class="simulation-area">
+      <!-- Toolbar Atas Kanvas -->
+      <div class="sim-toolbar">
+        <div class="toolbar-left">
+          <div class="step-indicator-wrapper">
+            <span class="step-badge" id="currentStepBadge">Tahap 1</span>
+            <span class="step-title" id="currentStepTitle">Air Murni (Molekul H₂O)</span>
+          </div>
+        </div>
+
+        <div class="toolbar-center">
+          <button id="btnMixSalt" class="btn btn-primary" title="Masukkan kristal garam ke wadah air">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2v10M12 12l4-4M12 12l-4-4"/>
+              <path d="M4 14v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4"/>
+            </svg>
+            Campurkan Garam ke Air
+          </button>
+          <button id="btnPlayPause" class="btn btn-outline" title="Putar atau jeda animasi">
+            <svg id="playPauseIcon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>
+            </svg>
+            <span id="playPauseText">Jeda</span>
+          </button>
+          <button id="btnReset" class="btn btn-outline" title="Kembalikan ke air murni">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+              <path d="M3 3v5h5"/>
+            </svg>
+            Reset
+          </button>
+        </div>
+
+        <div class="toolbar-right">
+          <div class="speed-control">
+            <label for="speedSelect">Kecepatan:</label>
+            <select id="speedSelect" class="styled-select-sm">
+              <option value="0.25">0.25x (Super Lambat)</option>
+              <option value="0.5">0.5x (Lambat)</option>
+              <option value="1" selected>1.0x (Normal)</option>
+              <option value="1.5">1.5x (Cepat)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Kanvas Container Interaktif -->
+      <div class="canvas-wrapper" id="canvasWrapper">
+        <canvas id="chemCanvas"></canvas>
+
+        <!-- Overlay Beaker Details -->
+        <div class="beaker-overlay">
+          <!-- Indikator Warna Larutan (Macroscopic) -->
+          <div class="beaker-solution-tint" id="solutionTint"></div>
+          
+          <!-- Skala Ukur Gelas Kimia (Beaker markings) -->
+          <div class="beaker-graduation">
+            <div class="mark"><span>250 mL</span></div>
+            <div class="mark"><span>200 mL</span></div>
+            <div class="mark"><span>150 mL</span></div>
+            <div class="mark"><span>100 mL</span></div>
+            <div class="mark"><span>50 mL</span></div>
+          </div>
+
+          <!-- Macroscopic pH meter overlay -->
+          <div class="digital-ph-meter">
+            <div class="ph-probe-wire"></div>
+            <div class="ph-probe-tip"></div>
+            <div class="ph-screen">
+              <div class="ph-screen-header">DIGITAL pH METER</div>
+              <div class="ph-screen-val" id="canvasPhValue">7.00</div>
+              <div class="ph-screen-bar">
+                <div class="ph-needle" id="phNeedle" style="left: 50%;"></div>
+              </div>
+              <div class="ph-labels">
+                <span>0 (Asam)</span>
+                <span>7</span>
+                <span>14 (Basa)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Notification Event Banner -->
+          <div class="sim-banner" id="simBanner">
+            <div class="banner-icon" id="bannerIcon">💧</div>
+            <div class="banner-content">
+              <div class="banner-title" id="bannerTitle">Air Murni (H₂O)</div>
+              <div class="banner-desc" id="bannerDesc">Wadah berisi molekul air polar H₂O yang terus bergerak secara acak. Klik "Campurkan Garam ke Air" untuk memulai.</div>
+            </div>
+          </div>
+
+          <!-- Molecule Focus Card on Hover/Click -->
+          <div class="molecule-tooltip" id="moleculeTooltip">
+            <div class="tooltip-header" id="tooltipHeader">Molekul H₂O</div>
+            <div class="tooltip-body" id="tooltipBody">1 Atom Oksigen (Merah, &delta;-) + 2 Atom Hidrogen (Putih, &delta;+)</div>
+          </div>
+        </div>
+
+        <!-- Controls View Overlay (Toggles for labels, dipoles, etc.) -->
+        <div class="canvas-controls-overlay">
+          <label class="toggle-pill" title="Tampilkan/Sembunyikan label nama molekul">
+            <input type="checkbox" id="toggleLabels" checked>
+            <span>Label Molekul</span>
+          </label>
+          <label class="toggle-pill" title="Tampilkan kutub muatan parsial &delta;+ dan &delta;- pada air">
+            <input type="checkbox" id="toggleDipoles" checked>
+            <span>Dipol Polar (&delta;&plus;/&delta;&minus;)</span>
+          </label>
+          <label class="toggle-pill" title="Sorot reaksi transfer proton jika terjadi">
+            <input type="checkbox" id="toggleSlowMotionOnReaction" checked>
+            <span>Auto-Sorot Reaksi</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Live Particle Counter & Johnstone Triangle Explorer -->
+      <div class="sim-footer">
+        <div class="particle-counter-bar">
+          <div class="counter-badge" title="Molekul Air Utuh">
+            <span class="dot dot-h2o"></span> H₂O: <strong id="countH2O">26</strong>
+          </div>
+          <div class="counter-badge" title="Kation Garam">
+            <span class="dot dot-cation"></span> Kation (<span id="cationSymbol">Na⁺</span>): <strong id="countCation">0</strong>
+          </div>
+          <div class="counter-badge" title="Anion Garam">
+            <span class="dot dot-anion"></span> Anion (<span id="anionSymbol">Cl⁻</span>): <strong id="countAnion">0</strong>
+          </div>
+          <div class="counter-badge" title="Ion Hidronium (Asam)">
+            <span class="dot dot-h3o"></span> H₃O⁺ / H⁺: <strong id="countH3O">0</strong>
+          </div>
+          <div class="counter-badge" title="Ion Hidroksida (Basa)">
+            <span class="dot dot-oh"></span> OH⁻: <strong id="countOH">0</strong>
+          </div>
+          <div class="counter-badge" title="Molekul Hasil Hidrolisis (Netral)">
+            <span class="dot dot-prod"></span> Produk Hidrolisis: <strong id="countProduct">0</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Kolom Kanan: Penjelasan 3 Tingkat Kimia (Johnstone) & Panduan Molekul -->
+    <aside class="details-panel">
+      <!-- Tabs Header -->
+      <div class="tab-nav">
+        <button class="tab-btn active" data-tab="submicroscopic">Submikroskopik</button>
+        <button class="tab-btn" data-tab="symbolic">Simbolik</button>
+        <button class="tab-btn" data-tab="macroscopic">Makroskopik</button>
+        <button class="tab-btn" data-tab="quiz">Kuis & Uji</button>
+      </div>
+
+      <!-- Tab Content 1: Submikroskopik -->
+      <div class="tab-pane active" id="tabSubmicroscopic">
+        <div class="card detail-card">
+          <div class="card-header">
+            <h3>🔬 Panduan Tingkat Molekul (Submikroskopik)</h3>
+          </div>
+          <div class="card-body">
+            <p class="explanation-p" id="submicroscopicText">
+              Molekul air (H₂O) memiliki bentuk bengkok (bent angle ~104.5&deg;) dengan atom Oksigen elektronegatif bermuatan parsial negatif (&delta;&minus;) dan dua atom Hidrogen bermuatan parsial positif (&delta;&plus;).
+            </p>
+
+            <div class="molecule-legend">
+              <div class="legend-item">
+                <div class="legend-preview preview-h2o"></div>
+                <div class="legend-text">
+                  <strong>Air (H₂O)</strong>
+                  <span>1 Oksigen (Merah, &delta;&minus;) + 2 Hidrogen (Putih, &delta;&plus;)</span>
+                </div>
+              </div>
+
+              <div class="legend-item">
+                <div class="legend-preview preview-cation" id="legendCationPreview"></div>
+                <div class="legend-text">
+                  <strong id="legendCationName">Kation Na⁺</strong>
+                  <span id="legendCationDesc">Kation stabil, ditarik oleh kutub O (&delta;&minus;) tetapi tidak merebut OH⁻.</span>
+                </div>
+              </div>
+
+              <div class="legend-item">
+                <div class="legend-preview preview-anion" id="legendAnionPreview"></div>
+                <div class="legend-text">
+                  <strong id="legendAnionName">Anion Cl⁻</strong>
+                  <span id="legendAnionDesc">Anion stabil, ditarik oleh kutub H (&delta;&plus;) tetapi tidak merebut H⁺.</span>
+                </div>
+              </div>
+
+              <div class="legend-item" id="legendHydronium" style="display:none;">
+                <div class="legend-preview preview-h3o"></div>
+                <div class="legend-text">
+                  <strong>Ion Hidronium (H₃O⁺)</strong>
+                  <span>H₂O yang menerima proton H⁺ (Penyebab larutan bersifat ASAM).</span>
+                </div>
+              </div>
+
+              <div class="legend-item" id="legendHydroxide" style="display:none;">
+                <div class="legend-preview preview-oh"></div>
+                <div class="legend-text">
+                  <strong>Ion Hidroksida (OH⁻)</strong>
+                  <span>Sisa H₂O setelah H⁺ diambil oleh anion basa konjugat (Penyebab larutan bersifat BASA).</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="deep-dive-box" id="mechanismExplanation">
+              <h4>🔍 Mengapa NaCl Tidak Bereaksi dengan H₂O?</h4>
+              <p>
+                Na⁺ berasal dari basa kuat NaOH dan Cl⁻ berasal dari asam kuat HCl. Dalam air, daya tarik ikatan antara Na⁺ dengan OH⁻ maupun Cl⁻ dengan H⁺ <strong>sangat lemah</strong> dibandingkan ikatan kovalen O-H dalam air. Oleh karena itu, molekul air hanya membentuk <em>lapisan hidrasi (solvasi)</em> di sekeliling ion tanpa memutus ikatan O-H.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab Content 2: Simbolik -->
+      <div class="tab-pane" id="tabSymbolic">
+        <div class="card detail-card">
+          <div class="card-header">
+            <h3>📝 Tingkat Simbolik (Persamaan & Rumus)</h3>
+          </div>
+          <div class="card-body">
+            <div class="symbolic-block">
+              <h4>1. Persamaan Disosiasi / Ionisasi:</h4>
+              <div class="code-math" id="symbIonization">NaCl(s) &rarr; Na⁺(aq) + Cl⁻(aq)</div>
+            </div>
+
+            <div class="symbolic-block">
+              <h4>2. Reaksi Ion Terhadap Air:</h4>
+              <div class="code-math" id="symbCationRxn">Na⁺(aq) + H₂O(l) &rarr; (Tidak Bereaksi)</div>
+              <div class="code-math" id="symbAnionRxn">Cl⁻(aq) + H₂O(l) &rarr; (Tidak Bereaksi)</div>
+            </div>
+
+            <div class="symbolic-block">
+              <h4>3. Persamaan Tetapan Hidrolisis (Kₕ):</h4>
+              <div class="code-math" id="symbKh">Tidak ada Kₕ karena garam tidak terhidrolisis.</div>
+            </div>
+
+            <div class="symbolic-block">
+              <h4>4. Rumus Perhitungan pH:</h4>
+              <div class="code-math" id="symbPhFormula">[H⁺] = [OH⁻] = 10⁻⁷ M &rArr; pH = -log(10⁻⁷) = 7.00</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab Content 3: Makroskopik -->
+      <div class="tab-pane" id="tabMacroscopic">
+        <div class="card detail-card">
+          <div class="card-header">
+            <h3>👁️ Tingkat Pengamatan Nyata (Makroskopik)</h3>
+          </div>
+          <div class="card-body">
+            <div class="macro-display">
+              <div class="beaker-mini-preview" id="miniBeakerColor">
+                <div class="mini-water" id="miniWaterTint"></div>
+              </div>
+              <div class="macro-info">
+                <h4 id="macroTitle">Larutan Netral (pH ~ 7)</h4>
+                <p id="macroDesc">Larutan tidak berwarna bening, tidak mengubah kertas lakmus.</p>
+              </div>
+            </div>
+
+            <div class="indicator-table-wrapper">
+              <table class="indicator-table">
+                <thead>
+                  <tr>
+                    <th>Indikator</th>
+                    <th>Warna Pengamatan</th>
+                    <th>Interpretasi</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Kertas Lakmus Merah</td>
+                    <td id="lakmusMerah">Tetap Merah</td>
+                    <td id="interpMerah">Bukan Basa</td>
+                  </tr>
+                  <tr>
+                    <td>Kertas Lakmus Biru</td>
+                    <td id="lakmusBiru">Tetap Biru</td>
+                    <td id="interpBiru">Bukan Asam</td>
+                  </tr>
+                  <tr>
+                    <td>Indikator Universal</td>
+                    <td id="indUniversal">Hijau (pH 7)</td>
+                    <td>Netral</td>
+                  </tr>
+                  <tr>
+                    <td>Fenolftalein (PP)</td>
+                    <td id="indPP">Tidak Berwarna</td>
+                    <td>pH &lt; 8.3</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab Content 4: Kuis Interaktif -->
+      <div class="tab-pane" id="tabQuiz">
+        <div class="card detail-card">
+          <div class="card-header">
+            <h3>🎯 Uji Pemahaman Konsep</h3>
+          </div>
+          <div class="card-body">
+            <div class="quiz-container" id="quizContainer">
+              <div class="quiz-question-badge">Soal Interaktif</div>
+              <p class="quiz-question" id="quizQuestion">
+                Jika garam CH₃COONa dilarutkan ke dalam air murni, ion manakah yang bereaksi dengan molekul H₂O dan apakah sifat larutannya?
+              </p>
+              <div class="quiz-options" id="quizOptions">
+                <!-- Di-generate lewat JavaScript -->
+              </div>
+              <div class="quiz-feedback" id="quizFeedback"></div>
+              <button id="nextQuizBtn" class="btn btn-outline w-full" style="display:none; margin-top:12px;">Soal Berikutnya &rarr;</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <!-- Navigasi Bawah Antar-Modul -->
+  <div class="module-bottom-nav">
+    <a href="4Modul 2 Teori.html" class="btn-nav-module btn-nav-prev" title="Kembali ke Modul 2 Teori">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="19" y1="12" x2="5" y2="12"></line>
+        <polyline points="12 19 5 12 12 5"></polyline>
+      </svg>
+      <span>Kembali ke Modul 2: Teori</span>
+    </a>
+
+    <a href="4Modul 4 LKPD.html" class="btn-nav-module btn-nav-next" title="Lanjut ke Modul 4 Lembar Kerja Peserta Didik">
+      <span>Lanjut ke Modul 4: LKPD</span>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="5" y1="12" x2="19" y2="12"></line>
+        <polyline points="12 5 19 12 12 19"></polyline>
+      </svg>
+    </a>
+  </div>
+
+  <!-- Footer Modul Kimia -->
+  <footer class="site-footer">
+    <div>&copy; 2026 Tsary &bull; Sumari &bull; Departemen Kimia &bull; Universitas Negeri Malang</div>
+  </footer>
+
+  <!-- ==================== SCRIPT KIMIA & SIMULASI (ALL IN ONE) ==================== -->
+  <script>
+/**
+ * 1. Database Kimia: Hidrolisis Garam
+ */
+const CHEMISTRY_DATA = {
+  cations: {
+    Na: {
+      id: "Na",
+      formula: "Na⁺",
+      name: "Natrium",
+      charge: 1,
+      source: "NaOH (Basa Kuat)",
+      sourceType: "strong",
+      hydrolyzes: false,
+      color: "#f59e0b",
+      radius: 12,
+      desc: "Kation dari basa kuat. Memiliki afinitas yang sangat rendah terhadap OH⁻ sehingga TIDAK dapat memecah ikatan molekul H₂O.",
+      rxnHtml: "Na⁺(aq) + H₂O(l) &rarr; <em>(Tidak Bereaksi)</em>"
+    },
+    K: {
+      id: "K",
+      formula: "K⁺",
+      name: "Kalium",
+      charge: 1,
+      source: "KOH (Basa Kuat)",
+      sourceType: "strong",
+      hydrolyzes: false,
+      color: "#fb923c",
+      radius: 14,
+      desc: "Kation dari basa kuat golongan alkali. Stabil dalam air dan hanya mengalami hidrasi tanpa reaksi kimia.",
+      rxnHtml: "K⁺(aq) + H₂O(l) &rarr; <em>(Tidak Bereaksi)</em>"
+    },
+    NH4: {
+      id: "NH4",
+      formula: "NH₄⁺",
+      name: "Amonium",
+      charge: 1,
+      source: "NH₃ / NH₄OH (Basa Lemah)",
+      sourceType: "weak",
+      hydrolyzes: true,
+      color: "#06b6d4",
+      radius: 14,
+      desc: "Asam konjugat dari basa lemah NH₃. Mampu mentransfer proton (H⁺) ke molekul H₂O, menghasilkan ion hidronium (H₃O⁺) sehingga larutan bersifat ASAM.",
+      productFormula: "NH₃",
+      productName: "Amonia (NH₃)",
+      rxnHtml: "NH₄⁺(aq) + H₂O(l) &rightleftharpoons; NH₃(aq) + H₃O⁺(aq)"
+    },
+    Ca: {
+      id: "Ca",
+      formula: "Ca²⁺",
+      name: "Kalsium",
+      charge: 2,
+      source: "Ca(OH)₂ (Basa Kuat)",
+      sourceType: "strong",
+      hydrolyzes: false,
+      color: "#eab308",
+      radius: 15,
+      desc: "Kation bervalensi 2 dari basa kuat. Tidak terhidrolisis dalam larutan encer.",
+      rxnHtml: "Ca²⁺(aq) + H₂O(l) &rarr; <em>(Tidak Bereaksi)</em>"
+    },
+    Al: {
+      id: "Al",
+      formula: "Al³⁺",
+      name: "Aluminium",
+      charge: 3,
+      source: "Al(OH)₃ (Basa Lemah)",
+      sourceType: "weak",
+      hydrolyzes: true,
+      color: "#38bdf8",
+      radius: 13,
+      desc: "Kation bervalensi 3 berkerapatan muatan tinggi. Menarik pasangan elektron O pada H₂O dan melepaskan H⁺ (hidrolisis kation asam).",
+      productFormula: "Al(OH)²⁺",
+      productName: "Kompleks Al-Hidroksi",
+      rxnHtml: "Al³⁺(aq) + 3H₂O(l) &rightleftharpoons; Al(OH)₃(s) + 3H⁺(aq)"
+    }
+  },
+
+  anions: {
+    Cl: {
+      id: "Cl",
+      formula: "Cl⁻",
+      name: "Klorida",
+      charge: -1,
+      source: "HCl (Asam Kuat)",
+      sourceType: "strong",
+      hydrolyzes: false,
+      color: "#10b981",
+      radius: 14,
+      desc: "Basa konjugat yang sangat lemah dari asam kuat HCl. Tidak mampu menarik proton H⁺ dari H₂O.",
+      rxnHtml: "Cl⁻(aq) + H₂O(l) &rarr; <em>(Tidak Bereaksi)</em>"
+    },
+    NO3: {
+      id: "NO3",
+      formula: "NO₃⁻",
+      name: "Nitrat",
+      charge: -1,
+      source: "HNO₃ (Asam Kuat)",
+      sourceType: "strong",
+      hydrolyzes: false,
+      color: "#34d399",
+      radius: 15,
+      desc: "Anion dari asam kuat HNO₃. Muatan tersebar secara resonansi sehingga afinitas terhadap proton sangat lemah, tidak terhidrolisis.",
+      rxnHtml: "NO₃⁻(aq) + H₂O(l) &rarr; <em>(Tidak Bereaksi)</em>"
+    },
+    CH3COO: {
+      id: "CH3COO",
+      formula: "CH₃COO⁻",
+      name: "Asetat",
+      charge: -1,
+      source: "CH₃COOH (Asam Lemah)",
+      sourceType: "weak",
+      hydrolyzes: true,
+      color: "#a855f7",
+      radius: 16,
+      desc: "Basa konjugat dari asam lemah asam asetat. Mampu merebut proton (H⁺) dari molekul air H₂O, melepaskan ion OH⁻ sehingga larutan bersifat BASA.",
+      productFormula: "CH₃COOH",
+      productName: "Asam Asetat (CH₃COOH)",
+      rxnHtml: "CH₃COO⁻(aq) + H₂O(l) &rightleftharpoons; CH₃COOH(aq) + OH⁻(aq)"
+    },
+    CN: {
+      id: "CN",
+      formula: "CN⁻",
+      name: "Sianida",
+      charge: -1,
+      source: "HCN (Asam Lemah)",
+      sourceType: "weak",
+      hydrolyzes: true,
+      color: "#c084fc",
+      radius: 13,
+      desc: "Basa konjugat dari asam sangat lemah HCN. Bereaksi dengan molekul air membentuk HCN dan menghasilkan ion hidroksida OH⁻ (basa kuat).",
+      productFormula: "HCN",
+      productName: "Asam Sianida (HCN)",
+      rxnHtml: "CN⁻(aq) + H₂O(l) &rightleftharpoons; HCN(aq) + OH⁻(aq)"
+    },
+    F: {
+      id: "F",
+      formula: "F⁻",
+      name: "Fluorida",
+      charge: -1,
+      source: "HF (Asam Lemah)",
+      sourceType: "weak",
+      hydrolyzes: true,
+      color: "#818cf8",
+      radius: 12,
+      desc: "Anion berkerapatan muatan tinggi dari asam lemah HF. Mampu mengikat H⁺ dari air dan melepaskan OH⁻.",
+      productFormula: "HF",
+      productName: "Asam Fluorida (HF)",
+      rxnHtml: "F⁻(aq) + H₂O(l) &rightleftharpoons; HF(aq) + OH⁻(aq)"
+    }
+  },
+
+  presets: {
+    nacl: {
+      id: "nacl",
+      formula: "NaCl",
+      name: "Natrium Klorida",
+      cationId: "Na",
+      anionId: "Cl",
+      nature: "Netral",
+      ph: 7.00,
+      hydrolysisType: "Tidak Terhidrolisis",
+      universalColor: "Hijau Zamrud",
+      lakmusMerah: "Tetap Merah",
+      lakmusBiru: "Tetap Biru",
+      deepDive: `
+        <h4>🔍 Mekanisme Molekuler NaCl dalam Air:</h4>
+        <p>1. Kristal garam NaCl larut dan terdisosiasi sempurna menjadi ion <strong>Na⁺</strong> dan <strong>Cl⁻</strong>.</p>
+        <p>2. Molekul-molekul polar H₂O mengelilingi ion-ion tersebut (proses solvasi/hidrasi): kutub negatif oksigen (&delta;-) mengarah ke kation Na⁺, sedangkan kutub positif hidrogen (&delta;+) mengarah ke anion Cl⁻.</p>
+        <p>3. <strong>TIDAK TERJADI PEMUTUSAN IKATAN AIR</strong>: Karena NaOH dan HCl adalah elektrolit kuat, afinitas Na⁺ terhadap OH⁻ dan Cl⁻ terhadap H⁺ jauh lebih kecil daripada stabilitas ikatan O-H molekul air. Akibatnya, konsentrasi [H⁺] dan [OH⁻] tetap seimbang pada 10⁻⁷ M (pH = 7.00, netral).</p>
+      `,
+      khFormula: "Tidak memiliki tetapan hidrolisis (Kh = 0)",
+      phFormula: "[H⁺] = [OH⁻] = 1.0 &times; 10⁻⁷ M &rArr; pH = 7.00"
+    },
+    ch3coona: {
+      id: "ch3coona",
+      formula: "CH₃COONa",
+      name: "Natrium Asetat",
+      cationId: "Na",
+      anionId: "CH3COO",
+      nature: "Basa",
+      ph: 8.87,
+      hydrolysisType: "Hidrolisis Sebagian (Parsial Anion)",
+      universalColor: "Biru Muda Terang",
+      lakmusMerah: "Berubah Menjadi BIRU",
+      lakmusBiru: "Tetap Biru",
+      deepDive: `
+        <h4>🔍 Mekanisme Molekuler CH₃COONa dalam Air:</h4>
+        <p>1. Garam terdisosiasi menjadi ion <strong>Na⁺</strong> dan <strong>CH₃COO⁻</strong>.</p>
+        <p>2. Ion Na⁺ (dari basa kuat NaOH) stabil dan <em>tidak bereaksi</em> dengan air.</p>
+        <p>3. Ion CH₃COO⁻ (basa konjugat dari asam lemah CH₃COOH) memiliki afinitas terhadap proton. Saat bertumbukan dengan molekul H₂O, ion CH₃COO⁻ <strong>merebut satu proton H⁺</strong> dari molekul H₂O membentuk molekul netral CH₃COOH.</p>
+        <p>4. Molekul air yang kehilangan H⁺ berubah menjadi <strong>ion hidroksida (OH⁻)</strong> bebas. Keberadaan kelebihan ion OH⁻ inilah yang menyebabkan larutan bersifat <strong>BASA</strong> (pH > 7).</p>
+      `,
+      khFormula: "Kₕ = K_w / K_a (Tetapan hidrolisis anion)",
+      phFormula: "[OH⁻] = &radic;((K_w / K_a) &times; [G]) &rArr; pH = 14 - pOH &approx; 8.87"
+    },
+    nh4cl: {
+      id: "nh4cl",
+      formula: "NH₄Cl",
+      name: "Amonium Klorida",
+      cationId: "NH4",
+      anionId: "Cl",
+      nature: "Asam",
+      ph: 5.12,
+      hydrolysisType: "Hidrolisis Sebagian (Parsial Kation)",
+      universalColor: "Kuning-Kemerahan",
+      lakmusMerah: "Tetap Merah",
+      lakmusBiru: "Berubah Menjadi MERAH",
+      deepDive: `
+        <h4>🔍 Mekanisme Molekuler NH₄Cl dalam Air:</h4>
+        <p>1. Garam terdisosiasi menjadi <strong>NH₄⁺</strong> dan <strong>Cl⁻</strong>.</p>
+        <p>2. Anion Cl⁻ (dari asam kuat HCl) adalah basa konjugat yang sangat lemah, sehingga tidak bereaksi dengan air.</p>
+        <p>3. Kation NH₄⁺ (asam konjugat dari basa lemah NH₃) memiliki kecenderungan melepaskan proton. Saat bertumbukan dengan H₂O, kation NH₄⁺ <strong>mentransfer proton H⁺ ke molekul H₂O</strong>, menghasilkan <strong>ion hidronium (H₃O⁺)</strong> dan molekul amonia netral (NH₃).</p>
+        <p>4. Munculnya ion hidronium (H₃O⁺ / H⁺) meningkatkan keasaman larutan, sehingga larutan bersifat <strong>ASAM</strong> (pH < 7).</p>
+      `,
+      khFormula: "Kₕ = K_w / K_b (Tetapan hidrolisis kation)",
+      phFormula: "[H⁺] = &radic;((K_w / K_b) &times; [G]) &rArr; pH = -log[H⁺] &approx; 5.12"
+    },
+    ch3coonh4: {
+      id: "ch3coonh4",
+      formula: "CH₃COONH₄",
+      name: "Amonium Asetat",
+      cationId: "NH4",
+      anionId: "CH3COO",
+      nature: "Netral (Ka ≈ Kb)",
+      ph: 7.00,
+      hydrolysisType: "Hidrolisis Total (Sempurna)",
+      universalColor: "Hijau Kekuningan (pH ~ 7)",
+      lakmusMerah: "Tetap Merah",
+      lakmusBiru: "Tetap Biru",
+      deepDive: `
+        <h4>🔍 Mekanisme Molekuler CH₃COONH₄ dalam Air:</h4>
+        <p>1. Garam terdisosiasi menjadi ion <strong>NH₄⁺</strong> dan <strong>CH₃COO⁻</strong>.</p>
+        <p>2. Kation NH₄⁺ berasal dari basa lemah dan anion CH₃COO⁻ berasal dari asam lemah. <strong>Keduanya bereaksi sekaligus dengan molekul air (Hidrolisis Total)</strong>.</p>
+        <p>3. NH₄⁺ mendonorkan H⁺ ke H₂O menghasilkan H₃O⁺, sementara CH₃COO⁻ merebut H⁺ dari H₂O menghasilkan OH⁻.</p>
+        <p>4. Karena nilai Ka asam asetat (1.8 &times; 10⁻⁵) hampir sama persis dengan Kb amonia (1.8 &times; 10⁻⁵), jumlah H⁺ dan OH⁻ yang dihasilkan seimbang, sehingga larutan tetap berada pada pH sekitar 7.00.</p>
+      `,
+      khFormula: "Kₕ = K_w / (K_a &times; K_b)",
+      phFormula: "pH = 7 + &frac12;(pK_a - pK_b) &approx; 7.00"
+    }
+  },
+
+  quizzes: [
+    {
+      id: 1,
+      question: "Mengapa ion Na⁺ dan Cl⁻ dari garam NaCl tidak bereaksi dengan molekul air (tidak terhidrolisis)?",
+      options: [
+        "Karena keduanya berasal dari elektrolit kuat (NaOH dan HCl) sehingga ion konjugatnya sangat stabil dan daya tariknya terhadap H⁺/OH⁻ jauh lebih lemah daripada ikatan O-H air.",
+        "Karena ukuran atom Na dan Cl terlalu besar untuk bertumbukan dengan molekul H₂O.",
+        "Karena air dalam wadah tidak memiliki muatan listrik.",
+        "Karena NaCl tidak dapat larut atau terdisosiasi dalam air."
+      ],
+      correctIndex: 0,
+      explanation: "Tepat sekali! Asam konjugat dari basa kuat (Na⁺) dan basa konjugat dari asam kuat (Cl⁻) bersifat sangat lemah sehingga tidak mampu memecah molekul air polar. Keduanya hanya mengalami hidrasi (solvasi)."
+    },
+    {
+      id: 2,
+      question: "Pada hidrolisis garam CH₃COONa, ion manakah yang bereaksi dengan H₂O dan ion apa yang dilepaskan ke larutan?",
+      options: [
+        "Ion Na⁺ bereaksi dengan H₂O melepaskan H⁺ sehingga larutan bersifat asam.",
+        "Ion CH₃COO⁻ bereaksi dengan H₂O merebut H⁺ dan melepaskan OH⁻ sehingga larutan bersifat basa.",
+        "Kedua ion Na⁺ dan CH₃COO⁻ tidak bereaksi sama sekali.",
+        "Molekul air berubah menjadi gas oksigen dan hidrogen."
+      ],
+      correctIndex: 1,
+      explanation: "Benar! CH₃COO⁻ merupakan basa konjugat dari asam lemah CH₃COOH, sehingga ia merebut proton H⁺ dari H₂O, membentuk CH₃COOH dan menyisakan ion OH⁻ bebas yang menaikkan pH larutan."
+    },
+    {
+      id: 3,
+      question: "Bagaimanakah perubahan warna kertas lakmus jika dicelupkan ke dalam larutan garam NH₄Cl?",
+      options: [
+        "Kertas lakmus merah menjadi biru, lakmus biru tetap biru.",
+        "Kertas lakmus biru menjadi merah, lakmus merah tetap merah (larutan asam).",
+        "Kedua lakmus tidak mengalami perubahan sama sekali.",
+        "Kertas lakmus langsung memudar menjadi putih."
+      ],
+      correctIndex: 1,
+      explanation: "Tepat! NH₄Cl adalah garam dari asam kuat (HCl) dan basa lemah (NH₃). Kation NH₄⁺ terhidrolisis menghasilkan ion hidronium (H₃O⁺/H⁺) sehingga larutan bersifat asam (pH < 7) dan memerahkan lakmus biru."
+    },
+    {
+      id: 4,
+      question: "Bagaimana orientasi molekul polar H₂O saat mengelilingi kation Na⁺ pada proses hidrasi (solvasi)?",
+      options: [
+        "Kutub hidrogen (&delta;+) mengarah mendekati kation Na⁺.",
+        "Kutub oksigen (&delta;-) yang elektronegatif mengarah mendekati kation Na⁺ bermuatan positif.",
+        "Molekul H₂O menjauhi kation Na⁺ sepenuhnya.",
+        "Molekul H₂O berputar tanpa orientasi arah kutub muatan."
+      ],
+      correctIndex: 1,
+      explanation: "Sangat tepat! Karena kation Na⁺ bermuatan positif (+), gaya tarik elektrostatik menarik kutub parsial negatif (&delta;-) dari atom Oksigen pada molekul air H₂O."
+    }
+  ]
+};
+
+/**
+ * 2. Engine Fisika Molekuler & Animasi Kanvas
+ */
+class ChemSimulation {
+  constructor(canvasId) {
+    this.canvas = document.getElementById(canvasId);
+    this.ctx = this.canvas.getContext('2d');
+    
+    this.dpr = window.devicePixelRatio || 1;
+    this.width = 0;
+    this.height = 0;
+    this.liquidTop = 0;
+
+    this.isPlaying = true;
+    this.speed = 1.0;
+    this.currentPhase = 1;
+    this.currentSalt = CHEMISTRY_DATA.presets.nacl;
+    this.cationConfig = CHEMISTRY_DATA.cations.Na;
+    this.anionConfig = CHEMISTRY_DATA.anions.Cl;
+
+    this.waterMolecules = [];
+    this.cations = [];
+    this.anions = [];
+    this.products = [];
+    this.saltCrystals = [];
+    this.reactionEffects = [];
+    this.flyingProtons = [];
+    this.reactionCooldown = 0;
+    this.nonReactiveHaloCooldown = 0;
+
+    this.showLabels = true;
+    this.showDipoles = true;
+    this.slowMoOnReaction = true;
+    this.slowMoTimer = 0;
+
+    this.draggedEntity = null;
+    this.hoveredEntity = null;
+    this.mouse = { x: -100, y: -100, isDown: false };
+
+    this.onStateChange = null;
+    this.onReactionEvent = null;
+
+    this.initCanvasSize();
+    this.initEventListeners();
+    this.resetToPureWater();
+    this.animate = this.animate.bind(this);
+    requestAnimationFrame(this.animate);
+  }
+
+  initCanvasSize() {
+    const rect = this.canvas.parentElement.getBoundingClientRect();
+    this.width = rect.width > 50 ? rect.width : 850;
+    this.height = rect.height > 50 ? rect.height : 580;
+
+    this.canvas.width = this.width * this.dpr;
+    this.canvas.height = this.height * this.dpr;
+    this.ctx.setTransform(this.dpr, 0, 0, this.dpr, 0, 0);
+
+    this.liquidTop = this.height * 0.18;
+  }
+
+  handleResize() {
+    this.initCanvasSize();
+    [...this.waterMolecules, ...this.cations, ...this.anions, ...this.products].forEach(p => {
+      p.x = Math.max(25, Math.min(this.width - 25, p.x));
+      p.y = Math.max(this.liquidTop + 25, Math.min(this.height - 25, p.y));
+    });
+  }
+
+  initEventListeners() {
+    window.addEventListener('resize', () => this.handleResize());
+
+    const getPos = (e) => {
+      const rect = this.canvas.getBoundingClientRect();
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+      return {
+        x: clientX - rect.left,
+        y: clientY - rect.top
+      };
+    };
+
+    this.canvas.addEventListener('mousedown', (e) => {
+      const pos = getPos(e);
+      this.mouse.x = pos.x;
+      this.mouse.y = pos.y;
+      this.mouse.isDown = true;
+      this.draggedEntity = this.findEntityAt(pos.x, pos.y);
+    });
+
+    this.canvas.addEventListener('mousemove', (e) => {
+      const pos = getPos(e);
+      this.mouse.x = pos.x;
+      this.mouse.y = pos.y;
+
+      if (this.draggedEntity) {
+        this.draggedEntity.x = pos.x;
+        this.draggedEntity.y = Math.max(this.liquidTop + 15, Math.min(this.height - 15, pos.y));
+        this.draggedEntity.vx = 0;
+        this.draggedEntity.vy = 0;
+      } else {
+        this.hoveredEntity = this.findEntityAt(pos.x, pos.y);
+        this.updateTooltip(this.hoveredEntity, pos.x, pos.y);
+      }
+    });
+
+    window.addEventListener('mouseup', () => {
+      this.mouse.isDown = false;
+      this.draggedEntity = null;
+    });
+
+    this.canvas.addEventListener('mouseleave', () => {
+      this.mouse.isDown = false;
+      this.draggedEntity = null;
+      this.hoveredEntity = null;
+      this.hideTooltip();
+    });
+  }
+
+  findEntityAt(x, y) {
+    const all = [...this.cations, ...this.anions, ...this.products, ...this.waterMolecules];
+    for (let i = all.length - 1; i >= 0; i--) {
+      const e = all[i];
+      const dist = Math.hypot(e.x - x, e.y - y);
+      if (dist <= (e.radius || 18) + 6) {
+        return e;
+      }
+    }
+    return null;
+  }
+
+  updateTooltip(entity, mouseX, mouseY) {
+    const tooltip = document.getElementById('moleculeTooltip');
+    const header = document.getElementById('tooltipHeader');
+    const body = document.getElementById('tooltipBody');
+
+    if (!tooltip || !entity) {
+      if (tooltip) tooltip.style.display = 'none';
+      return;
+    }
+
+    tooltip.style.display = 'block';
+    tooltip.style.left = `${mouseX}px`;
+    tooltip.style.top = `${mouseY - 15}px`;
+
+    if (entity.type === 'h2o') {
+      header.textContent = 'Molekul Air (H₂O)';
+      header.style.color = '#ef4444';
+      body.innerHTML = `Bentuk bengkok (&sim;104.5&deg;). Kutub O bermuatan parsial (&delta;&minus;), 2 kutub H bermuatan (&delta;&plus;).`;
+    } else if (entity.type === 'cation') {
+      header.textContent = `Kation: ${entity.formula}`;
+      header.style.color = entity.color;
+      body.innerHTML = `Muatan: +${entity.charge} &bull; Asal: ${entity.source}<br><em>${entity.hydrolyzes ? 'Dapat terhidrolisis (bereaksi)' : 'Stabil, tidak bereaksi dengan air'}</em>`;
+    } else if (entity.type === 'anion') {
+      header.textContent = `Anion: ${entity.formula}`;
+      header.style.color = entity.color;
+      body.innerHTML = `Muatan: ${entity.charge} &bull; Asal: ${entity.source}<br><em>${entity.hydrolyzes ? 'Dapat terhidrolisis (bereaksi)' : 'Stabil, tidak bereaksi dengan air'}</em>`;
+    } else if (entity.type === 'oh') {
+      header.textContent = 'Ion Hidroksida (OH⁻)';
+      header.style.color = '#06b6d4';
+      body.innerHTML = `Terbentuk akibat anion merebut H⁺ dari H₂O. <strong>Menyebabkan larutan BASA (pH > 7)</strong>.`;
+    } else if (entity.type === 'h3o') {
+      header.textContent = 'Ion Hidronium (H₃O⁺)';
+      header.style.color = '#f43f5e';
+      body.innerHTML = `Terbentuk akibat kation mentransfer H⁺ ke H₂O. <strong>Menyebabkan larutan ASAM (pH < 7)</strong>.`;
+    } else if (entity.type === 'neutral_acid') {
+      header.textContent = `Molekul Asam Netral (${entity.formula})`;
+      header.style.color = '#c084fc';
+      body.innerHTML = `Hasil penggabungan anion dengan proton H⁺ dari air.`;
+    } else if (entity.type === 'neutral_base') {
+      header.textContent = `Molekul Basa Netral (${entity.formula})`;
+      header.style.color = '#38bdf8';
+      body.innerHTML = `Sisa kation setelah mendonorkan H⁺ ke air.`;
+    }
+  }
+
+  hideTooltip() {
+    const tooltip = document.getElementById('moleculeTooltip');
+    if (tooltip) tooltip.style.display = 'none';
+  }
+
+  resetToPureWater() {
+    this.currentPhase = 1;
+    this.waterMolecules = [];
+    this.cations = [];
+    this.anions = [];
+    this.products = [];
+    this.saltCrystals = [];
+    this.reactionEffects = [];
+    this.flyingProtons = [];
+    this.reactionCooldown = 0;
+    this.nonReactiveHaloCooldown = 0;
+    this.slowMoTimer = 0;
+
+    const count = 26;
+    for (let i = 0; i < count; i++) {
+      this.waterMolecules.push(this.createWaterMolecule());
+    }
+
+    this.notifyState();
+  }
+
+  createWaterMolecule(x, y) {
+    const margin = 40;
+    const posX = x !== undefined ? x : margin + Math.random() * (this.width - margin * 2);
+    const posY = y !== undefined ? y : (this.liquidTop + 30) + Math.random() * (this.height - this.liquidTop - 60);
+
+    return {
+      type: 'h2o',
+      x: posX,
+      y: posY,
+      vx: (Math.random() - 0.5) * 1.2,
+      vy: (Math.random() - 0.5) * 1.2,
+      angle: Math.random() * Math.PI * 2,
+      angularVelocity: (Math.random() - 0.5) * 0.04,
+      oxygenRadius: 10,
+      hydrogenRadius: 5.5,
+      bondDistance: 13,
+      bondAngle: 1.824,
+      radius: 17,
+      state: 'intact'
+    };
+  }
+
+  mixSalt(saltConfig, customCation = null, customAnion = null) {
+    if (customCation && customAnion) {
+      this.cationConfig = customCation;
+      this.anionConfig = customAnion;
+      this.currentSalt = {
+        formula: `${customCation.formula}${customAnion.formula}`.replace(/[\+\-]/g, ''),
+        name: `Kombinasi ${customCation.name} ${customAnion.name}`,
+        cationId: customCation.id,
+        anionId: customAnion.id,
+        hydrolysisType: (customCation.hydrolyzes && customAnion.hydrolyzes) ? "Hidrolisis Total" :
+                        (customCation.hydrolyzes) ? "Hidrolisis Kation (Asam)" :
+                        (customAnion.hydrolyzes) ? "Hidrolisis Anion (Basa)" : "Tidak Terhidrolisis",
+        ph: (customCation.hydrolyzes && customAnion.hydrolyzes) ? 7.00 :
+            (customCation.hydrolyzes) ? 5.12 :
+            (customAnion.hydrolyzes) ? 8.87 : 7.00
+      };
+    } else {
+      this.currentSalt = saltConfig;
+      this.cationConfig = CHEMISTRY_DATA.cations[saltConfig.cationId];
+      this.anionConfig = CHEMISTRY_DATA.anions[saltConfig.anionId];
+    }
+
+    this.cations = [];
+    this.anions = [];
+    this.products = [];
+    this.saltCrystals = [];
+
+    this.currentPhase = 2;
+    this.spawnFallingSaltLattice();
+    this.notifyState();
+  }
+
+  spawnFallingSaltLattice() {
+    const centerX = this.width * 0.48;
+    const startY = 35;
+    const spacing = 18;
+
+    for (let row = 0; row < 3; row++) {
+      for (let col = 0; col < 4; col++) {
+        const isCation = (row + col) % 2 === 0;
+        const config = isCation ? this.cationConfig : this.anionConfig;
+        
+        this.saltCrystals.push({
+          type: isCation ? 'cation' : 'anion',
+          formula: config.formula,
+          charge: config.charge,
+          source: config.source,
+          hydrolyzes: config.hydrolyzes,
+          color: config.color,
+          radius: config.radius || 13,
+          x: centerX + (col - 1.5) * spacing + (Math.random() - 0.5) * 4,
+          y: startY + row * spacing,
+          vx: (Math.random() - 0.5) * 0.6,
+          vy: 2.5 + Math.random() * 0.5,
+          isBoundInCrystal: true,
+          hasReacted: false
+        });
+      }
+    }
+  }
+
+  update() {
+    if (!this.isPlaying) return;
+
+    let effSpeed = this.speed;
+    if (this.slowMoTimer > 0) {
+      effSpeed *= 0.25;
+      this.slowMoTimer--;
+    }
+
+    // 1. Molekul Air
+    for (let i = 0; i < this.waterMolecules.length; i++) {
+      const w = this.waterMolecules[i];
+      if (w === this.draggedEntity) continue;
+
+      w.x += w.vx * effSpeed;
+      w.y += w.vy * effSpeed;
+      w.angle += w.angularVelocity * effSpeed;
+
+      w.vx += (Math.random() - 0.5) * 0.15;
+      w.vy += (Math.random() - 0.5) * 0.15;
+      w.vx *= 0.985;
+      w.vy *= 0.985;
+
+      this.constrainToBeaker(w, w.radius);
+    }
+
+    // 2. Garam Jatuh
+    if (this.currentPhase === 2) {
+      let anyInWater = false;
+      for (let i = 0; i < this.saltCrystals.length; i++) {
+        const sc = this.saltCrystals[i];
+        sc.y += sc.vy * effSpeed;
+        sc.x += sc.vx * effSpeed;
+
+        if (sc.y >= this.liquidTop + 10) {
+          anyInWater = true;
+        }
+      }
+
+      if (anyInWater) {
+        this.dissociateCrystals();
+      }
+    }
+
+    // 3. Ion Terdisosiasi
+    this.updateIons(this.cations, effSpeed);
+    this.updateIons(this.anions, effSpeed);
+    this.updateIons(this.products, effSpeed);
+
+    // 4. Reaksi & Interaksi
+    if (this.currentPhase >= 3) {
+      this.checkHydrolysisReactions();
+    }
+
+    // Update Proton Terbang
+    for (let i = this.flyingProtons.length - 1; i >= 0; i--) {
+      const fp = this.flyingProtons[i];
+      fp.progress += 0.038 * effSpeed;
+      fp.x = fp.startX + (fp.targetX - fp.startX) * fp.progress;
+      fp.y = fp.startY + (fp.targetY - fp.startY) * fp.progress;
+
+      if (Math.random() < 0.5) {
+        this.reactionEffects.push({
+          x: fp.x,
+          y: fp.y,
+          radius: 3,
+          maxRadius: 12,
+          opacity: 0.7,
+          color: fp.color || '#ffffff'
+        });
+      }
+
+      if (fp.progress >= 1.0) {
+        if (fp.onComplete) fp.onComplete();
+        this.flyingProtons.splice(i, 1);
+      }
+    }
+
+    if (this.reactionCooldown > 0) this.reactionCooldown--;
+    if (this.nonReactiveHaloCooldown > 0) this.nonReactiveHaloCooldown--;
+
+    // 5. Partikel Efek Reaksi
+    for (let i = this.reactionEffects.length - 1; i >= 0; i--) {
+      const eff = this.reactionEffects[i];
+      eff.radius += 1.8 * effSpeed;
+      eff.opacity -= 0.035 * effSpeed;
+      if (eff.opacity <= 0) {
+        this.reactionEffects.splice(i, 1);
+      }
+    }
+  }
+
+  dissociateCrystals() {
+    this.currentPhase = 3;
+    for (const c of this.saltCrystals) {
+      c.isBoundInCrystal = false;
+      c.vy = (Math.random() - 0.2) * 1.5;
+      c.vx = (Math.random() - 0.5) * 3.0;
+
+      if (c.type === 'cation') {
+        this.cations.push(c);
+      } else {
+        this.anions.push(c);
+      }
+    }
+    this.saltCrystals = [];
+
+    this.reactionEffects.push({
+      x: this.width * 0.48,
+      y: this.liquidTop,
+      radius: 5,
+      maxRadius: 70,
+      opacity: 0.9,
+      color: '#38bdf8'
+    });
+
+    this.notifyState();
+  }
+
+  updateIons(collection, effSpeed) {
+    for (let i = 0; i < collection.length; i++) {
+      const ion = collection[i];
+      if (ion === this.draggedEntity) continue;
+
+      ion.x += ion.vx * effSpeed;
+      ion.y += ion.vy * effSpeed;
+      ion.vx *= 0.98;
+      ion.vy *= 0.98;
+
+      this.constrainToBeaker(ion, ion.radius);
+    }
+  }
+
+  constrainToBeaker(p, radius) {
+    const leftBound = 30 + radius;
+    const rightBound = this.width - 30 - radius;
+    const topBound = this.liquidTop + 10 + radius;
+    const bottomBound = this.height - 24 - radius;
+
+    if (p.x < leftBound) {
+      p.x = leftBound;
+      p.vx = Math.abs(p.vx) * 0.8;
+    } else if (p.x > rightBound) {
+      p.x = rightBound;
+      p.vx = -Math.abs(p.vx) * 0.8;
+    }
+
+    if (p.y < topBound) {
+      p.y = topBound;
+      p.vy = Math.abs(p.vy) * 0.8;
+    } else if (p.y > bottomBound) {
+      p.y = bottomBound;
+      p.vy = -Math.abs(p.vy) * 0.8;
+    }
+  }
+
+  checkHydrolysisReactions() {
+    // A. Anion Hydrolysis (e.g. CH3COO- + H2O -> CH3COOH + OH-)
+    if (this.anionConfig.hydrolyzes && this.reactionCooldown <= 0) {
+      const reactedCount = this.anions.filter(a => a.hasReacted).length;
+      if (reactedCount < 4) {
+        for (let aIdx = 0; aIdx < this.anions.length; aIdx++) {
+          const anion = this.anions[aIdx];
+          if (anion.hasReacted || anion.isReacting) continue;
+
+          for (let wIdx = 0; wIdx < this.waterMolecules.length; wIdx++) {
+            const w = this.waterMolecules[wIdx];
+            if (w.state !== 'intact') continue;
+
+            const dist = Math.hypot(anion.x - w.x, anion.y - w.y);
+            if (dist < anion.radius + w.radius + 14) {
+              this.executeAnionHydrolysis(anion, w, wIdx);
+              this.reactionCooldown = 65;
+              return;
+            }
+          }
+        }
+      }
+    }
+
+    // B. Cation Hydrolysis (e.g. NH4+ + H2O -> NH3 + H3O+)
+    if (this.cationConfig.hydrolyzes && this.reactionCooldown <= 0) {
+      const reactedCount = this.cations.filter(c => c.hasReacted).length;
+      if (reactedCount < 4) {
+        for (let cIdx = 0; cIdx < this.cations.length; cIdx++) {
+          const cation = this.cations[cIdx];
+          if (cation.hasReacted || cation.isReacting) continue;
+
+          for (let wIdx = 0; wIdx < this.waterMolecules.length; wIdx++) {
+            const w = this.waterMolecules[wIdx];
+            if (w.state !== 'intact') continue;
+
+            const dist = Math.hypot(cation.x - w.x, cation.y - w.y);
+            if (dist < cation.radius + w.radius + 14) {
+              this.executeCationHydrolysis(cation, w, wIdx);
+              this.reactionCooldown = 65;
+              return;
+            }
+          }
+        }
+      }
+    }
+
+    // C. Non-Hydrolyzing (e.g. NaCl)
+    if (!this.anionConfig.hydrolyzes && !this.cationConfig.hydrolyzes) {
+      this.orientSolvationDipoles();
+      this.checkNonReactiveCollisions();
+    }
+  }
+
+  checkNonReactiveCollisions() {
+    const allIons = [...this.cations, ...this.anions];
+    for (const ion of allIons) {
+      for (const w of this.waterMolecules) {
+        const dist = Math.hypot(ion.x - w.x, ion.y - w.y);
+        const minDist = ion.radius + w.radius + 4;
+        if (dist < minDist) {
+          const angle = Math.atan2(ion.y - w.y, ion.x - w.x);
+          ion.vx += Math.cos(angle) * 0.4;
+          ion.vy += Math.sin(angle) * 0.4;
+          w.vx -= Math.cos(angle) * 0.4;
+          w.vy -= Math.sin(angle) * 0.4;
+
+          if (this.nonReactiveHaloCooldown <= 0) {
+            this.reactionEffects.push({
+              x: (ion.x + w.x) / 2,
+              y: (ion.y + w.y) / 2,
+              radius: 6,
+              maxRadius: 36,
+              opacity: 0.85,
+              color: '#38bdf8',
+              label: 'Solvasi (H₂O Utuh)'
+            });
+            this.nonReactiveHaloCooldown = 45;
+          }
+        }
+      }
+    }
+  }
+
+  executeAnionHydrolysis(anion, water, waterIdx) {
+    anion.isReacting = true;
+    water.state = 'reacting';
+
+    if (this.slowMoOnReaction) {
+      this.slowMoTimer = 60;
+    }
+
+    this.flyingProtons.push({
+      startX: water.x,
+      startY: water.y,
+      x: water.x,
+      y: water.y,
+      targetX: anion.x,
+      targetY: anion.y,
+      progress: 0,
+      color: '#38bdf8',
+      onComplete: () => {
+        anion.hasReacted = true;
+        anion.isReacting = false;
+        anion.type = 'neutral_acid';
+        anion.formula = this.anionConfig.productFormula || 'CH₃COOH';
+        anion.color = '#c084fc';
+        anion.hasProton = true;
+
+        const ohIon = {
+          type: 'oh',
+          formula: 'OH⁻',
+          charge: -1,
+          color: '#06b6d4',
+          radius: 13,
+          x: water.x,
+          y: water.y,
+          vx: (Math.random() - 0.5) * 1.5,
+          vy: (Math.random() - 0.5) * 1.5
+        };
+        this.products.push(ohIon);
+
+        const idx = this.waterMolecules.indexOf(water);
+        if (idx !== -1) {
+          this.waterMolecules.splice(idx, 1);
+        }
+
+        this.createReactionBurst(anion.x, anion.y, '#38bdf8', 'OH⁻ Terbentuk!');
+
+        if (this.onReactionEvent) {
+          this.onReactionEvent('anion_hydrolysis', {
+            reactant: this.anionConfig.formula,
+            productAcid: anion.formula,
+            releasedIon: 'OH⁻'
+          });
+        }
+
+        this.notifyState();
+      }
+    });
+  }
+
+  executeCationHydrolysis(cation, water, waterIdx) {
+    cation.isReacting = true;
+    water.state = 'reacting';
+
+    if (this.slowMoOnReaction) {
+      this.slowMoTimer = 60;
+    }
+
+    this.flyingProtons.push({
+      startX: cation.x,
+      startY: cation.y,
+      x: cation.x,
+      y: cation.y,
+      targetX: water.x,
+      targetY: water.y,
+      progress: 0,
+      color: '#f43f5e',
+      onComplete: () => {
+        cation.hasReacted = true;
+        cation.isReacting = false;
+        cation.type = 'neutral_base';
+        cation.formula = this.cationConfig.productFormula || 'NH₃';
+        cation.color = '#38bdf8';
+
+        const h3oIon = {
+          type: 'h3o',
+          formula: 'H₃O⁺',
+          charge: 1,
+          color: '#f43f5e',
+          radius: 15,
+          x: water.x,
+          y: water.y,
+          vx: (Math.random() - 0.5) * 1.5,
+          vy: (Math.random() - 0.5) * 1.5,
+          oxygenRadius: 10,
+          hydrogenRadius: 5.5,
+          bondDistance: 13
+        };
+        this.products.push(h3oIon);
+
+        const idx = this.waterMolecules.indexOf(water);
+        if (idx !== -1) {
+          this.waterMolecules.splice(idx, 1);
+        }
+
+        this.createReactionBurst(water.x, water.y, '#f43f5e', 'H₃O⁺ Terbentuk!');
+
+        if (this.onReactionEvent) {
+          this.onReactionEvent('cation_hydrolysis', {
+            reactant: this.cationConfig.formula,
+            productBase: cation.formula,
+            releasedIon: 'H₃O⁺'
+          });
+        }
+
+        this.notifyState();
+      }
+    });
+  }
+
+  orientSolvationDipoles() {
+    for (const w of this.waterMolecules) {
+      let nearestIon = null;
+      let minDist = 75;
+
+      for (const c of this.cations) {
+        const d = Math.hypot(w.x - c.x, w.y - c.y);
+        if (d < minDist) {
+          minDist = d;
+          nearestIon = { ion: c, type: 'cation' };
+        }
+      }
+
+      for (const a of this.anions) {
+        const d = Math.hypot(w.x - a.x, w.y - a.y);
+        if (d < minDist) {
+          minDist = d;
+          nearestIon = { ion: a, type: 'anion' };
+        }
+      }
+
+      if (nearestIon) {
+        const targetAngle = Math.atan2(nearestIon.ion.y - w.y, nearestIon.ion.x - w.x);
+        const desiredAngle = nearestIon.type === 'cation' ? targetAngle + Math.PI : targetAngle;
+        
+        let diff = desiredAngle - w.angle;
+        while (diff < -Math.PI) diff += Math.PI * 2;
+        while (diff > Math.PI) diff -= Math.PI * 2;
+        w.angle += diff * 0.04;
+      }
+    }
+  }
+
+  createReactionBurst(x, y, color, label) {
+    this.reactionEffects.push({
+      x: x,
+      y: y,
+      radius: 8,
+      maxRadius: 50,
+      opacity: 1.0,
+      color: color,
+      label: label
+    });
+  }
+
+  render() {
+    this.ctx.clearRect(0, 0, this.width, this.height);
+
+    this.renderBeakerLiquid();
+
+    for (const sc of this.saltCrystals) {
+      this.renderIonSphere(sc);
+    }
+
+    for (const w of this.waterMolecules) {
+      this.renderWaterMolecule(w);
+    }
+
+    for (const c of this.cations) {
+      this.renderIonSphere(c);
+    }
+    for (const a of this.anions) {
+      this.renderIonSphere(a);
+    }
+
+    for (const p of this.products) {
+      if (p.type === 'h3o') {
+        this.renderH3OIon(p);
+      } else if (p.type === 'oh') {
+        this.renderOHIon(p);
+      } else {
+        this.renderIonSphere(p);
+      }
+    }
+
+    for (const fp of this.flyingProtons) {
+      this.renderFlyingProton(fp);
+    }
+
+    for (const eff of this.reactionEffects) {
+      this.ctx.save();
+      this.ctx.beginPath();
+      this.ctx.arc(eff.x, eff.y, eff.radius, 0, Math.PI * 2);
+      this.ctx.strokeStyle = eff.color;
+      this.ctx.lineWidth = 3;
+      this.ctx.globalAlpha = eff.opacity;
+      this.ctx.stroke();
+
+      if (eff.label) {
+        this.ctx.font = 'bold 11px Plus Jakarta Sans, sans-serif';
+        this.ctx.fillStyle = eff.color;
+        this.ctx.textAlign = 'center';
+        this.ctx.fillText(eff.label, eff.x, eff.y - eff.radius - 6);
+      }
+      this.ctx.restore();
+    }
+  }
+
+  renderFlyingProton(fp) {
+    const ctx = this.ctx;
+    ctx.save();
+    ctx.translate(fp.x, fp.y);
+
+    ctx.beginPath();
+    ctx.arc(0, 0, 11, 0, Math.PI * 2);
+    ctx.fillStyle = fp.color || '#38bdf8';
+    ctx.globalAlpha = 0.45;
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.arc(0, 0, 5.5, 0, Math.PI * 2);
+    ctx.fillStyle = '#ffffff';
+    ctx.globalAlpha = 1.0;
+    ctx.shadowColor = fp.color || '#38bdf8';
+    ctx.shadowBlur = 12;
+    ctx.fill();
+
+    ctx.font = 'bold 9px JetBrains Mono, monospace';
+    ctx.fillStyle = '#ffffff';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'bottom';
+    ctx.fillText('H⁺ (Proton)', 0, -8);
+
+    ctx.restore();
+  }
+
+  renderBeakerLiquid() {
+    const ctx = this.ctx;
+    const w = this.width;
+    const h = this.height;
+
+    ctx.save();
+    ctx.fillStyle = 'rgba(8, 20, 45, 0.45)';
+    ctx.fillRect(20, this.liquidTop, w - 40, h - this.liquidTop - 15);
+
+    ctx.beginPath();
+    ctx.moveTo(20, this.liquidTop);
+    ctx.quadraticCurveTo(w / 2, this.liquidTop + 6, w - 20, this.liquidTop);
+    ctx.strokeStyle = 'rgba(56, 189, 248, 0.4)';
+    ctx.lineWidth = 2.5;
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  renderWaterMolecule(w) {
+    const ctx = this.ctx;
+    ctx.save();
+    ctx.translate(w.x, w.y);
+    ctx.rotate(w.angle);
+
+    const halfAngle = w.bondAngle / 2;
+    const h1x = Math.cos(-halfAngle) * w.bondDistance;
+    const h1y = Math.sin(-halfAngle) * w.bondDistance;
+    const h2x = Math.cos(halfAngle) * w.bondDistance;
+    const h2y = Math.sin(halfAngle) * w.bondDistance;
+
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+    ctx.lineTo(h1x, h1y);
+    ctx.moveTo(0, 0);
+    ctx.lineTo(h2x, h2y);
+    ctx.strokeStyle = '#94a3b8';
+    ctx.lineWidth = 2.5;
+    ctx.stroke();
+
+    const oGrad = ctx.createRadialGradient(-3, -3, 2, 0, 0, w.oxygenRadius);
+    oGrad.addColorStop(0, '#fca5a5');
+    oGrad.addColorStop(0.4, '#ef4444');
+    oGrad.addColorStop(1, '#991b1b');
+
+    ctx.beginPath();
+    ctx.arc(0, 0, w.oxygenRadius, 0, Math.PI * 2);
+    ctx.fillStyle = oGrad;
+    ctx.fill();
+
+    this.drawHydrogenSphere(ctx, h1x, h1y, w.hydrogenRadius);
+    this.drawHydrogenSphere(ctx, h2x, h2y, w.hydrogenRadius);
+
+    if (this.showDipoles) {
+      ctx.font = 'bold 8px monospace';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+
+      ctx.fillStyle = '#fecaca';
+      ctx.fillText('δ⁻', 0, 0);
+
+      ctx.fillStyle = '#38bdf8';
+      ctx.fillText('δ⁺', h1x, h1y);
+      ctx.fillText('δ⁺', h2x, h2y);
+    }
+
+    if (this.showLabels && !this.showDipoles) {
+      ctx.font = 'bold 8px sans-serif';
+      ctx.fillStyle = '#ffffff';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('H₂O', 0, 0);
+    }
+
+    ctx.restore();
+  }
+
+  drawHydrogenSphere(ctx, x, y, radius) {
+    const hGrad = ctx.createRadialGradient(x - 1.5, y - 1.5, 1, x, y, radius);
+    hGrad.addColorStop(0, '#ffffff');
+    hGrad.addColorStop(0.6, '#e2e8f0');
+    hGrad.addColorStop(1, '#64748b');
+
+    ctx.beginPath();
+    ctx.arc(x, y, radius, 0, Math.PI * 2);
+    ctx.fillStyle = hGrad;
+    ctx.fill();
+    ctx.strokeStyle = '#cbd5e1';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+  }
+
+  renderIonSphere(ion) {
+    const ctx = this.ctx;
+    ctx.save();
+    ctx.translate(ion.x, ion.y);
+
+    const r = ion.radius || 14;
+
+    ctx.beginPath();
+    ctx.arc(0, 0, r + 4, 0, Math.PI * 2);
+    ctx.fillStyle = ion.color;
+    ctx.globalAlpha = 0.25;
+    ctx.fill();
+    ctx.globalAlpha = 1.0;
+
+    const grad = ctx.createRadialGradient(-r * 0.3, -r * 0.3, r * 0.15, 0, 0, r);
+    grad.addColorStop(0, '#ffffff');
+    grad.addColorStop(0.3, ion.color);
+    grad.addColorStop(1, '#0f172a');
+
+    ctx.beginPath();
+    ctx.arc(0, 0, r, 0, Math.PI * 2);
+    ctx.fillStyle = grad;
+    ctx.fill();
+    ctx.strokeStyle = ion.color;
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+
+    ctx.font = 'bold 10px JetBrains Mono, monospace';
+    ctx.fillStyle = '#ffffff';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.shadowColor = '#000000';
+    ctx.shadowBlur = 4;
+    ctx.fillText(ion.formula || (ion.charge > 0 ? '+' : '−'), 0, 0);
+
+    ctx.restore();
+  }
+
+  renderOHIon(ion) {
+    const ctx = this.ctx;
+    ctx.save();
+    ctx.translate(ion.x, ion.y);
+
+    const r = ion.radius || 13;
+
+    ctx.beginPath();
+    ctx.arc(0, 0, r + 6, 0, Math.PI * 2);
+    ctx.fillStyle = '#06b6d4';
+    ctx.globalAlpha = 0.35;
+    ctx.fill();
+    ctx.globalAlpha = 1.0;
+
+    const oGrad = ctx.createRadialGradient(-3, -3, 2, -2, 0, 9);
+    oGrad.addColorStop(0, '#fca5a5');
+    oGrad.addColorStop(0.5, '#ef4444');
+    oGrad.addColorStop(1, '#991b1b');
+    ctx.beginPath();
+    ctx.arc(-2, 0, 9, 0, Math.PI * 2);
+    ctx.fillStyle = oGrad;
+    ctx.fill();
+
+    this.drawHydrogenSphere(ctx, 8, 0, 5.5);
+
+    ctx.font = 'bold 9px JetBrains Mono, monospace';
+    ctx.fillStyle = '#ffffff';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('OH⁻', 0, 0);
+
+    ctx.restore();
+  }
+
+  renderH3OIon(ion) {
+    const ctx = this.ctx;
+    ctx.save();
+    ctx.translate(ion.x, ion.y);
+
+    const r = ion.radius || 15;
+
+    ctx.beginPath();
+    ctx.arc(0, 0, r + 6, 0, Math.PI * 2);
+    ctx.fillStyle = '#f43f5e';
+    ctx.globalAlpha = 0.35;
+    ctx.fill();
+    ctx.globalAlpha = 1.0;
+
+    const oGrad = ctx.createRadialGradient(-3, -3, 2, 0, 0, 10);
+    oGrad.addColorStop(0, '#fca5a5');
+    oGrad.addColorStop(0.5, '#ef4444');
+    oGrad.addColorStop(1, '#991b1b');
+    ctx.beginPath();
+    ctx.arc(0, 0, 10, 0, Math.PI * 2);
+    ctx.fillStyle = oGrad;
+    ctx.fill();
+
+    const angles = [0, (2 * Math.PI) / 3, (4 * Math.PI) / 3];
+    for (const a of angles) {
+      const hx = Math.cos(a) * 12;
+      const hy = Math.sin(a) * 12;
+      this.drawHydrogenSphere(ctx, hx, hy, 5);
+    }
+
+    ctx.font = 'bold 9px JetBrains Mono, monospace';
+    ctx.fillStyle = '#ffffff';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('H₃O⁺', 0, 0);
+
+    ctx.restore();
+  }
+
+  notifyState() {
+    if (this.onStateChange) {
+      const stats = {
+        phase: this.currentPhase,
+        h2oCount: this.waterMolecules.length,
+        cationCount: this.cations.length,
+        anionCount: this.anions.length,
+        h3oCount: this.products.filter(p => p.type === 'h3o').length,
+        ohCount: this.products.filter(p => p.type === 'oh').length,
+        productCount: this.products.length,
+        salt: this.currentSalt,
+        cation: this.cationConfig,
+        anion: this.anionConfig
+      };
+      this.onStateChange(stats);
+    }
+  }
+
+  animate() {
+    this.update();
+    this.render();
+    requestAnimationFrame(this.animate);
+  }
+}
+
+/**
+ * 3. Controller UI, Interaktivitas, dan Evaluasi Kuis
+ */
+document.addEventListener('DOMContentLoaded', () => {
+  const sim = new ChemSimulation('chemCanvas');
+
+  const headerPhVal = document.getElementById('headerPhVal');
+  const headerPhStatus = document.getElementById('headerPhStatus');
+  const canvasPhValue = document.getElementById('canvasPhValue');
+  const phNeedle = document.getElementById('phNeedle');
+  const solutionTint = document.getElementById('solutionTint');
+
+  const currentStepBadge = document.getElementById('currentStepBadge');
+  const currentStepTitle = document.getElementById('currentStepTitle');
+  const bannerIcon = document.getElementById('bannerIcon');
+  const bannerTitle = document.getElementById('bannerTitle');
+  const bannerDesc = document.getElementById('bannerDesc');
+
+  const btnMixSalt = document.getElementById('btnMixSalt');
+  const btnPlayPause = document.getElementById('btnPlayPause');
+  const playPauseText = document.getElementById('playPauseText');
+  const btnReset = document.getElementById('btnReset');
+  const speedSelect = document.getElementById('speedSelect');
+  const soundToggleBtn = document.getElementById('soundToggleBtn');
+
+  const toggleLabels = document.getElementById('toggleLabels');
+  const toggleDipoles = document.getElementById('toggleDipoles');
+  const toggleSlowMo = document.getElementById('toggleSlowMotionOnReaction');
+
+  const countH2O = document.getElementById('countH2O');
+  const countCation = document.getElementById('countCation');
+  const countAnion = document.getElementById('countAnion');
+  const countH3O = document.getElementById('countH3O');
+  const countOH = document.getElementById('countOH');
+  const countProduct = document.getElementById('countProduct');
+  const cationSymbol = document.getElementById('cationSymbol');
+  const anionSymbol = document.getElementById('anionSymbol');
+
+  const eqIonization = document.getElementById('eqIonization');
+  const eqHydrolysis = document.getElementById('eqHydrolysis');
+  const propNature = document.getElementById('propNature');
+  const propType = document.getElementById('propType');
+
+  const submicroscopicText = document.getElementById('submicroscopicText');
+  const legendCationName = document.getElementById('legendCationName');
+  const legendCationDesc = document.getElementById('legendCationDesc');
+  const legendAnionName = document.getElementById('legendAnionName');
+  const legendAnionDesc = document.getElementById('legendAnionDesc');
+  const legendHydronium = document.getElementById('legendHydronium');
+  const legendHydroxide = document.getElementById('legendHydroxide');
+  const mechanismExplanation = document.getElementById('mechanismExplanation');
+
+  const symbIonization = document.getElementById('symbIonization');
+  const symbCationRxn = document.getElementById('symbCationRxn');
+  const symbAnionRxn = document.getElementById('symbAnionRxn');
+  const symbKh = document.getElementById('symbKh');
+  const symbPhFormula = document.getElementById('symbPhFormula');
+
+  const miniWaterTint = document.getElementById('miniWaterTint');
+  const macroTitle = document.getElementById('macroTitle');
+  const macroDesc = document.getElementById('macroDesc');
+  const lakmusMerah = document.getElementById('lakmusMerah');
+  const lakmusBiru = document.getElementById('lakmusBiru');
+  const indUniversal = document.getElementById('indUniversal');
+
+  const cationSelect = document.getElementById('cationSelect');
+  const anionSelect = document.getElementById('anionSelect');
+  const cationBadge = document.getElementById('cationBadge');
+  const anionBadge = document.getElementById('anionBadge');
+  const applyCustomBtn = document.getElementById('applyCustomBtn');
+  const presetButtons = document.querySelectorAll('.preset-btn');
+
+  let audioCtx = null;
+  let soundEnabled = true;
+
+  function initAudio() {
+    if (!audioCtx) {
+      const AudioContext = window.AudioContext || window.webkitAudioContext;
+      if (AudioContext) audioCtx = new AudioContext();
+    }
+  }
+
+  function playSynthTone(freq, type, duration, gainVal = 0.15) {
+    if (!soundEnabled || !audioCtx) return;
+    try {
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = type;
+      osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+      gain.gain.setValueAtTime(gainVal, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start();
+      osc.stop(audioCtx.currentTime + duration);
+    } catch (e) {}
+  }
+
+  function playSplashSound() {
+    playSynthTone(220, 'sine', 0.25, 0.2);
+    setTimeout(() => playSynthTone(440, 'triangle', 0.18, 0.1), 80);
+  }
+
+  function playReactionChime(isAcidic) {
+    if (isAcidic) {
+      playSynthTone(523.25, 'triangle', 0.3, 0.2);
+      setTimeout(() => playSynthTone(659.25, 'sine', 0.4, 0.15), 100);
+    } else {
+      playSynthTone(587.33, 'triangle', 0.3, 0.2);
+      setTimeout(() => playSynthTone(880.00, 'sine', 0.4, 0.15), 100);
+    }
+  }
+
+  soundToggleBtn.addEventListener('click', () => {
+    initAudio();
+    soundEnabled = !soundEnabled;
+    soundToggleBtn.classList.toggle('muted', !soundEnabled);
+  });
+
+  sim.onStateChange = (stats) => {
+    countH2O.textContent = stats.h2oCount;
+    countCation.textContent = stats.cationCount;
+    countAnion.textContent = stats.anionCount;
+    countH3O.textContent = stats.h3oCount;
+    countOH.textContent = stats.ohCount;
+    countProduct.textContent = stats.productCount;
+
+    if (stats.phase === 1) {
+      currentStepBadge.textContent = 'Tahap 1';
+      currentStepTitle.textContent = 'Air Murni (Molekul H₂O)';
+      bannerIcon.textContent = '💧';
+      bannerTitle.textContent = 'Air Murni (H₂O)';
+      bannerDesc.textContent = 'Wadah berisi molekul air polar H₂O yang terus bergerak secara acak. Klik "Campurkan Garam ke Air" untuk memulai.';
+      updateMacroscopicIndicators(7.00, 'Netral');
+    } else if (stats.phase === 2) {
+      currentStepBadge.textContent = 'Tahap 2';
+      currentStepTitle.textContent = 'Kristal Garam Dimasukkan';
+      bannerIcon.textContent = '🧂';
+      bannerTitle.textContent = `Menambahkan ${stats.salt.formula}...`;
+      bannerDesc.textContent = `Kisi kristal garam ${stats.salt.name} memasuki larutan air.`;
+    } else if (stats.phase === 3) {
+      currentStepBadge.textContent = 'Tahap 3 & 4';
+      const isHydrolyzed = stats.cation.hydrolyzes || stats.anion.hydrolyzes;
+      
+      if (!isHydrolyzed) {
+        currentStepTitle.textContent = 'Disosiasi & Hidrasi (Tanpa Reaksi)';
+        bannerIcon.textContent = '🛡️';
+        bannerTitle.textContent = `${stats.salt.formula} Terdisosiasi Sempurna`;
+        bannerDesc.textContent = `Ion ${stats.cation.formula} dan ${stats.anion.formula} terpisah dan dikelilingi molekul air (solvasi). Keduanya TIDAK memecah ikatan H₂O. pH tetap 7.00 (Netral).`;
+        updateMacroscopicIndicators(7.00, 'Netral');
+      } else {
+        currentStepTitle.textContent = 'Reaksi Hidrolisis Berlangsung';
+        bannerIcon.textContent = '⚡';
+        bannerTitle.textContent = `Reaksi Hidrolisis ${stats.salt.formula}`;
+
+        let currentPh = 7.00;
+        let nature = 'Netral';
+        if (stats.ohCount > 0) {
+          currentPh = Math.min(8.9, 7.0 + stats.ohCount * 0.45);
+          nature = 'Basa';
+        } else if (stats.h3oCount > 0) {
+          currentPh = Math.max(5.1, 7.0 - stats.h3oCount * 0.45);
+          nature = 'Asam';
+        }
+
+        bannerDesc.textContent = `Terjadi transfer proton antara ion garam dengan molekul H₂O. Terbentuk ion ${stats.ohCount > 0 ? 'OH⁻ (Basa)' : 'H₃O⁺ (Asam)'}!`;
+        updateMacroscopicIndicators(currentPh, nature);
+      }
+    }
+  };
+
+  sim.onReactionEvent = (type, data) => {
+    initAudio();
+    if (type === 'anion_hydrolysis') {
+      playReactionChime(false);
+    } else if (type === 'cation_hydrolysis') {
+      playReactionChime(true);
+    }
+  };
+
+  function updateMacroscopicIndicators(ph, nature) {
+    const formattedPh = Number(ph).toFixed(2);
+    headerPhVal.textContent = formattedPh;
+    canvasPhValue.textContent = formattedPh;
+
+    const needlePct = Math.max(0, Math.min(100, (ph / 14) * 100));
+    phNeedle.style.left = `${needlePct}%`;
+
+    headerPhStatus.className = 'ph-status';
+    if (ph > 7.2) {
+      headerPhStatus.classList.add('basic');
+      headerPhStatus.textContent = 'Basa';
+      canvasPhValue.style.color = '#38bdf8';
+      solutionTint.style.background = 'linear-gradient(180deg, rgba(56, 189, 248, 0.08) 0%, rgba(14, 165, 233, 0.22) 100%)';
+      miniWaterTint.style.background = 'rgba(56, 189, 248, 0.5)';
+      macroTitle.textContent = 'Larutan Bersifat Basa (pH > 7)';
+      macroDesc.textContent = 'Kelebihan ion OH⁻ menyebabkan kertas lakmus merah berubah warna menjadi BIRU.';
+      lakmusMerah.textContent = 'Berubah Menjadi BIRU';
+      lakmusMerah.style.color = '#38bdf8';
+      lakmusBiru.textContent = 'Tetap Biru';
+      indUniversal.textContent = 'Biru Tua (pH 8 - 9)';
+    } else if (ph < 6.8) {
+      headerPhStatus.classList.add('acidic');
+      headerPhStatus.textContent = 'Asam';
+      canvasPhValue.style.color = '#f43f5e';
+      solutionTint.style.background = 'linear-gradient(180deg, rgba(244, 63, 94, 0.08) 0%, rgba(225, 29, 72, 0.22) 100%)';
+      miniWaterTint.style.background = 'rgba(244, 63, 94, 0.5)';
+      macroTitle.textContent = 'Larutan Bersifat Asam (pH < 7)';
+      macroDesc.textContent = 'Kelebihan ion H₃O⁺/H⁺ menyebabkan kertas lakmus biru berubah warna menjadi MERAH.';
+      lakmusMerah.textContent = 'Tetap Merah';
+      lakmusBiru.textContent = 'Berubah Menjadi MERAH';
+      lakmusBiru.style.color = '#f43f5e';
+      indUniversal.textContent = 'Kuning-Kemerahan (pH 5)';
+    } else {
+      headerPhStatus.classList.add('neutral');
+      headerPhStatus.textContent = 'Netral';
+      canvasPhValue.style.color = '#10b981';
+      solutionTint.style.background = 'linear-gradient(180deg, rgba(16, 185, 129, 0.05) 0%, rgba(16, 185, 129, 0.12) 100%)';
+      miniWaterTint.style.background = 'rgba(16, 185, 129, 0.35)';
+      macroTitle.textContent = 'Larutan Netral (pH ~ 7)';
+      macroDesc.textContent = 'Konsentrasi ion H⁺ dan OH⁻ seimbang, kertas lakmus merah dan biru tidak berubah warna.';
+      lakmusMerah.textContent = 'Tetap Merah';
+      lakmusMerah.style.color = '';
+      lakmusBiru.textContent = 'Tetap Biru';
+      lakmusBiru.style.color = '';
+      indUniversal.textContent = 'Hijau Zamrud (pH 7)';
+    }
+  }
+
+  function updateActiveSaltDetails(saltKey) {
+    const salt = CHEMISTRY_DATA.presets[saltKey];
+    if (!salt) return;
+
+    const cat = CHEMISTRY_DATA.cations[salt.cationId];
+    const an = CHEMISTRY_DATA.anions[salt.anionId];
+
+    cationSymbol.textContent = cat.formula;
+    anionSymbol.textContent = an.formula;
+
+    eqIonization.textContent = `${salt.formula}(s) → ${cat.formula}(aq) + ${an.formula}(aq)`;
+    
+    if (!cat.hydrolyzes && !an.hydrolyzes) {
+      eqHydrolysis.textContent = `Tidak ada reaksi (${cat.formula} & ${an.formula} tidak bereaksi dengan H₂O)`;
+    } else if (cat.hydrolyzes && !an.hydrolyzes) {
+      eqHydrolysis.innerHTML = `${cat.formula} + H₂O &rightleftharpoons; ${cat.productFormula} + H₃O⁺`;
+    } else if (!cat.hydrolyzes && an.hydrolyzes) {
+      eqHydrolysis.innerHTML = `${an.formula} + H₂O &rightleftharpoons; ${an.productFormula} + OH⁻`;
+    } else {
+      eqHydrolysis.innerHTML = `${cat.formula} + ${an.formula} + H₂O &rightleftharpoons; ${cat.productFormula} + ${an.productFormula}`;
+    }
+
+    propNature.textContent = `${salt.nature} (pH ${salt.ph})`;
+    propType.textContent = salt.hydrolysisType;
+
+    submicroscopicText.innerHTML = `Larutan garam <strong>${salt.name} (${salt.formula})</strong> terdiri atas kation <strong>${cat.formula}</strong> dan anion <strong>${an.formula}</strong> yang berinteraksi dengan molekul pelarut air H₂O.`;
+    legendCationName.textContent = `Kation ${cat.formula}`;
+    legendCationDesc.textContent = cat.desc;
+    legendAnionName.textContent = `Anion ${an.formula}`;
+    legendAnionDesc.textContent = an.desc;
+
+    legendHydronium.style.display = cat.hydrolyzes ? 'flex' : 'none';
+    legendHydroxide.style.display = an.hydrolyzes ? 'flex' : 'none';
+
+    if (salt.deepDive) {
+      mechanismExplanation.innerHTML = salt.deepDive;
+    }
+
+    symbIonization.innerHTML = `${salt.formula}(s) &rarr; ${cat.formula}(aq) + ${an.formula}(aq)`;
+    symbCationRxn.innerHTML = cat.rxnHtml;
+    symbAnionRxn.innerHTML = an.rxnHtml;
+    symbKh.innerHTML = salt.khFormula;
+    symbPhFormula.innerHTML = salt.phFormula;
+
+    cationSelect.value = salt.cationId;
+    anionSelect.value = salt.anionId;
+    updateCustomBadges();
+  }
+
+  function updateCustomBadges() {
+    const cat = CHEMISTRY_DATA.cations[cationSelect.value];
+    const an = CHEMISTRY_DATA.anions[anionSelect.value];
+
+    cationBadge.innerHTML = `Asal: <strong>${cat.source}</strong> &bull; ${cat.hydrolyzes ? '<span style="color:#fb7185">Terhidrolisis</span>' : '<span style="color:#34d399">Stabil (Tak Terhidrolisis)</span>'}`;
+    anionBadge.innerHTML = `Asal: <strong>${an.source}</strong> &bull; ${an.hydrolyzes ? '<span style="color:#38bdf8">Terhidrolisis</span>' : '<span style="color:#34d399">Stabil (Tak Terhidrolisis)</span>'}`;
+  }
+
+  presetButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      initAudio();
+      presetButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const presetKey = btn.getAttribute('data-preset');
+      updateActiveSaltDetails(presetKey);
+
+      sim.mixSalt(CHEMISTRY_DATA.presets[presetKey]);
+      playSplashSound();
+    });
+  });
+
+  cationSelect.addEventListener('change', updateCustomBadges);
+  anionSelect.addEventListener('change', updateCustomBadges);
+
+  applyCustomBtn.addEventListener('click', () => {
+    initAudio();
+    presetButtons.forEach(b => b.classList.remove('active'));
+
+    const cat = CHEMISTRY_DATA.cations[cationSelect.value];
+    const an = CHEMISTRY_DATA.anions[anionSelect.value];
+
+    sim.mixSalt(null, cat, an);
+    playSplashSound();
+
+    cationSymbol.textContent = cat.formula;
+    anionSymbol.textContent = an.formula;
+
+    eqIonization.textContent = `Garam(s) → ${cat.formula}(aq) + ${an.formula}(aq)`;
+    if (!cat.hydrolyzes && !an.hydrolyzes) {
+      eqHydrolysis.textContent = `Tidak Terhidrolisis (${cat.formula} & ${an.formula} tidak bereaksi dengan air)`;
+      propNature.textContent = 'Netral (pH = 7.00)';
+      propType.textContent = 'Tidak Terhidrolisis';
+    } else if (cat.hydrolyzes && !an.hydrolyzes) {
+      eqHydrolysis.innerHTML = `${cat.formula} + H₂O &rightleftharpoons; ${cat.productFormula} + H₃O⁺`;
+      propNature.textContent = 'Asam (pH < 7)';
+      propType.textContent = 'Hidrolisis Kation (Sebagian)';
+    } else if (!cat.hydrolyzes && an.hydrolyzes) {
+      eqHydrolysis.innerHTML = `${an.formula} + H₂O &rightleftharpoons; ${an.productFormula} + OH⁻`;
+      propNature.textContent = 'Basa (pH > 7)';
+      propType.textContent = 'Hidrolisis Anion (Sebagian)';
+    } else {
+      eqHydrolysis.innerHTML = `${cat.formula} + ${an.formula} + H₂O &rightleftharpoons; Produk Netral`;
+      propNature.textContent = 'Tergantung Ka vs Kb';
+      propType.textContent = 'Hidrolisis Total';
+    }
+
+    submicroscopicText.innerHTML = `Larutan garam racikan kation <strong>${cat.formula}</strong> dan anion <strong>${an.formula}</strong> dimasukkan ke dalam air.`;
+    legendCationName.textContent = `Kation ${cat.formula}`;
+    legendCationDesc.textContent = cat.desc;
+    legendAnionName.textContent = `Anion ${an.formula}`;
+    legendAnionDesc.textContent = an.desc;
+
+    legendHydronium.style.display = cat.hydrolyzes ? 'flex' : 'none';
+    legendHydroxide.style.display = an.hydrolyzes ? 'flex' : 'none';
+
+    // Perbarui tab simbolik & penjelasan reaksi
+    symbIonization.innerHTML = `${cat.formula}(s) &rarr; ${cat.formula}(aq) + ${an.formula}(aq)`;
+    symbCationRxn.innerHTML = cat.rxnHtml;
+    symbAnionRxn.innerHTML = an.rxnHtml;
+    if (!cat.hydrolyzes && !an.hydrolyzes) {
+      symbKh.innerHTML = "Tidak memiliki tetapan hidrolisis (Kh = 0)";
+      symbPhFormula.innerHTML = "[H<sup>+</sup>] = [OH<sup>-</sup>] = 1.0 &times; 10<sup>-7</sup> M &rArr; pH = 7.00";
+      mechanismExplanation.innerHTML = `<h4>&#x1F50D; Mekanisme Kombinasi ${cat.formula} + ${an.formula}:</h4><p>Kation <strong>${cat.formula}</strong> dan anion <strong>${an.formula}</strong> berasal dari elektrolit kuat sehingga kestabilan ikatannya dengan air tidak mampu memutus ikatan O-H. Keduanya hanya mengalami solvasi, larutan tetap <strong>NETRAL (pH = 7.00)</strong>.</p>`;
+    } else if (cat.hydrolyzes && !an.hydrolyzes) {
+      symbKh.innerHTML = "K<sub>h</sub> = K_w / K_b (Tetapan hidrolisis kation)";
+      symbPhFormula.innerHTML = "[H<sup>+</sup>] = &radic;((K_w / K_b) &times; [G]) &rArr; pH = -log[H<sup>+</sup>]";
+      mechanismExplanation.innerHTML = `<h4>&#x1F50D; Mekanisme Kombinasi ${cat.formula} + ${an.formula}:</h4><p>Kation <strong>${cat.formula}</strong> berasal dari basa lemah yang mendonorkan proton (H<sup>+</sup>) ke molekul H<sub>2</sub>O, menghasilkan ion hidronium <strong>(H<sub>3</sub>O<sup>+</sup>)</strong>. Larutan bersifat <strong>ASAM (pH &lt; 7)</strong>.</p>`;
+    } else if (!cat.hydrolyzes && an.hydrolyzes) {
+      symbKh.innerHTML = "K<sub>h</sub> = K_w / K_a (Tetapan hidrolisis anion)";
+      symbPhFormula.innerHTML = "[OH<sup>-</sup>] = &radic;((K_w / K_a) &times; [G]) &rArr; pH = 14 - pOH";
+      mechanismExplanation.innerHTML = `<h4>&#x1F50D; Mekanisme Kombinasi ${cat.formula} + ${an.formula}:</h4><p>Anion <strong>${an.formula}</strong> berasal dari asam lemah yang merebut satu proton (H<sup>+</sup>) dari molekul air, meninggalkan ion hidroksida <strong>(OH<sup>-</sup>)</strong>. Larutan bersifat <strong>BASA (pH &gt; 7)</strong>.</p>`;
+    } else {
+      symbKh.innerHTML = "K<sub>h</sub> = K_w / (K_a &times; K_b)";
+      symbPhFormula.innerHTML = "pH = 7 + &frac12;(pK_a - pK_b)";
+      mechanismExplanation.innerHTML = `<h4>&#x1F50D; Mekanisme Kombinasi ${cat.formula} + ${an.formula}:</h4><p>Keduanya berasal dari spesi lemah (kation basa lemah & anion asam lemah). <strong>Terjadi Hidrolisis Total</strong>, kedua ion bereaksi serentak dengan molekul air.</p>`;
+    }
+  });
+
+  btnMixSalt.addEventListener('click', () => {
+    initAudio();
+    const activePreset = document.querySelector('.preset-btn.active');
+    if (activePreset) {
+      const presetKey = activePreset.getAttribute('data-preset');
+      sim.mixSalt(CHEMISTRY_DATA.presets[presetKey]);
+    } else {
+      const cat = CHEMISTRY_DATA.cations[cationSelect.value];
+      const an = CHEMISTRY_DATA.anions[anionSelect.value];
+      sim.mixSalt(null, cat, an);
+    }
+    playSplashSound();
+  });
+
+  btnPlayPause.addEventListener('click', () => {
+    initAudio();
+    sim.isPlaying = !sim.isPlaying;
+    playPauseText.textContent = sim.isPlaying ? 'Jeda' : 'Putar';
+    const iconPath = btnPlayPause.querySelector('path');
+    if (sim.isPlaying) {
+      iconPath.setAttribute('d', 'M6 4h4v16H6V4zm8 0h4v16h-4V4z');
+    } else {
+      iconPath.setAttribute('d', 'M8 5v14l11-7z');
+    }
+  });
+
+  btnReset.addEventListener('click', () => {
+    initAudio();
+    sim.resetToPureWater();
+    playSynthTone(300, 'sine', 0.2, 0.1);
+  });
+
+  speedSelect.addEventListener('change', (e) => {
+    sim.speed = parseFloat(e.target.value);
+  });
+
+  toggleLabels.addEventListener('change', (e) => {
+    sim.showLabels = e.target.checked;
+  });
+
+  toggleDipoles.addEventListener('change', (e) => {
+    sim.showDipoles = e.target.checked;
+  });
+
+  toggleSlowMo.addEventListener('change', (e) => {
+    sim.slowMoOnReaction = e.target.checked;
+  });
+
+  const tabButtons = document.querySelectorAll('.tab-btn');
+  const tabPanes = document.querySelectorAll('.tab-pane');
+
+  tabButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      initAudio();
+      tabButtons.forEach(b => b.classList.remove('active'));
+      tabPanes.forEach(p => p.classList.remove('active'));
+
+      btn.classList.add('active');
+      const targetTab = btn.getAttribute('data-tab');
+      const targetPane = document.getElementById(`tab${targetTab.charAt(0).toUpperCase() + targetTab.slice(1)}`);
+      if (targetPane) targetPane.classList.add('active');
+    });
+  });
+
+  let currentQuizIdx = 0;
+  const quizQuestion = document.getElementById('quizQuestion');
+  const quizOptions = document.getElementById('quizOptions');
+  const quizFeedback = document.getElementById('quizFeedback');
+  const nextQuizBtn = document.getElementById('nextQuizBtn');
+
+  function renderQuizQuestion(idx) {
+    const q = CHEMISTRY_DATA.quizzes[idx];
+    quizQuestion.textContent = `${idx + 1}. ${q.question}`;
+    quizOptions.innerHTML = '';
+    quizFeedback.className = 'quiz-feedback';
+    quizFeedback.textContent = '';
+    nextQuizBtn.style.display = 'none';
+
+    q.options.forEach((optText, optIdx) => {
+      const optBtn = document.createElement('button');
+      optBtn.className = 'quiz-option-btn';
+      optBtn.innerHTML = optText;
+      optBtn.addEventListener('click', () => handleQuizAnswer(optIdx, q, optBtn));
+      quizOptions.appendChild(optBtn);
+    });
+  }
+
+  function handleQuizAnswer(selectedIdx, questionData, btnElement) {
+    initAudio();
+    const allBtns = quizOptions.querySelectorAll('.quiz-option-btn');
+    allBtns.forEach(b => b.disabled = true);
+
+    if (selectedIdx === questionData.correctIndex) {
+      btnElement.classList.add('correct');
+      quizFeedback.className = 'quiz-feedback show success';
+      quizFeedback.innerHTML = `<strong>Jawaban Benar!</strong> ${questionData.explanation}`;
+      playReactionChime(false);
+    } else {
+      btnElement.classList.add('wrong');
+      allBtns[questionData.correctIndex].classList.add('correct');
+      quizFeedback.className = 'quiz-feedback show error';
+      quizFeedback.innerHTML = `<strong>Kurang Tepat.</strong> ${questionData.explanation}`;
+      playSynthTone(180, 'sawtooth', 0.3, 0.2);
+    }
+
+    nextQuizBtn.style.display = 'block';
+  }
+
+  nextQuizBtn.addEventListener('click', () => {
+    currentQuizIdx = (currentQuizIdx + 1) % CHEMISTRY_DATA.quizzes.length;
+    renderQuizQuestion(currentQuizIdx);
+  });
+
+  updateActiveSaltDetails('nacl');
+  renderQuizQuestion(0);
+});
+  </script>
+</body>
+</html>
